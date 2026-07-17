@@ -1,0 +1,27 @@
+aid: notarize
+name: Notarize
+description: 'Notarize is a company surfaced as a portfolio company of fifth-wall and added to the API
+  Evangelist network as a stub for enrichment. Sector: proptech. This profile is a lead awaiting the enrichment
+  pipeline.'
+url: https://raw.githubusercontent.com/api-evangelist/notarize/refs/heads/main/apis.yml
+x-type: company
+x-source: vc-portfolio
+x-backed-by:
+- fifth-wall
+x-tier: stub
+x-tier-reason: portfolio-lead
+specificationVersion: '0.20'
+created: '2026-07-17'
+modified: '2026-07-17'
+tags:
+- Company
+- Proptech
+apis: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+common:
+- type: Website
+  url: https://notarize.com/
