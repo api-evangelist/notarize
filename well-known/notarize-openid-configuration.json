@@ -1,0 +1,1 @@
+{"issuer":"https://api.proof.com","token_endpoint":"https://api.proof.com/oauth/v2/token","jwks_uri":"https://api.proof.com/openid-connect/jwks"}

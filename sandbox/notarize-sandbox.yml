@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: searched
+source: https://dev.proof.com/docs/testing
+docs:
+  - https://dev.proof.com/docs/testing
+  - https://dev.proof.com/docs/api-keys
+test_environment:
+  name: Fairfax (prodmirror)
+  api_base: https://api.fairfax.proof.com
+  oauth_token_url: https://api.fairfax.proof.com/oauth/v2/token
+  access: >-
+    Access is granted on request via Proof Support / Customer Success (contact
+    support@proof.com). API keys are created the same way as production but from
+    the Fairfax account.
+  behavior: >-
+    Real identity verifications are NOT performed in Fairfax - fake identity
+    info, credential photos, and selfies are accepted. Trusted Referee agents do
+    not serve Proof transactions in Fairfax; only the automated identity
+    confirmation flow can be end-to-end tested without an agent.
+key_prefixes:
+  full_access_production: prf_
+  full_access_fairfax: prf_test_
+  client_only_production: prf_cli_
+  client_only_fairfax: prf_cli_test_
+test_values:
+  test_document: https://static.notarize.com/Example.pdf
+mock_completion:
+  description: >-
+    To mark a notarization transaction Completed in Fairfax without a live
+    Trusted Referee, either set up an In-House Notary (IHN) profile, or mock the
+    completion by having your app react to the completion webhook event.
+  ihn_docs: https://dev.proof.com/docs/in-house-notary-ihn-testing-setup
+  webhook_mock_v2:
+    event: transaction.completed
+    data: { transaction_id: "otxxxxxxx", status: null }
+  webhook_mock_v1:
+    event: transaction_status_update
+    data: { transaction_id: "ot_xxxxxxx", status: completed }
+production_testing:
+  notes: >-
+    Fake-document notarizations are NOT supported in Production unless using an
+    In-House Notary (IHN). Proof (eSign) and eSign transaction types may be
+    tested in production as needed.

@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: searched
+source: https://dev.proof.com/docs/oauth-client-credentials
+docs: https://dev.proof.com/docs/oauth-client-credentials
+notes: >-
+  Proof's OAuth 2.0 client_credentials grant issues tokens with a coarse
+  read/write scope pair (seen in the token and token/info responses:
+  "scope":"read write"). Proof does not publish a fine-grained per-resource
+  scope catalog; access is primarily differentiated by API-key access level
+  (Full Access vs Client Only) rather than OAuth scopes.
+schemes:
+  - name: OAuth2
+    source: https://dev.proof.com/docs/oauth-client-credentials
+    flows:
+      - flow: clientCredentials
+        tokenUrl: https://api.proof.com/oauth/v2/token
+scopes:
+  - scope: read
+    description: Read access to Proof API resources.
+    flows: [clientCredentials]
+    sources: [https://dev.proof.com/docs/oauth-client-credentials]
+  - scope: write
+    description: Write access to create and modify Proof API resources.
+    flows: [clientCredentials]
+    sources: [https://dev.proof.com/docs/oauth-client-credentials]

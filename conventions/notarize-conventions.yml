@@ -1,0 +1,64 @@
+generated: '2026-07-20'
+method: searched
+source: https://dev.proof.com/docs
+docs:
+  - https://dev.proof.com/docs/error-handling
+  - https://dev.proof.com/docs/webhooks-v2
+  - https://dev.proof.com/docs/transaction-status
+conventions:
+  authentication:
+    style: api-key-header-or-oauth2-bearer
+    api_key_header: ApiKey
+    bearer: 'OAuth 2.0 client_credentials access token (Authorization: Bearer)'
+    ref: authentication/notarize-authentication.yml
+  versioning:
+    scheme: uri-path
+    versions:
+      - v1        # Business / eSign / Notarization API (api.proof.com/v1/...)
+      - mortgage/v2  # Real Estate / Mortgage API (api.proof.com/mortgage/v2/...)
+    notes: >-
+      Version is encoded in the URL path. The core business/eSign/notarization
+      API is under /v1; the real-estate (mortgage) API is under /mortgage/v2.
+  idempotency:
+    supported: false
+    notes: >-
+      Proof does not document an API-level idempotency key for write requests.
+      The safe create pattern is to POST a draft transaction and then Activate it
+      in a subsequent call. Note: Proof RECOMMENDS that webhook RECEIVERS be
+      implemented idempotently (webhooks may be delivered more than once and out
+      of order), but this is receiver-side guidance, not an API idempotency
+      contract.
+  pagination:
+    documented: false
+    notes: >-
+      List endpoints exist (List Transactions, List Templates, Get All Notaries,
+      List Webhooks) but Proof does not publish explicit pagination parameters in
+      the harvested docs; not asserted here to avoid fabrication.
+  request_tracing:
+    header: X-Amz-Trace-Id
+    notes: >-
+      Response header echoing a trace id; logging it lets Proof support locate the
+      request/response cycle.
+  error_envelope:
+    format: proprietary
+    shape: '{ "errors": ["human-readable message", ...] }'
+    rfc9457: false
+    ref: errors/notarize-error-codes.yml
+  encoding:
+    charset: UTF-8
+    notes: All string types are UTF-8; non-UTF-8 input is sanitized then re-encoded.
+  webhooks:
+    signing_header: X-Notarize-Signature
+    signing_alg: HMAC-SHA256 (hex)
+    retries: up to 16 attempts across 48h, 30s timeout, exponential back-off
+    delivery: at-least-once, unordered (implement receivers idempotently)
+    ref: asyncapi/notarize-webhooks.yml
+  rate_limiting:
+    documented: false
+  environments:
+    production:
+      api: https://api.proof.com
+      app: https://app.proof.com
+    fairfax_test:
+      api: https://api.fairfax.proof.com
+      notes: Prodmirror sandbox; see sandbox/notarize-sandbox.yml

@@ -1,27 +1,130 @@
 aid: notarize
 name: Notarize
-description: 'Notarize is a company surfaced as a portfolio company of fifth-wall and added to the API
-  Evangelist network as a stub for enrichment. Sector: proptech. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: >-
+  Notarize (rebranded as Proof) provides Remote Online Notarization (RON), eSignature,
+  identity verification, and reusable digital credentials through the Notarize Network.
+  Its REST API (api.proof.com) lets businesses create notarization, eSign, Identify, and
+  real-estate/mortgage closing transactions, attach and template documents, invite signers,
+  manage notaries, and receive V2 webhooks for every transaction and notary state change.
+  Authentication is by API key or OAuth 2.0 client credentials, with a Fairfax test
+  environment for end-to-end sandbox testing. Widely used across proptech, lending, title,
+  and legal workflows.
 url: https://raw.githubusercontent.com/api-evangelist/notarize/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - fifth-wall
-x-tier: stub
-x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+image: https://github.com/notarize.png
 tags:
 - Company
 - Proptech
-apis: []
+- Notarization
+- Remote Online Notarization
+- Identity Verification
+- eSignature
+- Digital Credentials
+- Real Estate
+- Mortgage
+- Legal Tech
+apis:
+- name: Proof API (formerly Notarize)
+  description: >-
+    REST API for creating and managing notarization, eSign, Identify, and real-estate
+    transactions, documents, signers, notaries, templates, and Webhooks V2 subscriptions.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  properties:
+  - type: Documentation
+    url: https://dev.proof.com/docs
+  - type: APIReference
+    url: https://dev.proof.com/reference
+  - type: GettingStarted
+    url: https://dev.proof.com/docs/business-quick-start
+  - type: Authentication
+    url: authentication/notarize-authentication.yml
+  - type: OAuthScopes
+    url: scopes/notarize-scopes.yml
+  - type: Webhooks
+    url: asyncapi/notarize-webhooks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: TrustCenter
+  url: security/notarize-trust-center.yml
+- type: DomainSecurity
+  url: security/notarize-domain-security.yml
 - type: Website
-  url: https://notarize.com/
+  url: https://www.proof.com/
+- type: DeveloperPortal
+  url: https://dev.proof.com/
+- type: Documentation
+  url: https://dev.proof.com/docs
+- type: APIReference
+  url: https://dev.proof.com/reference
+- type: GettingStarted
+  url: https://dev.proof.com/docs/business-quick-start
+- type: Blog
+  url: https://www.proof.com/blog
+- type: Pricing
+  url: https://www.proof.com/pricing
+- type: SignUp
+  url: https://app.proof.com/
+- type: PrivacyPolicy
+  url: https://www.proof.com/legal/privacy-policy
+- type: Support
+  url: mailto:support@proof.com
+- type: GitHubOrganization
+  url: https://github.com/notarize
+- type: StatusPage
+  url: https://status.proof.com
+- type: Compliance
+  url: https://security.proof.com/
+- type: Authentication
+  url: authentication/notarize-authentication.yml
+- type: OAuthScopes
+  url: scopes/notarize-scopes.yml
+- type: Conventions
+  url: conventions/notarize-conventions.yml
+- type: ErrorCatalog
+  url: errors/notarize-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/notarize-lifecycle.yml
+- type: Sandbox
+  url: sandbox/notarize-sandbox.yml
+- type: Webhooks
+  url: asyncapi/notarize-webhooks.yml
+- type: Conformance
+  url: conformance/notarize-conformance.yml
+- type: WellKnown
+  url: well-known/notarize-well-known.yml
+- type: MCPServer
+  url: mcp/notarize-mcp.yml
+- type: LLMsTxt
+  url: llms/notarize-llms.txt
+- type: DataModel
+  url: data-model/notarize-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v1

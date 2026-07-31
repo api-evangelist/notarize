@@ -1,0 +1,76 @@
+generated: '2026-07-20'
+method: searched
+source: https://dev.proof.com/docs/errors
+docs:
+  - https://dev.proof.com/docs/errors
+  - https://dev.proof.com/docs/error-handling
+format: proprietary
+envelope:
+  shape: '{ "errors": ["human-readable message", ...] }'
+  field: errors
+  notes: >-
+    Errors are returned as an array of human-readable strings under an `errors`
+    key. Proof uses standard HTTP status codes; 400 and 422 responses carry more
+    specific per-endpoint messaging. This is NOT RFC 9457 problem+json.
+http_statuses:
+  - status: 200
+    title: SUCCESS
+    meaning: Successful API request.
+  - status: 400
+    title: BAD REQUEST
+    meaning: Bad request or invalid parameters.
+  - status: 401
+    title: NOT AUTHENTICATED
+    meaning: Not authenticated.
+  - status: 403
+    title: NOT AUTHORIZED
+    meaning: No access to this specific feature.
+  - status: 404
+    title: NOT FOUND
+    meaning: The requested item does not exist.
+  - status: 415
+    title: UNSUPPORTED MEDIA TYPE
+    meaning: >-
+      Returned by the OAuth token endpoint when
+      Content-Type is not application/x-www-form-urlencoded.
+  - status: 422
+    title: BAD REQUEST (business rule)
+    meaning: Violated a business rule (validation error).
+  - status: 500
+    title: SERVER ERROR
+    meaning: Unknown error. Retry the call.
+validation_messages:
+  # Real, documented 422/400 validation messages (errors[] string values)
+  - message: Transaction Not Found
+    status: 404
+    cause: Querying/fetching a deleted or non-existent transaction.
+  - message: Transaction has already been completed by at least 1 signer.
+    status: 422
+    cause: Attempting to delete a completed transaction (only incomplete transactions are deletable).
+  - message: Need at least 1 signer
+    status: 422
+    cause: create-transaction called with draft:false and no signers.
+  - message: Customer email not present
+    status: 422
+    cause: Activating/placing a draft transaction with no signer email (email is the only required signer field).
+  - message: Esign required yet no Signer Designations specified in Document Bundle
+    status: 422
+    cause: create-transaction draft:false with esign documents but no signer designations (create as draft then activate).
+  - message: File is too big (max is 30MB)
+    status: 422
+    cause: An individual document exceeds 30 MB.
+  - message: Argument Error, transaction size too large
+    status: 422
+    cause: Total document bundle on a transaction exceeds 500 MB.
+  - message: Invalid Value for transaction_type
+    status: 422
+    cause: Missing or misspelled transaction_type (Real Estate API).
+  - message: Invalid value for argument role.
+    status: 422
+    cause: Contact role outside escrow_officer/loan_officer/real_estate_agent/title_agent/closer/other.
+  - message: At least one document needs to be enabled for notarization or identity confirmation
+    status: 422
+    cause: Collaborative transaction sent without lender/title documents.
+  - message: eNote Required
+    status: 422
+    cause: refinance/purchase_buyer_loan transaction placed without an eNote (or set paper_note_consent:true to skip).

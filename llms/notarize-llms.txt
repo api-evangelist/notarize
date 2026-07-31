@@ -1,0 +1,156 @@
+# Proof Documentation
+
+> Proof's API makes it simple to automate identity verification, eSign, and Notarization through the Notarize Network.
+
+## Guides
+- [Security](https://dev.proof.com/docs/security.md)
+- [API Keys and Authentication](https://dev.proof.com/docs/api-keys.md)
+- [OAuth Client Credentials](https://dev.proof.com/docs/oauth-client-credentials.md)
+- [Proof API Keys and Github Secret Scanning](https://dev.proof.com/docs/proof-api-keys-and-secret-scanning.md)
+- [API Object Reference](https://dev.proof.com/docs/api-data.md): A reference guide of objects returned by the Proof API.
+- [Testing](https://dev.proof.com/docs/testing.md): Ensure a top-notch customer experience.
+- [In House Notary (IHN) Profile Setup](https://dev.proof.com/docs/in-house-notary-ihn-testing-setup.md)
+- [Errors](https://dev.proof.com/docs/errors.md): A description of standard errors returnable by the API.
+- [Error Handling](https://dev.proof.com/docs/error-handling.md)
+- [Transactions Overview](https://dev.proof.com/docs/transactions-1.md)
+- [Notarization Transaction Quickstart - Business API](https://dev.proof.com/docs/business-quick-start.md)
+- [Notarization Transaction Quickstart - Real Estate API](https://dev.proof.com/docs/real-estate-quick-start.md)
+- [Tracking Transaction Status](https://dev.proof.com/docs/transaction-status.md)
+- [Tracking Transactions with Closing Operations](https://dev.proof.com/docs/tracking-transactions-with-closing-operations.md)
+- [Identify Transaction Quickstart Guide](https://dev.proof.com/docs/identify-transaction-quickstart-guide.md)
+- [Transaction Communications and Access](https://dev.proof.com/docs/transaction-communications.md)
+- [Overview](https://dev.proof.com/docs/digital-credentials-overview.md): A digital passport. Verified once, usable everywhere.
+- [Use Cases](https://dev.proof.com/docs/use-cases.md): Proof's Digital Credentials provide security for your customers and trust for your business.
+- [Verify Identity](https://dev.proof.com/docs/verify-identity.md): Verify Identity provides instant IAL2 verification for your customers.
+- [Sign Transactions](https://dev.proof.com/docs/sign-transactions.md): Sign Transactions captures non-repudiable consent for every high-risk transaction.
+- [Delegate Authority](https://dev.proof.com/docs/delegate-authority.md): Delegate Authority provides verifiable mandates for agents acting on your customers' behalf.
+- [Proof Certificate Authority](https://dev.proof.com/docs/proof-certificate-authority.md): Proof's public Certificate Authority anchors every Verifiable Credential in a published chain of trust.
+- [Integration](https://dev.proof.com/docs/integration.md): Developer guides for building with Proof's digital credentials.
+- [Verifiable Credential Types](https://dev.proof.com/docs/verifiable-credential-types.md)
+- [SD-JWT VC Format](https://dev.proof.com/docs/sd-jwt-vc-format.md): SD-JWT VC is the credential format Proof uses, defined in RFC 9901 and SD-JWT VC draft 16.
+- [Verify a Credential (OID4VP)](https://dev.proof.com/docs/verify-a-credential.md): Build an OID4VP presentation request, receive the vp_token, and validate it.
+- [Transaction Data Templates](https://dev.proof.com/docs/transaction-data-templates.md): Catalog of transaction_data templates Proof supports in OID4VP requests.
+- [Issue a Credential (OID4VCI · Coming Soon)](https://dev.proof.com/docs/issue-a-credential.md): OID4VCI is the protocol Proof uses to deliver Verifiable Credentials directly to Holder wallets.
+- [Glossary](https://dev.proof.com/docs/glossary.md): Vocabulary used across the Digital Credentials documentation.
+- [Documents Overview](https://dev.proof.com/docs/documents-overview.md)
+- [Document Tagging](https://dev.proof.com/docs/document-tagging.md)
+- [White Text Tags](https://dev.proof.com/docs/white-text-tags.md): Add signer and notary designations to your generated documents
+- [Document Templates](https://dev.proof.com/docs/templates.md): (Business only)
+- [Designations via API](https://dev.proof.com/docs/designations-via-api.md)
+- [Field Instructions](https://dev.proof.com/docs/field-instructions.md)
+- [Document Bundles](https://dev.proof.com/docs/document-bundles.md)
+- [Document Vaulting](https://dev.proof.com/docs/document-vaulting.md)
+- [eOriginal Vaulting for PDFs](https://dev.proof.com/docs/eoriginal-vaulting-for-pdfs.md): Configuration and Setup
+- [Signing Groups](https://dev.proof.com/docs/signing-groups.md)
+- [Webhooks V2](https://dev.proof.com/docs/webhooks-v2.md): Webhooks allow your application to be notified of changes in a transaction's state rather than requesting the state from the API directly.
+- [Webhook Event Flow](https://dev.proof.com/docs/sample-webhook-event-flow.md)
+- [Webhook Event Flow - eSign](https://dev.proof.com/docs/webhook-event-flow-esign.md)
+- [Features](https://dev.proof.com/docs/features.md)
+- [Single Sign-On (SSO)](https://dev.proof.com/docs/single-sign-on-sso-command-center.md)
+- [Child Organizations](https://dev.proof.com/docs/child-organizations.md)
+
+## API Reference
+- [Add Document](https://dev.proof.com/reference/adddocument.md)
+- [Update Documents](https://dev.proof.com/reference/updatedocuments.md)
+- [Update Documents](https://dev.proof.com/reference/patchdocuments.md)
+- [Delete Documents](https://dev.proof.com/reference/deletedocument.md)
+- [Get Document](https://dev.proof.com/reference/getdocument.md)
+- [Create Integration](https://dev.proof.com/reference/createintegration.md)
+- [Retrieve Meeting Records](https://dev.proof.com/reference/getnotarizationrecords.md)
+- [Retrieve Meeting Record](https://dev.proof.com/reference/getnotarizationrecord.md)
+- [Get Notary](https://dev.proof.com/reference/getnotary.md)
+- [Delete Notary](https://dev.proof.com/reference/deletenotary.md)
+- [Create notary](https://dev.proof.com/reference/createnotary.md)
+- [Get All Notaries](https://dev.proof.com/reference/getallnotaries.md)
+- [Retrieve Webhook URL](https://dev.proof.com/reference/getwebhookurl.md)
+- [Set/Update Webhook URL](https://dev.proof.com/reference/createwebhookurl.md)
+- [Delete Webhook URL](https://dev.proof.com/reference/deletewebhookurl.md)
+- [List Webhook V2](https://dev.proof.com/reference/getallwebhooksv2.md)
+- [Create Webhook V2](https://dev.proof.com/reference/createwebhookv2.md)
+- [Get Webhook V2](https://dev.proof.com/reference/getwebhookv2.md)
+- [Update Webhook V2](https://dev.proof.com/reference/updatewebhookv2.md)
+- [Delete Webhook V2](https://dev.proof.com/reference/deletewebhookv2.md)
+- [Get Webhook V2 Events](https://dev.proof.com/reference/getwebhookeventsv2.md)
+- [Get Webhook V2 Subscriptions](https://dev.proof.com/reference/getwebhooksubscriptionsv2.md)
+- [Create Webhook Test](https://dev.proof.com/reference/createtestwebhook.md)
+- [Create a referral campaign](https://dev.proof.com/reference/createreferral.md)
+- [Generate a single use referral link](https://dev.proof.com/reference/generatereferralcode.md)
+- [Create Partner Organization](https://dev.proof.com/reference/createpartnerorganization.md)
+- [Update Partner Organization](https://dev.proof.com/reference/updatepartnerorganization.md)
+- [Get Organization Information](https://dev.proof.com/reference/getorganizationinformation.md)
+- [List Templates](https://dev.proof.com/reference/getalltemplates.md)
+- [List Transactions](https://dev.proof.com/reference/getalltransactions.md)
+- [Create Transaction](https://dev.proof.com/reference/createtransaction.md)
+- [Retrieve Transaction](https://dev.proof.com/reference/gettransaction.md)
+- [Update Draft Transaction](https://dev.proof.com/reference/updatedrafttransaction.md)
+- [Update Draft Transaction](https://dev.proof.com/reference/patchdrafttransaction.md)
+- [Delete Transaction](https://dev.proof.com/reference/deletetransaction.md)
+- [Activate Draft Transaction](https://dev.proof.com/reference/activatedrafttransaction.md)
+- [Recall Transaction](https://dev.proof.com/reference/recalltransaction-1.md)
+- [Resend Transaction Email](https://dev.proof.com/reference/resendtransactionemail.md)
+- [Force Complete Transaction](https://dev.proof.com/reference/forcecompletetransaction.md)
+- [Resend Transaction SMS](https://dev.proof.com/reference/resendtransactionsms.md)
+- [Get eligible notaries for a transaction](https://dev.proof.com/reference/getalleligiblenotaries.md)
+- [Get Audit Trail](https://dev.proof.com/reference/getaudittrail.md)
+- [Create OpenId Connect Transaction](https://dev.proof.com/reference/createopenidconnecttransaction.md)
+- [Add Document](https://dev.proof.com/reference/addmortgagedocument.md)
+- [Add External Document](https://dev.proof.com/reference/addmortgageexternaldocument.md)
+- [Update Documents](https://dev.proof.com/reference/updatemortgagedocuments.md)
+- [Update Documents](https://dev.proof.com/reference/patchmortgagedocuments.md)
+- [Delete Documents](https://dev.proof.com/reference/deletemortgagedocument.md)
+- [Get Document](https://dev.proof.com/reference/getmortgagedocument.md)
+- [Verify Property Address](https://dev.proof.com/reference/verifypropertyaddress.md)
+- [Get Valid Underwriters](https://dev.proof.com/reference/getvalidunderwriters.md)
+- [Retrieve Recording Locations](https://dev.proof.com/reference/getrecordinglocations.md)
+- [Add eNote](https://dev.proof.com/reference/addenote.md)
+- [Delete eNote](https://dev.proof.com/reference/deleteenote.md)
+- [Get Notary](https://dev.proof.com/reference/getmortgagenotary.md)
+- [Delete Notary](https://dev.proof.com/reference/deletemortgagenotary.md)
+- [Create notary](https://dev.proof.com/reference/createmortgagenotary.md)
+- [Get all notaries](https://dev.proof.com/reference/getallmortgagenotaries.md)
+- [Retrieve Meeting Record](https://dev.proof.com/reference/getmortgagenotarizationrecord.md)
+- [Retrieve Webhook URL](https://dev.proof.com/reference/getmortgagewebhookurl.md)
+- [Set/Update Webhook URL](https://dev.proof.com/reference/createmortgagewebhookurl.md)
+- [Delete Webhook URL](https://dev.proof.com/reference/deletemortgagewebhookurl.md)
+- [List Webhook V2](https://dev.proof.com/reference/getallmortgagewebhooksv2.md)
+- [Create Webhook V2](https://dev.proof.com/reference/createmortgagewebhookv2.md)
+- [Get Webhook V2](https://dev.proof.com/reference/getmortgagewebhookv2.md)
+- [Update Webhook V2](https://dev.proof.com/reference/updatemortgagewebhookv2.md)
+- [Delete Webhook V2](https://dev.proof.com/reference/deletemortgagewebhookv2.md)
+- [Get Webhook V2 Events](https://dev.proof.com/reference/getmortgagewebhookeventsv2.md)
+- [Get Webhook V2 Subscriptions](https://dev.proof.com/reference/getmortgagewebhooksubscriptionsv2.md)
+- [Create Webhook Test](https://dev.proof.com/reference/createtestwebhook-1.md)
+- [Create Partner Organization](https://dev.proof.com/reference/createmortgagepartnerorganization.md)
+- [Update Partner Organization](https://dev.proof.com/reference/updatemortgagepartnerorganization.md)
+- [Get Title Agency](https://dev.proof.com/reference/get_mortgage-v2-title-agencies.md)
+- [List Transactions](https://dev.proof.com/reference/getallmortgagetransactions.md)
+- [Create Transaction](https://dev.proof.com/reference/createmortgagetransaction.md)
+- [Retrieve Transaction](https://dev.proof.com/reference/getmortgagetransaction.md)
+- [Update Transaction](https://dev.proof.com/reference/updatemortgagetransaction.md)
+- [Delete Transaction](https://dev.proof.com/reference/deletemortgagetransaction.md)
+- [Place an Order](https://dev.proof.com/reference/placeorder.md)
+- [Recall Transaction](https://dev.proof.com/reference/recalltransaction.md)
+- [Resend Transaction Email](https://dev.proof.com/reference/resendmortgagetransactionemail.md)
+- [Force Complete Transaction](https://dev.proof.com/reference/forcecompletetransaction-1.md)
+- [Resend Transaction Contact Email](https://dev.proof.com/reference/resendmortgagecontactsemail.md)
+- [Resend Transaction SMS](https://dev.proof.com/reference/resendmortgagetransactionsms.md)
+- [Get eligible notaries for a transaction](https://dev.proof.com/reference/getalleligiblenotaries-1.md)
+- [List Security Events](https://dev.proof.com/reference/listsecurityevents.md): Returns a paginated list of security events in OCSF format for the authenticated organization. Requires Command Center access.
+- [Authorize Verifiable Credential Presentation](https://dev.proof.com/reference/authorizeverifiablecredentialpresentation.md): Initiates an OID4VP Verifiable Credential Presentation request for the End-User identified by `login_hint`. Returns a 302 redirect to the Proof-hosted flow where the End-User authorizes the presentation. Once complete, Proof returns the Verifiable Credential Presentation according to `response_mode`: for `fragment`, the `vp_token` is appended as a URL fragment on a redirect back to `redirect_uri`; for `direct_post`, the `vp_token` is POSTed to `response_uri`.
+- [Create User](https://dev.proof.com/reference/createuser.md)
+- [Retrieve User](https://dev.proof.com/reference/retrieveuser.md)
+- [Replace User](https://dev.proof.com/reference/replaceuser.md)
+- [Update User](https://dev.proof.com/reference/updateuser.md)
+- [Delete User](https://dev.proof.com/reference/deleteuser.md)
+- [List Users](https://dev.proof.com/reference/listuser.md)
+- [Retrieve Users Schema](https://dev.proof.com/reference/userschema.md)
+- [Retrieve Service Provider Config](https://dev.proof.com/reference/serviceproviderconfig.md)
+- [Retrieve Resource Types](https://dev.proof.com/reference/resourcetypes.md)
+
+## Recipes
+- [Create Transaction (Business)](https://dev.proof.com/recipes/create-transaction-business.md)
+- [Create Transaction (Title Agency)](https://dev.proof.com/recipes/create-transaction-title-agency.md)
+- [Validate Webhooks and Fetch Completed Documents](https://dev.proof.com/recipes/validate-webhooks-and-fetch-completed-documents.md)
+
+## Pages
+- [ ](https://dev.proof.com/404.md)

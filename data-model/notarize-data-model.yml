@@ -1,0 +1,75 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  Derived from the Proof API object reference (https://dev.proof.com/docs/api-data)
+  and webhook payloads (https://dev.proof.com/docs/webhooks-v2). ID prefixes
+  observed verbatim in documented example payloads.
+id_prefixes:
+  transaction: ot_
+  document: do_
+  signer: oc_        # signer/customer object id
+  meeting: me_
+entities:
+  - name: Organization
+    description: The business account that owns transactions, templates, notaries and webhook subscriptions.
+    relationships:
+      - has_many: Transaction
+      - has_many: Template
+      - has_many: Notary
+      - has_many: WebhookSubscription
+  - name: Transaction
+    id_prefix: ot_
+    description: The core unit of work - a notarization, eSign, Identify, or real-estate closing.
+    relationships:
+      - belongs_to: Organization
+      - has_many: Document (via documents)
+      - has_many: Signer (via signers)
+      - has_one: Meeting (via meeting)
+      - has_one: eNote (via enote, real estate)
+    lifecycle_field: detailed_status
+  - name: Document
+    id_prefix: do_
+    description: A file attached to a transaction; processed for tags/templates before activation.
+    relationships:
+      - belongs_to: Transaction (via transaction_id)
+  - name: Signer
+    id_prefix: oc_
+    description: A customer/signer on a transaction (email required; optional phone, external_id).
+    relationships:
+      - belongs_to: Transaction (via transaction_id)
+  - name: Meeting
+    id_prefix: me_
+    description: A live notary/trusted-referee video session for a notarization transaction.
+    relationships:
+      - belongs_to: Transaction (via transaction_id)
+      - has_one: NotarizationRecord
+  - name: NotarizationRecord
+    description: The recorded evidence of a completed meeting (video + audit); fetched via Retrieve Notarization Record.
+    relationships:
+      - belongs_to: Meeting (via meeting_id)
+  - name: Notary
+    description: A notary public (including In-House Notary / IHN profiles) that serves meetings.
+    relationships:
+      - belongs_to: Organization
+      - serves: Meeting
+  - name: Template
+    description: A reusable document template (Business only).
+    relationships:
+      - belongs_to: Organization
+  - name: WebhookSubscription
+    description: A V2 webhook subscription to one or more event families.
+    relationships:
+      - belongs_to: Organization
+  - name: eNote
+    description: An electronic promissory note registered with MERS eRegistry (Real Estate API).
+    relationships:
+      - belongs_to: Transaction
+      - has_many: Borrower
+  - name: Underwriter
+    description: A title underwriter referenced on a real-estate transaction.
+    relationships:
+      - referenced_by: Transaction
+  - name: Borrower
+    description: Borrower detail (name, ssn) used to register an eNote with MERS.
+    relationships:
+      - belongs_to: eNote

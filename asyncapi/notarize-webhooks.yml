@@ -1,0 +1,108 @@
+generated: '2026-07-20'
+method: searched
+source: https://dev.proof.com/docs/webhooks-v2
+spec_type: Webhooks
+docs:
+  - https://dev.proof.com/docs/webhooks-v2
+  - https://dev.proof.com/reference/createwebhookv2
+transport:
+  protocol: HTTP POST (JSON)
+  subscription_model: >-
+    Webhooks V2 supports per-event subscriptions and multiple subscriptions per
+    account. Subscribe to a whole family with a wildcard (e.g. `transaction.*`,
+    `notary.*`). V1 (single webhook URL) is superseded.
+  envelope: '{ "event": "<name>", "data": { ... } }'
+security:
+  signature_header: X-Notarize-Signature
+  signature_alg: HMAC-SHA256 (hex) of the raw request body
+  signing_key: >-
+    API-key-created subscriptions sign with the API key by default (or a custom
+    signing_key). OAuth-created subscriptions must set a signing_key to enable
+    signing. Optional oauth_config (oauth_token_url/client_id/client_secret) lets
+    Proof send a Bearer token on outbound calls.
+  source_ips:
+    - 44.204.166.96/28
+    - 35.89.72.128/28
+    - 3.145.244.0/28
+delivery:
+  timeout_seconds: 30
+  retry: up to 16 attempts across 48 hours with back-off
+  guarantees: at-least-once, not ordered (implement receiver idempotently)
+event_families:
+  - notary
+  - transaction
+events:
+  # notary.*
+  - name: notary.compliant
+    description: Notary profile reviewed and marked compliant by Proof compliance.
+  - name: notary.created
+    description: A new notary is created in the organization.
+  - name: notary.needs_review
+    description: Notary finished onboarding and needs compliance review.
+  - name: notary.non_compliant
+    description: Notary marked non-compliant after review.
+  - name: notary.signer_ready
+    description: Notary assigned to a transaction and signer has requested a meeting.
+  # transaction.*
+  - name: transaction.created
+    description: A transaction is created.
+  - name: transaction.updated
+    description: A transaction is updated.
+  - name: transaction.deleted
+    description: A transaction is deleted.
+  - name: transaction.expired
+    description: A transaction passed its expiration date.
+  - name: transaction.recalled
+    description: A transaction is recalled to draft.
+  - name: transaction.reviewed
+    description: (Lender only) Title agency finished reviewing a document in a collaborative transaction.
+  - name: transaction.document.upload
+    description: A document is uploaded to a transaction.
+  - name: transaction.document.processed
+    description: A document finished processing (white-text tags / template matching done; safe to activate).
+  - name: transaction.meeting.requested
+    description: Signer(s) requested a notary meeting.
+  - name: transaction.meeting.created
+    description: Signer(s) joined a meeting / notary or trusted referee picked up.
+  - name: transaction.meeting.failed
+    description: Meeting terminated with failure or inactivity.
+  - name: transaction.meeting.video.processed
+    description: Meeting recording finished processing (fetch via Retrieve Notarization Record).
+  - name: transaction.notary.assigned
+    description: A notary is assigned to a transaction.
+  - name: transaction.sent_to_closing_ops
+    description: Transaction sent to Proof Closing Operations.
+  - name: transaction.sent_to_signer
+    description: Transaction sent to a signer.
+  - name: transaction.sent_to_title_agency
+    description: (Real estate collab) Transaction sent from lender to title agency.
+  - name: transaction.signer.kba_passed
+    description: Signer passed knowledge-based authentication (KBA).
+  - name: transaction.signer.kba_failed
+    description: Signer failed KBA and is locked out after too many attempts.
+  - name: transaction.signer.high_risk_detected
+    description: (Defend) Transaction risk signals flagged high risk.
+  - name: transaction.signer.medium_risk_detected
+    description: (Defend) Transaction risk signals flagged medium risk.
+  - name: transaction.underwriter.not_available
+    description: No underwriter available for a transaction.
+  - name: transaction.partially_completed
+    description: At least one signer completed their portion (multi-signer).
+  - name: transaction.completed
+    description: Transaction moved to completed (notary meeting or eSign done). Identify transactions include per-step pass/fail booleans.
+  - name: transaction.completed_with_rejections
+    description: Notarization completed but some documents were rejected by the notary.
+  - name: transaction.released
+    description: Documents released and available for download (important for signer-paid workflows).
+  - name: transaction.held_for_review
+    description: Transaction held for review.
+  - name: transaction.declined
+    description: Transaction declined.
+  - name: transaction.import.processed
+    description: A transaction import finished processing.
+  - name: transaction.import.failed
+    description: A transaction import failed.
+  - name: transaction.automated_identity_verification_by_idv_service_passed
+    description: Automated identity verification by the IDV service passed.
+  - name: transaction.automated_identity_verification_by_idv_service_failed
+    description: Automated identity verification by the IDV service failed.

@@ -1,0 +1,40 @@
+generated: '2026-07-20'
+method: searched
+source: probed /.well-known/ across proof.com, notarize.com, api.proof.com, dev.proof.com
+notes: >-
+  Notarize rebranded to Proof; the production API is served from api.proof.com
+  (api.notarize.com resolves to the same origin, api.prod.proof.com). Only the
+  OIDC discovery document is published; no security.txt, RFC 8414
+  oauth-authorization-server, api-catalog, or ai-plugin.json were found.
+hosts:
+  - host: https://api.proof.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: notarize-openid-configuration.json
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://api.notarize.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        note: same origin as api.proof.com (api.prod.proof.com)
+  - host: https://www.proof.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+  - host: https://dev.proof.com
+    documents:
+      - path: /llms.txt
+        status: 200
+        note: ReadMe-generated docs index (captured in llms/notarize-llms.txt)
+      - path: /.well-known/security.txt
+        status: 404

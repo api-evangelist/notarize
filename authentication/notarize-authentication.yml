@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: searched
+source: https://dev.proof.com/docs/api-keys
+docs:
+  - https://dev.proof.com/docs/api-keys
+  - https://dev.proof.com/docs/oauth-client-credentials
+summary:
+  types: [apiKey, oauth2]
+  api_key_in: [header]
+  api_key_header: ApiKey
+  oauth2_flows: [clientCredentials]
+schemes:
+  - name: ApiKey
+    type: apiKey
+    in: header
+    parameter_name: ApiKey
+    description: >-
+      Static API key sent in the `ApiKey` request header. Two access levels are
+      issued: Full Access (create/update/delete transactions; secret, server-side
+      only) and Client Only (create transactions only; safe to expose in
+      client-facing apps, powers EasyLinks).
+    key_prefixes:
+      full_access_production: prf_
+      full_access_fairfax: prf_test_
+      client_only_production: prf_cli_
+      client_only_fairfax: prf_cli_test_
+    secret_scanning: >-
+      Proof partners with GitHub Secret Scanning; leaked keys are detected and
+      should be revoked immediately.
+    docs: https://dev.proof.com/docs/api-keys
+  - name: OAuth2
+    type: oauth2
+    description: >-
+      OAuth 2.0 client_credentials grant as an alternative to API keys. Client
+      apps are provisioned under Settings > OAuth; client_id/client_secret are
+      passed via HTTP Basic auth to the token endpoint. Access tokens are Bearer
+      tokens (expires_in 7200s / 2h). Requires
+      `Content-Type: application/x-www-form-urlencoded` (else HTTP 415).
+    flows:
+      - flow: clientCredentials
+        tokenUrl: https://api.proof.com/oauth/v2/token
+        tokenUrl_fairfax: https://api.fairfax.proof.com/oauth/v2/token
+        token_info_url: https://api.proof.com/oauth/v2/token/info
+        token_type: Bearer
+        expires_in: 7200
+        scopes:
+          read: Read access
+          write: Write access
+    docs: https://dev.proof.com/docs/oauth-client-credentials

@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: searched
+source: https://dev.proof.com/docs
+versioning:
+  scheme: uri-path
+  versions: [v1, mortgage/v2]
+  current: v1
+  notes: >-
+    Version encoded in URL path. Business/eSign/notarization API under /v1;
+    real-estate (mortgage) API under /mortgage/v2. Webhooks are separately
+    versioned (V1 and V2 subscription endpoints).
+status_page: https://status.proof.com
+deprecation:
+  policy_url: null
+  notes: >-
+    No formal dated deprecation/sunset policy page published. A documented
+    deprecation exists in practice: migrating from Webhooks V1 to Webhooks V2
+    drops a small set of V1 events (e.g. transaction.title_added). RFC 8594
+    Sunset/Deprecation headers are not documented.
+  deprecated_surfaces:
+    - Webhooks V1 (superseded by Webhooks V2; some V1 events unavailable in V2)
+sla:
+  url: null
+  notes: Outbound IP ranges and infra changes are announced via the status page.

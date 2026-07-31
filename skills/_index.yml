@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: generated
+source: >-
+  Grounded in the published Proof API reference operations
+  (https://dev.proof.com/reference) and the conventions/errors/webhooks artifacts
+  in this repo. No provider-published Agent Skills / AGENTS.md were found.
+skills:
+  - file: notarize-create-notarization-transaction.md
+    name: Create and complete a notarization transaction
+    api: https://dev.proof.com/reference
+    operations: [createtransaction, adddocument, activatedrafttransaction, gettransaction, getnotarizationrecord]
+  - file: notarize-esign-transaction.md
+    name: Send an eSign transaction
+    api: https://dev.proof.com/reference
+    operations: [createtransaction, adddocument, updatedrafttransaction, activatedrafttransaction, gettransaction]
+  - file: notarize-subscribe-webhooks.md
+    name: Subscribe to Proof transaction webhooks (V2)
+    api: https://dev.proof.com/reference
+    operations: [getwebhooksubscriptionsv2, createwebhookv2, getallwebhooksv2, getwebhookeventsv2, createtestwebhook]
