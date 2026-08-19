@@ -1,11 +1,9 @@
 generated: '2026-07-20'
 method: derived
 status: candidate
-source: >-
-  Derived from the Proof API reference operation list
-  (https://dev.proof.com/llms.txt "## API Reference"). No official hosted/remote
-  MCP server was found for Proof/Notarize; this is a candidate tool surface, one
-  tool per marquee operation, to be validated against the published reference.
+source: Derived from the Proof API reference operation list (https://dev.proof.com/llms.txt "## API Reference").
+  No official hosted/remote MCP server was found for Proof/Notarize; this is a candidate tool surface,
+  one tool per marquee operation, to be validated against the published reference.
 server:
   name: notarize
   vendor: Proof (formerly Notarize)
@@ -13,60 +11,66 @@ server:
   url: null
   api_base: https://api.proof.com
 tools:
-  - name: create_transaction
-    description: Create a notarization / eSign / Identify transaction (optionally as a draft).
-    source_operation: https://dev.proof.com/reference/createtransaction
-  - name: get_transaction
-    description: Retrieve a transaction and its detailed_status.
-    source_operation: https://dev.proof.com/reference/gettransaction
-  - name: list_transactions
-    description: List transactions for the organization.
-    source_operation: https://dev.proof.com/reference/getalltransactions
-  - name: update_draft_transaction
-    description: Update a draft transaction before activation.
-    source_operation: https://dev.proof.com/reference/updatedrafttransaction
-  - name: activate_draft_transaction
-    description: Activate a draft transaction and send it to signers.
-    source_operation: https://dev.proof.com/reference/activatedrafttransaction
-  - name: delete_transaction
-    description: Delete an incomplete transaction (and its associated records).
-    source_operation: https://dev.proof.com/reference/deletetransaction
-  - name: recall_transaction
-    description: Recall a transaction back to draft (Real Estate).
-    source_operation: https://dev.proof.com/reference/recalltransaction-1
-  - name: add_document
-    description: Add a document to a transaction.
-    source_operation: https://dev.proof.com/reference/adddocument
-  - name: get_document
-    description: Retrieve a transaction document.
-    source_operation: https://dev.proof.com/reference/getdocument
-  - name: get_audit_trail
-    description: Retrieve the audit trail for a transaction.
-    source_operation: https://dev.proof.com/reference/getaudittrail
-  - name: get_eligible_notaries
-    description: Get notaries eligible for a transaction.
-    source_operation: https://dev.proof.com/reference/getalleligiblenotaries
-  - name: get_notarization_record
-    description: Retrieve a meeting notarization record (video/audit).
-    source_operation: https://dev.proof.com/reference/getnotarizationrecord
-  - name: create_webhook_v2
-    description: Create a Webhooks V2 subscription.
-    source_operation: https://dev.proof.com/reference/createwebhookv2
-  - name: list_webhooks_v2
-    description: List Webhooks V2 subscriptions.
-    source_operation: https://dev.proof.com/reference/getallwebhooksv2
-  - name: list_webhook_events_v2
-    description: List events available to subscribe to.
-    source_operation: https://dev.proof.com/reference/getwebhooksubscriptionsv2
-  - name: list_templates
-    description: List document templates (Business only).
-    source_operation: https://dev.proof.com/reference/getalltemplates
-  - name: get_organization
-    description: Get organization information.
-    source_operation: https://dev.proof.com/reference/getorganizationinformation
-  - name: verify_property_address
-    description: Verify a property address (Real Estate).
-    source_operation: https://dev.proof.com/reference/verifypropertyaddress
-  - name: add_enote
-    description: Add an eNote to a real-estate transaction.
-    source_operation: https://dev.proof.com/reference/addenote
+- name: create_transaction
+  description: Create a notarization / eSign / Identify transaction (optionally as a draft).
+  source_operation: https://dev.proof.com/reference/createtransaction
+- name: get_transaction
+  description: Retrieve a transaction and its detailed_status.
+  source_operation: https://dev.proof.com/reference/gettransaction
+- name: list_transactions
+  description: List transactions for the organization.
+  source_operation: https://dev.proof.com/reference/getalltransactions
+- name: update_draft_transaction
+  description: Update a draft transaction before activation.
+  source_operation: https://dev.proof.com/reference/updatedrafttransaction
+- name: activate_draft_transaction
+  description: Activate a draft transaction and send it to signers.
+  source_operation: https://dev.proof.com/reference/activatedrafttransaction
+- name: delete_transaction
+  description: Delete an incomplete transaction (and its associated records).
+  source_operation: https://dev.proof.com/reference/deletetransaction
+- name: recall_transaction
+  description: Recall a transaction back to draft (Real Estate).
+  source_operation: https://dev.proof.com/reference/recalltransaction-1
+- name: add_document
+  description: Add a document to a transaction.
+  source_operation: https://dev.proof.com/reference/adddocument
+- name: get_document
+  description: Retrieve a transaction document.
+  source_operation: https://dev.proof.com/reference/getdocument
+- name: get_audit_trail
+  description: Retrieve the audit trail for a transaction.
+  source_operation: https://dev.proof.com/reference/getaudittrail
+- name: get_eligible_notaries
+  description: Get notaries eligible for a transaction.
+  source_operation: https://dev.proof.com/reference/getalleligiblenotaries
+- name: get_notarization_record
+  description: Retrieve a meeting notarization record (video/audit).
+  source_operation: https://dev.proof.com/reference/getnotarizationrecord
+- name: create_webhook_v2
+  description: Create a Webhooks V2 subscription.
+  source_operation: https://dev.proof.com/reference/createwebhookv2
+- name: list_webhooks_v2
+  description: List Webhooks V2 subscriptions.
+  source_operation: https://dev.proof.com/reference/getallwebhooksv2
+- name: list_webhook_events_v2
+  description: List events available to subscribe to.
+  source_operation: https://dev.proof.com/reference/getwebhooksubscriptionsv2
+- name: list_templates
+  description: List document templates (Business only).
+  source_operation: https://dev.proof.com/reference/getalltemplates
+- name: get_organization
+  description: Get organization information.
+  source_operation: https://dev.proof.com/reference/getorganizationinformation
+- name: verify_property_address
+  description: Verify a property address (Real Estate).
+  source_operation: https://dev.proof.com/reference/verifypropertyaddress
+- name: add_enote
+  description: Add an eNote to a real-estate transaction.
+  source_operation: https://dev.proof.com/reference/addenote
+deployment:
+  mode: none
+  verified: derived
+  tools: 19
+  checked: '2026-08-12'
+  source: catalog MCP census
