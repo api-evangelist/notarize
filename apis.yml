@@ -49,7 +49,7 @@ tags:
 - Identity Verification
 - E-Signature
 - Digital Credentials
-- Real-Estate
+- Real Estate
 - Mortgage
 - Legal Tech
 tags_raw:
@@ -63,6 +63,7 @@ tags_raw:
 - Real Estate
 - Mortgage
 - Legal Tech
+- Real-Estate
 apis:
 - name: Proof API (formerly Notarize)
   description: >-
