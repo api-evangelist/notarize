@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-document-schema.json",
+  "title": "document",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/document",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "maxLength": 5000
+    },
+    "allowed_actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 5000
+      },
+      "description": "List of allowed actions on document."
+    },
+    "bundle_position": {
+      "type": "integer",
+      "description": "Position to put document in bundle"
+    },
+    "completion_state": {
+      "type": "string",
+      "maxLength": 5000
+    },
+    "data": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "base64 encoded document. Present if base64 encoding was specified in request. Currently supported for get_document only."
+    },
+    "date_created": {
+      "type": "string",
+      "maxLength": 100,
+      "description": "Date document was created/uploaded."
+    },
+    "date_updated": {
+      "type": "string",
+      "maxLength": 100,
+      "description": "Date document was last updated."
+    },
+    "document_name": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Name of document."
+    },
+    "esign_required": {
+      "type": "boolean",
+      "description": "Boolean flag indicating whether the document requires esigning."
+    },
+    "final_document_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 5000
+    },
+    "identification_reviewed": {
+      "type": "boolean"
+    },
+    "identity_confirmation_required": {
+      "type": "boolean",
+      "description": "Boolean flag indicating whether the document requires identity confirmation."
+    },
+    "is_enote": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean flag indicating whether the document is an eNote."
+    },
+    "notarization_required": {
+      "type": "boolean",
+      "description": "Boolean flag indicating whether the document requires notarization. If `true`, identity_confirmation_required must be `false`. If `false`, the document may still be e-signed in the notary meeting. At least one document in a transaction must require notarization or identity confirmation."
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 5000
+      },
+      "description": "List of allowed actions on document."
+    },
+    "processing_error": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 5000,
+      "description": "Error message if document processing failed."
+    },
+    "processing_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 5000,
+      "description": "State of document processing."
+    },
+    "rejection_anecdote": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 5000,
+      "description": "Anecdote for document rejection."
+    },
+    "rejection_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 5000,
+      "description": "Reason for document rejection."
+    },
+    "requirement": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements."
+    },
+    "signed_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 5000,
+      "description": "Signed URL for the final document PDF."
+    },
+    "signing_designation_groups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signing_designation_group"
+      },
+      "description": "This array contains a prescribed list of groups of designations for signers and/or a notary to annotate the document."
+    },
+    "signing_designations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signing_designation"
+      },
+      "description": "This array contains a prescribed list of designations for signers and/or a notary to annotate the document."
+    },
+    "signing_type": {
+      "type": "string",
+      "enum": [
+        "NOTARIZATION",
+        "ESIGN"
+      ]
+    },
+    "tracking_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 5000,
+      "description": "The external tracking ID of the document."
+    },
+    "vaulted": {
+      "type": "boolean",
+      "description": "Boolean flag indicating whether the document is vaulted."
+    }
+  },
+  "$defs": {
+    "signing_designation": {
+      "type": "object",
+      "properties": {
+        "signer_identifier": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "For signers, the external_id value set on the signers array when creating a transaction; for witnesses, `witness{n}` i.e. `witness1` or `witness2`; for notaries, `notary`"
+        },
+        "page_number": {
+          "type": "integer",
+          "description": "The page of the designation, starting at 0"
+        },
+        "x": {
+          "type": "integer",
+          "description": "The X coordinate (from bottom left)"
+        },
+        "y": {
+          "type": "integer",
+          "description": "The Y coordinate (from bottom left)"
+        },
+        "height": {
+          "type": "integer",
+          "description": "Height"
+        },
+        "width": {
+          "type": "integer",
+          "description": "Width"
+        },
+        "hint": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Hint"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "date_signed",
+            "day_signed",
+            "month_signed",
+            "year_signed",
+            "first_name",
+            "middle_name",
+            "last_name",
+            "full_name",
+            "signature",
+            "initials",
+            "checkmark",
+            "radio_checkmark",
+            "free_text",
+            "signature_and_date",
+            "dob",
+            "email",
+            "address_line1",
+            "address_line2",
+            "address_zip5",
+            "address_state",
+            "address_city",
+            "representative_capacity_type",
+            "disclosure",
+            "notary_id",
+            "seal",
+            "commission_expiration_date",
+            "commission_state",
+            "county",
+            "commission_county",
+            "principal_id_type",
+            "notary_city"
+          ],
+          "description": "The type of field designation. Accepted values for signers: dob, email, address_line1, address_line2, address_zip5, address_state, address_city, representative_capacity_type. Accepted values for notaries: disclosure, notary_id, seal, commission_expiration_date, commission_state, county, commission_county, principal_id_type, notary_city. Universal types: date_signed, day_signed, month_signed, year_signed, first_name, middle_name, last_name, full_name, signature, initials, checkmark, radio_checkmark, free_text, signature_and_date"
+        },
+        "signing_designation_group": {
+          "$ref": "#/$defs/signing_designation_group"
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "Non-notary designation that is not part of a group can be set as optional"
+        },
+        "instruction": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Instruction specific to this signing designation to be shown to the signer"
+        },
+        "primary_designation_identifier": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Unique identification string to denote this designation is the primary designation"
+        },
+        "conditional_on_primary": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Identification string that denotes this designation is conditional on the designation with the same value set for primary_designation_identifier"
+        }
+      }
+    },
+    "signing_designation_group": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "The specified name of the group, type string. Use a naming convention of your choice, the only restrictions are that the name must be between 1 and 64 characters\nand can consist of alpha-numeric characters, hyphens, parentheses, and underscores. Valid regular expression for you tech nerds is /^[a-zA-Z0-9_-()]{1,64}$/"
+        },
+        "min_required": {
+          "type": "integer",
+          "description": "a positive integer between 0 and N where N is the minimum number of designations in the group that must be fulfilled (checked)."
+        },
+        "max_required": {
+          "type": "integer",
+          "description": "a positive integer between min_required and N where N is the maximum number of designations in the group that are allowed to be fulfilled.\nNOTE: max_required cannot be set to greater than 1 for designation groups used with radio_checkmark type signing designations."
+        }
+      }
+    }
+  }
+}

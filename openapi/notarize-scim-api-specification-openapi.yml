@@ -1,0 +1,801 @@
+openapi: 3.0.1
+info:
+  title: SCIM API Specification
+  version: v1
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+paths:
+  /scim/v1/organizations/{organization_id}/ResourceTypes:
+    get:
+      summary: Retrieve Resource Types
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: resourceTypes
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization
+        required: true
+        x-example: orzd75bdr
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resource Types
+          content:
+            application/json:
+              example:
+                itemsPerPage: 10
+                Resources:
+                - description: User Account
+                  endpoint: /Users
+                  id: User
+                  meta:
+                    location: https://api.local.dev-notarize.com/scim/v1/organizations/orzd75bdr/ResourceTypes/User
+                    resourceType: ResourceType
+                  name: User
+                  schema: urn:ietf:params:scim:schemas:core:2.0:User
+                  schemas:
+                  - urn:ietf:params:scim:schemas:core:2.0:ResourceType
+                schemas:
+                - urn:ietf:params:scim:api:messages:2.0:ListResponse
+                startIndex: 1
+                totalResults: 1
+  /scim/v1/organizations/{organization_id}/Schemas/Users:
+    get:
+      summary: Retrieve Users Schema
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: userSchema
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization
+        required: true
+        x-example: orqnb7xd9
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Users Schema
+          content:
+            application/json:
+              example:
+                title: SCIM /Users
+                description: SCIM /Users provisioning endpoints
+                type: object
+                properties:
+                  schemas:
+                    description: SCIM schema used.
+                    type: array
+                    minItems: 1
+                    items:
+                      type: string
+                      examples:
+                      - urn:ietf:params:scim:schemas:core:2.0:User
+                  id:
+                    description: Unique identifier of an external identity
+                    type: string
+                    examples:
+                    - us1234567
+                  externalId:
+                    description: The ID of the User.
+                    type:
+                    - string
+                    - 'null'
+                    examples:
+                    - 011d20ef-8563-42de-b367-09f3db13ca4a
+                  userName:
+                    description: Configured by the admin. Primary email address only.
+                    type:
+                    - string
+                    - 'null'
+                    examples:
+                    - example@notarize.com
+                  displayName:
+                    description: The name of the user, suitable for display to end-users
+                    type:
+                    - string
+                    - 'null'
+                    examples:
+                    - John Doe
+                  name:
+                    type: object
+                    properties:
+                      givenName:
+                        type:
+                        - string
+                        - 'null'
+                      familyName:
+                        type:
+                        - string
+                        - 'null'
+                    example:
+                      givenName: John
+                      familyName: Doe
+                  emails:
+                    description: user emails
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                        primary:
+                          type: boolean
+                        type:
+                          type: string
+                      required:
+                      - value
+                    examples:
+                    - value: example@notarize.com
+                      primary: true
+                  active:
+                    description: The active status of the User.
+                    type: boolean
+                    examples:
+                    - true
+                  meta:
+                    type: object
+                    properties:
+                      resourceType:
+                        type: string
+                        examples:
+                        - User
+                      created:
+                        type: string
+                        format: date-time
+                        examples:
+                        - '2019-01-24T22:45:36.000Z'
+                      lastModified:
+                        type: string
+                        format: date-time
+                        examples:
+                        - '2019-01-24T22:45:36.000Z'
+                      location:
+                        type: string
+                        format: uri
+                        examples:
+                        - https://api.notarize.com/scim/v1/organizations/or1234567/Users/us1234567
+                  operations:
+                    description: Set of operations to be performed
+                    type: array
+                    minItems: 1
+                    items:
+                      properties:
+                        op:
+                          type: string
+                          enum:
+                          - add
+                          - remove
+                          - replace
+                        path:
+                          type: string
+                        value:
+                          oneOf:
+                          - type: string
+                          - type: object
+                          - type: array
+                            items: {}
+                      required:
+                      - op
+                      type: object
+                    examples:
+                    - op: replace
+                      value:
+                        active: false
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                        primary:
+                          type: boolean
+                        display:
+                          type: string
+                required:
+                - id
+                - schemas
+                - emails
+                - active
+                - meta
+  /scim/v1/organizations/{organization_id}/ServiceProviderConfig:
+    get:
+      summary: Retrieve Service Provider Config
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: serviceProviderConfig
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization
+        required: true
+        x-example: or6no4od7
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Service Provider Config
+          content:
+            application/json:
+              example:
+                schemas:
+                - urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig
+                name: Service Provider Configuration
+                documentationUri: https://dev.notarize.com/
+                authenticationSchemes:
+                - type: apikey
+                  name: API Key Auth
+                  description: API key authorization bearer header
+                  documentationUri: https://dev.notarize.com/docs/authentication
+                  primary: true
+                patch:
+                  supported: true
+                bulk:
+                  supported: false
+                filter:
+                  supported: true
+                changePassword:
+                  supported: false
+                sort:
+                  supported: false
+                etag:
+                  supported: false
+                meta:
+                  location: https://api.local.dev-notarize.com/scim/v1/organizations/or6no4od7/ServiceProviderConfig
+                  resourceType: ServiceProviderConfig
+  /scim/v1/organizations/{organization_id}/Users:
+    get:
+      summary: List Users
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: listUser
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization
+        required: true
+        x-example: orod4mynk
+        schema:
+          type: string
+      - name: filter
+        in: query
+        required: false
+        description: Filter by userName. e.g. userName eq "example@example.com"
+        schema:
+          type: string
+      - name: startIndex
+        in: query
+        required: false
+        description: The 1-based index of the first result in the current set of list results
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        description: Non-negative integer. Specifies the desired maximum number of query results per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              example:
+                schemas:
+                - urn:ietf:params:scim:api:messages:2.0:ListResponse
+                totalResults: 2
+                startIndex: 1
+                itemsPerPage: 2
+                Resources:
+                - schemas:
+                  - urn:ietf:params:scim:schemas:core:2.0:User
+                  id: us3degrad
+                  externalId: null
+                  userName: marquita.875e32c3fc.kihn@bauch.example
+                  name:
+                    givenName: Marquita
+                    familyName: Kihn
+                  emails:
+                  - value: marquita.875e32c3fc.kihn@bauch.example
+                    primary: true
+                  roles:
+                  - value: owner
+                    primary: true
+                    display: Owner
+                  active: true
+                  meta:
+                    resourceType: User
+                    created: '2026-10-13T16:09:00Z'
+                    lastModified: '2026-10-13T16:09:00Z'
+                    location: https://api.local.dev-notarize.com/scim/v1/organizations/orod4mynk/Users/us3degrad
+                - schemas:
+                  - urn:ietf:params:scim:schemas:core:2.0:User
+                  id: uskn95y5n
+                  externalId: null
+                  userName: dubuque.262c7ec50b.julissa@cremin-koss.example
+                  name:
+                    givenName: Julissa
+                    familyName: DuBuque
+                  emails:
+                  - value: dubuque.262c7ec50b.julissa@cremin-koss.example
+                    primary: true
+                  roles:
+                  - value: employee
+                    primary: true
+                    display: Team Member
+                  active: true
+                  meta:
+                    resourceType: User
+                    created: '2026-10-13T16:09:00Z'
+                    lastModified: '2026-10-13T16:09:00Z'
+                    location: https://api.local.dev-notarize.com/scim/v1/organizations/orod4mynk/Users/uskn95y5n
+        '401':
+          description: Forbidden
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Organization Not Found
+  /scim/v1/organizations/{organization_id}/Users/:
+    post:
+      summary: Create User
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: createUser
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization to create the user under
+        required: true
+        x-example: orqnb8xn9
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              example:
+                schemas:
+                - urn:ietf:params:scim:schemas:core:2.0:User
+                id: usqdj3pjn
+                externalId: a7d0f98382
+                userName: test@proof.com
+                name:
+                  givenName: John
+                  familyName: Doe
+                emails:
+                - value: test@proof.com
+                  primary: true
+                roles:
+                - value: employee
+                  primary: true
+                  display: Team Member
+                active: true
+                meta:
+                  resourceType: User
+                  created: '2026-10-13T16:08:58Z'
+                  lastModified: '2026-10-13T16:08:58Z'
+                  location: https://api.local.dev-notarize.com/scim/v1/organizations/orqnb8xn9/Users/usqdj3pjn
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Email is invalid or missing
+        '401':
+          description: Forbidden
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Organization Not Found
+      requestBody:
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/user_creation_params'
+  /scim/v1/organizations/{organization_id}/Users/{user_id}:
+    get:
+      summary: Retrieve User
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: retrieveUser
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization
+        required: true
+        x-example: orrn666nq
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        description: ID of the user to retrieve
+        required: true
+        x-example: uskn95r5n
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              example:
+                schemas:
+                - urn:ietf:params:scim:schemas:core:2.0:User
+                id: uskn95r5n
+                externalId: null
+                userName: schoen.renato.7fa01b12ce@rosenbaum.test
+                name:
+                  givenName: Renato
+                  familyName: Schoen
+                emails:
+                - value: schoen.renato.7fa01b12ce@rosenbaum.test
+                  primary: true
+                roles:
+                - value: employee
+                  primary: true
+                  display: Team Member
+                active: true
+                meta:
+                  resourceType: User
+                  created: '2026-10-13T16:08:59Z'
+                  lastModified: '2026-10-13T16:08:59Z'
+                  location: https://api.local.dev-notarize.com/scim/v1/organizations/orrn666nq/Users/uskn95r5n
+        '401':
+          description: Forbidden
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - User Not Found
+    put:
+      summary: Replace User
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: replaceUser
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization
+        required: true
+        x-example: orznmj6da
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        description: ID of the user to replace
+        required: true
+        x-example: usgnkakmn
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Replace All Fields
+          content:
+            application/json:
+              example:
+                schemas:
+                - urn:ietf:params:scim:schemas:core:2.0:User
+                id: usgnkakmn
+                externalId: a7d0f98382
+                userName: 589975ea5b_simonis_jeannetta@langosh-keebler.test
+                name:
+                  givenName: John
+                  familyName: Doe
+                emails:
+                - value: 589975ea5b_simonis_jeannetta@langosh-keebler.test
+                  primary: true
+                roles:
+                - value: employee
+                  primary: true
+                  display: Team Member
+                active: true
+                meta:
+                  resourceType: User
+                  created: '2026-10-13T16:08:59Z'
+                  lastModified: '2026-10-13T16:08:59Z'
+                  location: https://api.local.dev-notarize.com/scim/v1/organizations/orznmj6da/Users/usgnkakmn
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Email is invalid or missing
+        '401':
+          description: Forbidden
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - User Not Found
+      requestBody:
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/user_creation_params'
+    patch:
+      summary: Update User
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: updateUser
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization
+        required: true
+        x-example: orqdj53nz
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        description: ID of the user to replace
+        required: true
+        x-example: usqdj37jn
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Update Roles Field
+          content:
+            application/json:
+              example:
+                schemas:
+                - urn:ietf:params:scim:schemas:core:2.0:User
+                id: usqdj37jn
+                externalId: null
+                userName: conroy_94d47307d1_alec@lehner-armstrong.test
+                name:
+                  givenName: Alec
+                  familyName: Conroy
+                emails:
+                - value: conroy_94d47307d1_alec@lehner-armstrong.test
+                  primary: true
+                roles:
+                - value: admin
+                  primary: true
+                  display: Admin
+                active: true
+                meta:
+                  resourceType: User
+                  created: '2026-10-13T16:09:00Z'
+                  lastModified: '2026-10-13T16:09:00Z'
+                  location: https://api.local.dev-notarize.com/scim/v1/organizations/orqdj53nz/Users/usqdj37jn
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Invalid operation: delete'
+        '401':
+          description: Forbidden
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - User Not Found
+      requestBody:
+        content:
+          application/scim+json:
+            schema:
+              type: object
+              properties:
+                Operations:
+                  type: array
+                  description: Set of operations to be performed
+                  items:
+                    type: object
+                    properties:
+                      op:
+                        type: string
+                        description: 'Can be one of: add, remove, replace'
+                      path:
+                        type: string
+                        description: Path to value in resource. Top level values ("name") and child values ("name.givenName") supported.
+                      value:
+                        type: object
+                        description: Can be an object, array, or string. Value may be dependent on "path"
+              example:
+                Operations:
+                - op: add
+                  value:
+                    roles:
+                    - value: admin
+        required: true
+        description: Set of operations to be performed
+    delete:
+      summary: Delete User
+      tags:
+      - SCIM
+      security:
+      - api_key: []
+      operationId: deleteUser
+      parameters:
+      - name: organization_id
+        in: path
+        description: ID of the organization
+        required: true
+        x-example: or3deqydg
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        description: ID of the user to delete
+        required: true
+        x-example: usgnka4mn
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Delete User
+        '401':
+          description: Forbidden
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - User Not Found
+        '422':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Organization member can't delete self
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+  schemas:
+    user_creation_params:
+      type: object
+      properties:
+        userName:
+          type: string
+          maxLength: 5000
+          description: Email address as username.
+        name:
+          type: object
+          properties:
+            givenName:
+              type: string
+              maxLength: 5000
+              description: The first name of the user
+            familyName:
+              type: string
+              maxLength: 5000
+              description: The last name of the user
+        emails:
+          type: array
+          description: List of user emails, only primary supported
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                maxLength: 5000
+                description: user primary email
+        roles:
+          type: array
+          description: List of user roles, only primary supported. One of “owner”, “admin” or “employee”
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                maxLength: 5000
+                description: user role
+        externalId:
+          type: string
+          maxLength: 5000
+          description: This identifier is generateda by the SAML provider, and is used as a unique ID by the SAML provider to match against a Proof user
+        active:
+          type: boolean
+          description: Used to indicate whether the identity is active (true) or deprovisioned (false).
+      required:
+      - userName
+      example:
+        userName: test@proof.com
+        name:
+          givenName: John
+          familyName: Doe
+        emails:
+        - value: test@proof.com
+        roles:
+        - value: employee
+        externalId: a7d0f98382
+        active: true
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/createuser.md
+  - https://dev.proof.com/reference/deleteuser.md
+  - https://dev.proof.com/reference/listuser.md
+  - https://dev.proof.com/reference/replaceuser.md
+  - https://dev.proof.com/reference/resourcetypes.md
+  - https://dev.proof.com/reference/retrieveuser.md
+  - https://dev.proof.com/reference/serviceproviderconfig.md
+  - https://dev.proof.com/reference/updateuser.md
+  - https://dev.proof.com/reference/userschema.md
+  merge:
+    pages: 9
+    deduped: 9
+    conflicts_kept_first: 0

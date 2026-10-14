@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-token-info-response-schema.json",
+  "title": "token_info_response",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/token_info_response",
+  "type": "object",
+  "properties": {
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "[Scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values granted to the access token."
+    },
+    "expires_in": {
+      "type": "integer",
+      "description": "Remaining access token lifetime, in seconds."
+    },
+    "application": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2) the access token was issued to."
+        }
+      }
+    },
+    "created_at": {
+      "type": "integer",
+      "description": "Issue time, as a Unix timestamp in seconds."
+    },
+    "iss": {
+      "type": "string",
+      "description": "The [`iss`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1) claim: the authorization server that issued the access token."
+    },
+    "aud": {
+      "type": "string",
+      "description": "The [`aud`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3) claim: the protected resource the access token was issued for. Present for resource-bound access tokens."
+    },
+    "sub": {
+      "type": "string",
+      "description": "The [`sub`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.2) claim: the subject the access token was issued for."
+    },
+    "sub_type": {
+      "type": "string",
+      "description": "The kind of subject `sub` identifies."
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address of the User the access token was issued for. Returned when the granted scopes cover it."
+    },
+    "given_name": {
+      "type": "string",
+      "description": "First name of the User the access token was issued for. Returned when the granted scopes cover it."
+    },
+    "family_name": {
+      "type": "string",
+      "description": "Last name of the User the access token was issued for. Returned when the granted scopes cover it."
+    }
+  }
+}

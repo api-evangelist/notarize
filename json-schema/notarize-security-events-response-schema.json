@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-security-events-response-schema.json",
+  "title": "security_events_response",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-logs-api-specification-openapi.yml#/components/schemas/security_events_response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/security_event_object"
+      }
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "next_cursor": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Cursor for fetching the next page of results"
+        },
+        "has_more": {
+          "type": "boolean",
+          "description": "Whether more results are available"
+        },
+        "count": {
+          "type": "integer",
+          "description": "Number of events in this response"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "security_event_object": {
+      "type": "object",
+      "properties": {
+        "class_uid": {
+          "type": "integer",
+          "description": "OCSF event class identifier"
+        },
+        "class_name": {
+          "type": "string",
+          "description": "OCSF event class name"
+        },
+        "activity_id": {
+          "type": "integer",
+          "description": "OCSF activity identifier"
+        },
+        "activity_name": {
+          "type": "string",
+          "description": "OCSF activity name"
+        },
+        "category_uid": {
+          "type": "integer",
+          "description": "OCSF category identifier"
+        },
+        "category_name": {
+          "type": "string",
+          "description": "OCSF category name"
+        },
+        "severity_id": {
+          "type": "integer",
+          "description": "OCSF severity identifier"
+        },
+        "severity": {
+          "type": "string",
+          "description": "OCSF severity label"
+        },
+        "type_uid": {
+          "type": "integer",
+          "description": "OCSF event type identifier"
+        },
+        "time": {
+          "type": "integer",
+          "description": "Event timestamp as Unix epoch"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "OCSF schema version"
+            },
+            "product": {
+              "type": "object",
+              "properties": {
+                "vendor_name": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

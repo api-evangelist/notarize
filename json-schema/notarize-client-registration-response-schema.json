@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-client-registration-response-schema.json",
+  "title": "client_registration_response",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/client_registration_response",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "The [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2) issued to the client."
+    },
+    "client_secret": {
+      "type": "string",
+      "description": "The client secret issued to the client. Returned in this response only."
+    },
+    "client_id_issued_at": {
+      "type": "integer",
+      "description": "Issue time of the `client_id`, as a Unix timestamp in seconds."
+    },
+    "client_secret_expires_at": {
+      "type": "integer",
+      "description": "Expiry of the `client_secret`, as a Unix timestamp in seconds. `0` marks a secret that lasts indefinitely."
+    },
+    "token_endpoint_auth_method": {
+      "type": "string",
+      "description": "The client authentication method the client uses at the token endpoint."
+    },
+    "grant_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Grant types the client may use."
+    },
+    "response_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Response types the client may use."
+    },
+    "scope": {
+      "type": "string",
+      "description": "Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values the client may request."
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Name of the registered client."
+    },
+    "redirect_uris": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Redirect URIs registered for the client."
+    },
+    "client_uri": {
+      "type": "string",
+      "description": "Echoed from the registration request."
+    },
+    "logo_uri": {
+      "type": "string",
+      "description": "Echoed from the registration request."
+    },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Echoed from the registration request."
+    },
+    "tos_uri": {
+      "type": "string",
+      "description": "Echoed from the registration request."
+    },
+    "policy_uri": {
+      "type": "string",
+      "description": "Echoed from the registration request."
+    },
+    "jwks_uri": {
+      "type": "string",
+      "description": "Echoed from the registration request."
+    },
+    "jwks": {
+      "type": "object",
+      "description": "Echoed from the registration request."
+    },
+    "software_id": {
+      "type": "string",
+      "description": "Echoed from the registration request."
+    },
+    "software_version": {
+      "type": "string",
+      "description": "Echoed from the registration request."
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-revocation-request-schema.json",
+  "title": "revocation_request",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/revocation_request",
+  "type": "object",
+  "required": [
+    "token"
+  ],
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "The access token or refresh token to revoke, issued to the authenticated client."
+    },
+    "token_type_hint": {
+      "type": "string",
+      "enum": [
+        "access_token",
+        "refresh_token"
+      ],
+      "description": "A [`token_type_hint`](https://datatracker.ietf.org/doc/html/rfc7009#section-2.1) for the submitted token."
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2)."
+    },
+    "client_secret": {
+      "type": "string",
+      "description": "Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication."
+    },
+    "client_assertion_type": {
+      "type": "string",
+      "enum": [
+        "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
+      ],
+      "description": "Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication."
+    },
+    "client_assertion": {
+      "type": "string",
+      "description": "A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`."
+    }
+  }
+}

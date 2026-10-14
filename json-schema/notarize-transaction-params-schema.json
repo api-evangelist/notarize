@@ -1,0 +1,1165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-transaction-params-schema.json",
+  "title": "transaction_params",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/transaction_params",
+  "type": "object",
+  "properties": {
+    "activation_time": {
+      "type": "string",
+      "maxLength": 100,
+      "description": "An ISO-8601 formatted DateTime String, optionally including a timezone offset. If timezone offset is not provided, the Proof account’s default timezone settings will be applied. This param sets the time after which the signer is permitted to connect with a notary to complete the transaction. If a signer attempts to connect with a notary before this time is reached, the signer will be only permitted to review documents."
+    },
+    "allowed_notary_states": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 2
+      },
+      "description": "An array of 2-letter US state abbreviations, e.g. [\"VA\",\"TX\"]. Replaces the set of states the transaction restricts notary routing to; pass an empty array to remove the restriction. Omitting the parameter leaves the current value unchanged. Must be enabled for your organization. Does not affect a meeting already requested by a signer."
+    },
+    "signer": {
+      "$ref": "#/$defs/signer"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/bundle_order"
+      }
+    },
+    "signers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signers"
+      },
+      "description": "An array of signer objects each with at minimum the email field set (limit 10 signers per transaction). The request to notarize the document will be sent to that email address."
+    },
+    "cosigner": {
+      "$ref": "#/$defs/cosigner"
+    },
+    "draft": {
+      "type": "boolean",
+      "description": "When set to true, the transaction will be created in a Draft state. This attribute is typically used when managing multi-document transactions. When the transaction is in draft state, transaction attributes can be modified and additional documents can be added to the bundle, using the documents API. To activate the transaction, the notarization_ready API endpoint must be called."
+    },
+    "expiry": {
+      "$ref": "#/$defs/expiry"
+    },
+    "payer": {
+      "type": "string",
+      "enum": [
+        "signer",
+        "sender"
+      ],
+      "description": "Possible values are `signer` or `sender`. If no value is supplied then the payer will be based on the api key's payer setting."
+    },
+    "external_id": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "A string representing an ID external to Proof's systems. Use this to associate a transaction to an ID that your systems understand, such as an Order ID or system GUID."
+    },
+    "transaction_name": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Short, human-readable name for the transaction - eg. Miguel's TPS notarization for Leeroy. Defaults to Untitled Transaction."
+    },
+    "message_to_signer": {
+      "type": "string",
+      "maxLength": 30000,
+      "description": "Message to signer using GitHub Flavored Markdown. Html, images, links, and code are stripped out. Can be used to provide instructions, thank customers, add additional context to the transaction, or simply to add a personal touch. The message will be added to the email sent to the signer. (30,000 character limit)"
+    },
+    "transaction_type": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Short, human-readable description of the transaction. Can be used to categorize transactions by their purpose or by general type — e.g. `Account Opening` or `Power of Attorney`."
+    },
+    "message_subject": {
+      "type": "string",
+      "maxLength": 30000,
+      "description": "Subject line of email to signer."
+    },
+    "message_signature": {
+      "type": "string",
+      "maxLength": 30000,
+      "description": "Signature in email to signer."
+    },
+    "pdf_bookmarked": {
+      "type": "boolean",
+      "description": "Split the document by bookmarks if it is a pdf"
+    },
+    "require_secondary_photo_id": {
+      "type": "boolean",
+      "description": "Certain businesses and transaction types may need signers to provide two forms of photo identification. This feature enables you to require two forms on a transaction. If true, the signer cannot proceed to the notary meeting without first providing two forms of photo ID during the Proof identity verification process. If false (default), the signer can proceed to notary meeting after providing one form of photo ID."
+    },
+    "suppress_email": {
+      "type": "boolean",
+      "description": "If sent as true during activation, Proof will not send a notification email to the signer when the transaction is activated. If you use this feature, you are responsible for providing the signer with the `transaction_access_link`. This value is not stored on the transaction and must be provided anytime the transaction is activated."
+    },
+    "authentication_requirement": {
+      "type": "string",
+      "enum": [
+        "sms",
+        "none"
+      ],
+      "description": "Additional authentication requirement for signers on the transaction. If SMS, a phone number must be provided for each signer."
+    },
+    "require_new_signer_verification": {
+      "type": "boolean",
+      "description": "When set to false, Proof will not require a new signer to verify their email address before moving into the transaction flow."
+    },
+    "notary_instructions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/notary_instructions"
+      },
+      "description": "Instructions for the Notarize Network notary."
+    },
+    "redirect": {
+      "$ref": "#/$defs/redirect"
+    },
+    "notary_id": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "User ID (\"us_xxxxxxx\") of the assigned Notary. Eligible notaries must be either a connected BYOT notary, or a BYON notary who is a member of your organization. Notary assignment is not a strict requirement. When this parameter is specified, the notary will be sent an SMS that the signer is about to enter the waiting room, but the notary can take any signer in the queue, and any available notary can take the signer."
+    },
+    "notary_meeting_time": {
+      "type": "string",
+      "maxLength": 100,
+      "format": "date-time",
+      "description": "An ISO-8061 formatted DateTime String, optionally including the timezone offset. Meeting time will be shown to signer in default emails. Proof will not prevent the signer or notary from starting the meeting at any other time."
+    },
+    "organization_id": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "The organization id of a child account. If the authenticated account has child accounts, specifying this parameter will create the transaction in the provided child org."
+    },
+    "document_url_version": {
+      "type": "string",
+      "description": "Optional param to test v2 document urls.",
+      "enum": [
+        "v1",
+        "v2"
+      ]
+    },
+    "cc_recipient_emails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cc_recipient_email"
+      },
+      "description": "An array of email addresses to CC on the transaction. They will receive notification when it is sent and completed and be able to view the completed documents."
+    },
+    "config_id": {
+      "type": "string",
+      "description": "The ID of the config used for this transaction. This will ensure that the transaction will load as expected in your dashboard if you need to make any edits. Once set this cannot be edited. Available values: [\"hybrid_purchase_buyer_loan\", \"hybrid_refinance\", \"hybrid_trailing_docs\", \"identify\", \"lender_heloc\", \"lender_loan_mod_borrower\", \"lender_refinance\", \"notarization\", \"other\", \"purchase_buyer\", \"purchase_buyer_loan\", \"purchase_seller\", \"real_estate_identify\", \"real_estate_sign\", \"real_estate_verify\", \"sign\", \"title_heloc\", \"title_loan_mod_borrower\", \"trailing_docs\", \"verify\"]"
+    },
+    "cost_center_id": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "The ID of the cost center to attribute this transaction to. Returned by the List Cost Centers endpoint. Omitting the parameter or sending null leaves the current value unchanged; a cost center cannot be removed."
+    },
+    "idv_use_case": {
+      "type": "string",
+      "maxLength": 50,
+      "enum": [
+        "STANDARD",
+        "ACCOUNT_RECOVERY"
+      ],
+      "description": "The identity verification use case for the transaction. Only available on identify transactions"
+    },
+    "recipient_details_config": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/recipient_details_config"
+      },
+      "description": "An array of recipient details configuration objects. This is used to configure the recipients experience"
+    }
+  },
+  "$defs": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "line1": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "House number and Street name"
+        },
+        "line2": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Unit number"
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Town name"
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 2,
+          "description": "Only two character state abbreviations are accepted. i.e. \"CO\"."
+        },
+        "postal": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Five or ten digit postal code."
+        },
+        "country": {
+          "type": "string",
+          "maxLength": 2,
+          "description": "Only two character country codes are accepted. i.e. \"US\"."
+        }
+      }
+    },
+    "bundle_order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "bundle_position": {
+          "$ref": "#/$defs/bundle_position"
+        }
+      }
+    },
+    "cc_recipient_email": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Email address of the recipient to be CC'd on the transaction."
+    },
+    "cosigner": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "First name"
+        },
+        "last_name": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Last name"
+        },
+        "signing_requirement": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "esign",
+            "identify",
+            "verify",
+            "screen"
+          ],
+          "description": "Override the document signing requirement for an individual signer."
+        }
+      }
+    },
+    "credential_asset_object": {
+      "type": "object",
+      "properties": {
+        "credential_type": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "secondary",
+            "selfie"
+          ]
+        },
+        "credential_images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/credential_image"
+          }
+        }
+      }
+    },
+    "credential_image": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "URL of the image"
+        },
+        "descriptor": {
+          "type": "string",
+          "enum": [
+            "back",
+            "front"
+          ]
+        }
+      }
+    },
+    "expiry": {
+      "type": "string",
+      "maxLength": 100,
+      "description": "An ISO-8601 formatted DateTime String, optionally including the timezone offset. If timezone offset is not provided, the account’s default timezone settings will be applied. This param sets time after which the signer is NOT permitted to complete the transaction. If a signer attempts to complete the transaction after this time is reached, they will receive an error. Expiration time is optional, and no default is set if this parameter is left blank. Any transaction that expires is no longer editable, and a new transaction must be created."
+    },
+    "id_allow_list_by_country": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "A dictionary of id allow lists by country code, e.g. { \"US\": [ \"driver_license\", \"passport\" ], \"CA\": [\"passport\"] }, where the key is a 2 digit ISO-3166 country code, and the value is an array of id types. Primary ID lists must only contain government IDs ([\"driver_license\", \"passport\", \"id_card\", \"passport_card\", \"work_permit\", \"permanent_resident_card\", \"matricula_consular\"]). Secondary ID lists can contain government IDs or supplemental documents ([\"driver_license\", \"passport\", \"id_card\", \"passport_card\", \"work_permit\", \"permanent_resident_card\", \"social_security_card\", \"us_visa\", \"birth_certificate\", \"property_tax_bill\", \"voter_registration_card\", \"organizational_membership_card\", \"bank_investment_loan_statement\", \"paycheck_stub\", \"property_insurance\", \"utility_bill\", \"other\", \"lease\", \"mortgage\", \"deed_of_trust\", \"vehicle_registration\"]). By default, validation is only run on the primary ID. Validation can be run on the secondary ID (if it is a government ID) by changing your organization's configuration. To use Proof's default ID options, use null, or do not pass this field."
+    },
+    "notary_instructions": {
+      "type": "object",
+      "properties": {
+        "notary_note": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "500 character limit."
+        }
+      }
+    },
+    "photo_validation_attempt": {
+      "type": "object",
+      "properties": {
+        "validation_source": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "enum": [
+            "lexis-flex",
+            "identity-verification-service",
+            "lexis",
+            "noop",
+            "persona",
+            "firebase",
+            null,
+            "none",
+            "notakred"
+          ]
+        },
+        "verified_at": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "An ISO-8601 formatted DateTime String."
+        },
+        "verification_method": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000
+        },
+        "images": {
+          "type": "object",
+          "properties": {
+            "front": {
+              "type": "string",
+              "maxLength": 5000
+            },
+            "back": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 5000
+            },
+            "selfie": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 5000
+            }
+          }
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "success",
+            "failure",
+            "unknown",
+            "skipped",
+            "pending",
+            "action_required",
+            "deleted"
+          ]
+        },
+        "document_address": {
+          "$ref": "#/$defs/address"
+        },
+        "document_claimed_type": {
+          "type": "string",
+          "enum": [
+            "bank_account_statement",
+            "bank_investment_loan_statement",
+            "birth_certificate",
+            "certificate_of_citizenship",
+            "citizen_id",
+            "credit_or_debit_card_statement",
+            "deed_of_trust",
+            "driver_license",
+            "foreigner_id",
+            "healthcare_insurance",
+            "i_94",
+            "id_card",
+            "internal_passport",
+            "keypass_id",
+            "lease",
+            "long_term_pass_card",
+            "matricula_consular",
+            "mortgage",
+            "municipal_id",
+            "my_number_card",
+            "nbi",
+            "nexus_card",
+            "ofw",
+            "organizational_membership_card",
+            "pan",
+            "passport",
+            "passport_card",
+            "paycheck_stub",
+            "permanent_resident_card",
+            "postal_id",
+            "property_insurance",
+            "property_tax_bill",
+            "residency_permit",
+            "school_id_card",
+            "seafarers_id",
+            "social_security_card",
+            "sss",
+            "tin",
+            "travel_document",
+            "tribal_id",
+            "umid",
+            "us_visa",
+            "utility_bill",
+            "vehicle_registration",
+            "voter_registration_card",
+            "work_permit",
+            "other",
+            "unknown"
+          ]
+        },
+        "document_classification": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000
+        },
+        "document_date_of_birth": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        },
+        "document_expiration_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        },
+        "document_first_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        },
+        "document_middle_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        },
+        "document_last_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        },
+        "document_issue_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        },
+        "document_issuer": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000
+        },
+        "document_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "failure_reasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": {
+                "type": "string",
+                "maxLength": 5000
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "aamva_failure",
+                  "fraud",
+                  "image_quality",
+                  "ineligible_id",
+                  "kba_mismatch",
+                  "not_classified",
+                  "user_action_required"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 5000
+                }
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "verification_type": {
+                "type": "string",
+                "enum": [
+                  "id",
+                  "selfie"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "proof_requirement": {
+      "type": "object",
+      "properties": {
+        "id_verification": {
+          "$ref": "#/$defs/proof_requirement_id_verification"
+        },
+        "knowledge_based_authentication": {
+          "type": "boolean",
+          "description": "(KBA) Signer answers a series of personal identity questions."
+        },
+        "multi_factor_authentication": {
+          "$ref": "#/$defs/proof_requirement_multi_factor_authentication"
+        }
+      },
+      "required": [
+        "knowledge_based_authentication"
+      ]
+    },
+    "proof_requirement_id_verification": {
+      "type": "object",
+      "properties": {
+        "selfie": {
+          "type": "boolean",
+          "description": "Signer identity is verified through credential analysis and selfie comparison. SMS multi_factor_authentication is required with this for IAL2 compliant identity verification."
+        }
+      },
+      "required": [
+        "selfie"
+      ]
+    },
+    "proof_requirement_multi_factor_authentication": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "sms"
+          ],
+          "description": "Signer enters authentication code sent to their mobile phone."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "recipient_details_config": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string",
+          "maxLength": 50,
+          "enum": [
+            "name"
+          ],
+          "description": "The field name"
+        },
+        "display": {
+          "type": "string",
+          "maxLength": 50,
+          "enum": [
+            "required",
+            "locked",
+            "optional",
+            "hidden"
+          ],
+          "description": "Property of the field"
+        }
+      }
+    },
+    "recipient_group": {
+      "type": "object",
+      "properties": {
+        "shared_inbox_email": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "The email address that is shared by a group.  Whomever has access to this email address can claim the transaction for themself."
+        }
+      }
+    },
+    "redirect": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Valid url to redirect the user to once the meeting is complete"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "The message to show the user when the redirect is shown"
+        }
+      }
+    },
+    "signer": {
+      "type": "object",
+      "properties": {
+        "signer_id": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Signer ID"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Email is required unless you provide a recipient_group object."
+        },
+        "first_name": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "First name"
+        },
+        "middle_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 30,
+          "description": "Middle name"
+        },
+        "last_name": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Last name"
+        },
+        "phone_number": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Signer phone number. A country code can be defined by using the `+` symbol. For example, `+11234567890` will set the country code to `+1` for the number `1234567890`. If no country code is specified the default will be the United States country code of `+1`."
+        },
+        "phone": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "country_code": {
+              "type": "string",
+              "maxLength": 10,
+              "description": "The country code for the phone number, e.g. 1"
+            },
+            "number": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "The phone number without the country code, e.g. 5551234567"
+            }
+          }
+        },
+        "address": {
+          "$ref": "#/$defs/address",
+          "description": "The most recent known address for the signer."
+        },
+        "dob": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "The signer's date of birth."
+        },
+        "capacity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "description": "The signers capacity when signing on behalf of an entity, required when entity is present"
+        },
+        "entity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "description": "Entity the signer is signing on behalf of, required when capacity is present"
+        },
+        "external_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "description": "A string representing an ID external to Proof's systems. Use this to associate a signer to an ID that your systems understand, such as a User ID."
+        },
+        "link_expired": {
+          "type": "boolean",
+          "description": "Indicates if the signer's passwordless link has expired."
+        },
+        "personally_known_to_notary": {
+          "type": "boolean",
+          "description": "If the signer is personally known to the notary. This can currently only be used on single signer transactions, or when the notary_id is specified on the signer."
+        },
+        "proof_requirement": {
+          "$ref": "#/$defs/proof_requirement",
+          "nullable": true,
+          "description": "Add enhanced checks to validate a signer's identity to create a Proof transaction. Reach out to your customer success team to enable if not yet available."
+        },
+        "recipient_group": {
+          "$ref": "#/$defs/recipient_group",
+          "nullable": true,
+          "description": "Use this to send to a group that will be able to claim the transaction. This would be used in place of email and name properties."
+        },
+        "sdk_token": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "description": "Equivalent to transaction_access_link; prefer using that instead."
+        },
+        "signatory_capacities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "capacity": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "attorney_in_fact",
+                  "corporate_officer",
+                  "guardian_or_conservator",
+                  "general_partner",
+                  "limited_partner",
+                  "trustee",
+                  "other"
+                ]
+              },
+              "representative_of": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "An array of signatory capacities for the signer when signing on behalf of multiple entities."
+        },
+        "primary_id_allow_list_by_country": {
+          "$ref": "#/$defs/id_allow_list_by_country"
+        },
+        "secondary_id_allow_list_by_country": {
+          "$ref": "#/$defs/id_allow_list_by_country"
+        },
+        "signing_requirement": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "esign",
+            "identify",
+            "verify",
+            "screen"
+          ],
+          "description": "Override the document signing requirement for an individual signer."
+        },
+        "signing_status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "incomplete",
+            "in_progress",
+            "complete"
+          ]
+        },
+        "transaction_access_link": {
+          "type": "string",
+          "description": "A link to the transaction for this signer."
+        },
+        "vesting_type": {
+          "type": "string",
+          "enum": [
+            "borrower",
+            "non_borrower"
+          ],
+          "description": "Can be either `borrower` or `non_borrower`. Defaults to `borrower`."
+        },
+        "skip_landing_page": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "If true, skip the landing page the user will see before beginning verification"
+        },
+        "credential_assets": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/credential_asset_object"
+          }
+        },
+        "esign_authentication_records": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/photo_validation_attempt"
+          }
+        },
+        "notary_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "description": "User ID (\"us_xxxxxxx\") of the assigned Notary or \"notarize\". Eligible notaries must be a notary who is a member of your organization. Order must be utilized with this field, all notarization signers with the same order must have the same notary_id."
+        },
+        "order": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Order the signers will sign in. Should be positive numbers starting with 1. Setting to the same order as another signer indicates they will sign at the same time."
+        },
+        "suppress_communications": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "all"
+          ],
+          "description": "Suppress Proof communications to this signer. Only \"all\" is currently supported."
+        },
+        "verify_tool_configuration": {
+          "$ref": "#/$defs/verify_tool_configuration",
+          "nullable": true,
+          "description": "Signer verify tool configuration for transactions with a verify signing requirement."
+        }
+      },
+      "required": [
+        "email"
+      ]
+    },
+    "signers": {
+      "type": "object",
+      "properties": {
+        "signer_id": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Signer ID"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Email is required unless you provide a recipient_group object."
+        },
+        "first_name": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "First name"
+        },
+        "middle_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 30,
+          "description": "Middle name"
+        },
+        "last_name": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Last name"
+        },
+        "phone_number": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Signer phone number. A country code can be defined by using the `+` symbol. For example, `+11234567890` will set the country code to `+1` for the number `1234567890`. If no country code is specified the default will be the United States country code of `+1`."
+        },
+        "phone": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "country_code": {
+              "type": "string",
+              "maxLength": 10,
+              "description": "The country code for the phone number, e.g. 1"
+            },
+            "number": {
+              "type": "string",
+              "maxLength": 20,
+              "description": "The phone number without the country code, e.g. 5551234567"
+            }
+          }
+        },
+        "address": {
+          "$ref": "#/$defs/address",
+          "description": "The most recent known address for the signer."
+        },
+        "dob": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "The signer's date of birth."
+        },
+        "capacity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "description": "The signers capacity when signing on behalf of an entity, required when entity is present"
+        },
+        "entity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "description": "Entity the signer is signing on behalf of, required when capacity is present"
+        },
+        "external_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "description": "A string representing an ID external to Proof's systems. Use this to associate a signer to an ID that your systems understand, such as a User ID."
+        },
+        "link_expired": {
+          "type": "boolean",
+          "description": "Indicates if the signer's passwordless link has expired."
+        },
+        "personally_known_to_notary": {
+          "type": "boolean",
+          "description": "If the signer is personally known to the notary. This can currently only be used on single signer transactions, or when the notary_id is specified on the signer."
+        },
+        "proof_requirement": {
+          "$ref": "#/$defs/proof_requirement",
+          "nullable": true,
+          "description": "Add enhanced checks to validate a signer's identity to create a Proof transaction. Reach out to your customer success team to enable if not yet available."
+        },
+        "recipient_group": {
+          "$ref": "#/$defs/recipient_group",
+          "nullable": true,
+          "description": "Use this to send to a group that will be able to claim the transaction. This would be used in place of email and name properties."
+        },
+        "sdk_token": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 5000,
+          "description": "Equivalent to transaction_access_link; prefer using that instead."
+        },
+        "signatory_capacities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "capacity": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "attorney_in_fact",
+                  "corporate_officer",
+                  "guardian_or_conservator",
+                  "general_partner",
+                  "limited_partner",
+                  "trustee",
+                  "other"
+                ]
+              },
+              "representative_of": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "An array of signatory capacities for the signer when signing on behalf of multiple entities."
+        },
+        "primary_id_allow_list_by_country": {
+          "$ref": "#/$defs/id_allow_list_by_country"
+        },
+        "secondary_id_allow_list_by_country": {
+          "$ref": "#/$defs/id_allow_list_by_country"
+        },
+        "signing_requirement": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "esign",
+            "identify",
+            "verify",
+            "screen"
+          ],
+          "description": "Override the document signing requirement for an individual signer."
+        },
+        "signing_status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "incomplete",
+            "in_progress",
+            "complete"
+          ]
+        },
+        "transaction_access_link": {
+          "type": "string",
+          "description": "A link to the transaction for this signer."
+        },
+        "vesting_type": {
+          "type": "string",
+          "enum": [
+            "borrower",
+            "non_borrower"
+          ],
+          "description": "Can be either `borrower` or `non_borrower`. Defaults to `borrower`."
+        },
+        "skip_landing_page": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "If true, skip the landing page the user will see before beginning verification"
+        },
+        "credential_assets": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/credential_asset_object"
+          }
+        },
+        "esign_authentication_records": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/photo_validation_attempt"
+          }
+        },
+        "order": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Order the signers will sign in. Should be positive numbers starting with 1. Setting to the same order as another signer indicates they will sign at the same time."
+        },
+        "notary_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "description": "User ID (\"us_xxxxxxx\") of the assigned Notary or \"notarize\". Eligible notaries must be a notary who is a member of your organization. Order must be utilized with this field, all notarization signers with the same order must have the same notary_id."
+        },
+        "suppress_communications": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "all"
+          ],
+          "description": "Suppress Proof communications to this signer. Only \"all\" is currently supported."
+        },
+        "verify_tool_configuration": {
+          "$ref": "#/$defs/verify_tool_configuration",
+          "nullable": true,
+          "description": "Signer verify tool configuration for transactions with a verify signing requirement."
+        }
+      }
+    },
+    "verify_tool_configuration": {
+      "type": "object",
+      "properties": {
+        "credit_card_config": {
+          "$ref": "#/$defs/verify_tool_requirement"
+        },
+        "selfie_config": {
+          "$ref": "#/$defs/verify_tool_requirement"
+        },
+        "credential_analysis_config": {
+          "$ref": "#/$defs/verify_tool_requirement"
+        }
+      }
+    },
+    "verify_tool_requirement": {
+      "type": "object",
+      "properties": {
+        "requirement": {
+          "type": "string",
+          "enum": [
+            "run",
+            "pass",
+            "none"
+          ],
+          "description": "Setting indicating whether or not the verify tool will be required to run or pass, or both"
+        },
+        "available": {
+          "type": "boolean",
+          "description": "Whether this verify tool is available for the transaction."
+        }
+      },
+      "required": [
+        "requirement"
+      ]
+    }
+  }
+}

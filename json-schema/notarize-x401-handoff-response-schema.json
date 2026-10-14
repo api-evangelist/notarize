@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-x401-handoff-response-schema.json",
+  "title": "x401_handoff_response",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-proof-verifiable-credentials-api-specification-openapi.yml#/components/schemas/x401_handoff_response",
+  "type": "object",
+  "properties": {
+    "request_uri": {
+      "type": "string",
+      "description": "A link to the Proof-hosted flow where the End-User authorizes the Verifiable Credential Presentation."
+    },
+    "result_polling_uri": {
+      "type": "string",
+      "description": "Only present when the request object's `expected_origins` is the agents trust list and `return_uri` is omitted. Poll this URI with the same `agentic` access token to retrieve the Verifiable Credential Presentation once the End-User completes the flow."
+    }
+  }
+}

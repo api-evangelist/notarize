@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-authorization-server-metadata-schema.json",
+  "title": "authorization_server_metadata",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/authorization_server_metadata",
+  "type": "object",
+  "properties": {
+    "issuer": {
+      "type": "string",
+      "description": "Identifier of the authorization server."
+    },
+    "authorization_endpoint": {
+      "type": "string",
+      "description": "URL of the [authorization endpoint](https://datatracker.ietf.org/doc/html/rfc6749#section-3.1)."
+    },
+    "token_endpoint": {
+      "type": "string",
+      "description": "URL of the [token endpoint](https://datatracker.ietf.org/doc/html/rfc6749#section-3.2)."
+    },
+    "registration_endpoint": {
+      "type": "string",
+      "description": "URL of the [client registration endpoint](https://datatracker.ietf.org/doc/html/rfc7591#section-3). Present when Dynamic Client Registration is available."
+    },
+    "revocation_endpoint": {
+      "type": "string",
+      "description": "URL of the [revocation endpoint](https://datatracker.ietf.org/doc/html/rfc7009#section-2)."
+    },
+    "introspection_endpoint": {
+      "type": "string",
+      "description": "URL of the [introspection endpoint](https://datatracker.ietf.org/doc/html/rfc7662#section-2)."
+    },
+    "jwks_uri": {
+      "type": "string",
+      "description": "URL of the [JWK Set](https://datatracker.ietf.org/doc/html/rfc7517#section-5) holding the keys of the authorization server."
+    },
+    "scopes_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Scopes the token endpoint supports."
+    },
+    "response_types_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Response types the authorization endpoint supports."
+    },
+    "response_modes_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "[Response modes](https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes) the authorization endpoint supports."
+    },
+    "grant_types_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Grant types the token endpoint supports."
+    },
+    "token_endpoint_auth_methods_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Client authentication methods the token endpoint supports."
+    },
+    "token_endpoint_auth_signing_alg_values_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JWS signing algorithms the token endpoint accepts for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client assertions."
+    },
+    "revocation_endpoint_auth_methods_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Client authentication methods the revocation endpoint supports."
+    },
+    "revocation_endpoint_auth_signing_alg_values_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JWS signing algorithms the revocation endpoint accepts for `private_key_jwt` client assertions."
+    },
+    "introspection_endpoint_auth_methods_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Client authentication methods the introspection endpoint supports."
+    },
+    "introspection_endpoint_auth_signing_alg_values_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JWS signing algorithms the introspection endpoint accepts for `private_key_jwt` client assertions."
+    },
+    "code_challenge_methods_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "[PKCE](https://datatracker.ietf.org/doc/html/rfc7636#section-4.2) code challenge methods the authorization endpoint supports."
+    },
+    "client_id_metadata_document_supported": {
+      "type": "boolean",
+      "description": "Whether the authorization server accepts [Client ID Metadata Documents](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document), an HTTPS URL used as the `client_id`."
+    },
+    "authorization_response_iss_parameter_supported": {
+      "type": "boolean",
+      "description": "Whether authorization responses carry the [`iss` parameter](https://datatracker.ietf.org/doc/html/rfc9207#section-2) identifying this authorization server. Compare it to `issuer` before using the `code`."
+    }
+  }
+}

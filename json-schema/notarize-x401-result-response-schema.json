@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-x401-result-response-schema.json",
+  "title": "x401_result_response",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-proof-verifiable-credentials-api-specification-openapi.yml#/components/schemas/x401_result_response",
+  "type": "object",
+  "required": [
+    "status"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed"
+      ],
+      "description": "`pending` while the End-User has not completed the flow, `completed` once the presentation is available."
+    },
+    "credential_result": {
+      "type": "object",
+      "description": "Only present when `status` is `completed`. Use it as the `credential_result` member of an x401 Result Artifact (https://x401.proof.com/spec/latest/).",
+      "required": [
+        "protocol",
+        "data"
+      ],
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "openid4vp-v1-signed"
+          ]
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "vp_token"
+          ],
+          "properties": {
+            "vp_token": {
+              "type": "string",
+              "description": "The OID4VP `vp_token`, as Proof would have posted it to a `response_uri`."
+            }
+          }
+        }
+      }
+    }
+  }
+}

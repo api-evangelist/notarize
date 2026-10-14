@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-document-update-params-schema.json",
+  "title": "document_update_params",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-proof-real-estate-api-specification-openapi.yml#/components/schemas/document_update_params",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Modified document name."
+    },
+    "tracking_id": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "External tracking identifier such as a UUID string that can be useful for mapping documents back to your own system."
+    },
+    "requirement": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements."
+    },
+    "customer_can_annotate": {
+      "type": "boolean",
+      "description": "Boolean flag indicating whether a signer can add their own annotations onto the document. Defaults to false, limiting the signer to only filling\nout designated fields setup on the document or as directed by a notary."
+    },
+    "notarization_required": {
+      "type": "boolean",
+      "description": "Boolean flag indicating whether the document requires notarization. If `true`, identity_confirmation_required must be `false`. If `false`, the document may still be e-signed in the notary meeting. At least one document in a transaction must require notarization or identity confirmation."
+    },
+    "identity_confirmation_required": {
+      "type": "boolean",
+      "description": "[Enterprise feature.](https://dev.proof.com/docs/enterprise-features) Boolean flag indicating whether the document requires identity confirmation. If true, notarization_required must be false. At least one document in a transaction must require notarization or identity confirmation."
+    },
+    "witness_required": {
+      "type": "boolean",
+      "description": "Boolean flag indicating whether an additional witness must be present. This witness is a third person, in addition to the signer and the notary, who must be physically located with the signer. If `true`, this witness must be present. If `false`, no witness is required."
+    },
+    "authorization_header": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Used to fetch doc URLs. Value passed should be in the form of a key-value pair with format \"header_name:header_value\""
+    }
+  }
+}

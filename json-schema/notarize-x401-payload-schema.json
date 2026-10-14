@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/notarize/main/json-schema/notarize-x401-payload-schema.json",
+  "title": "x401_payload",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/notarize-proof-verifiable-credentials-api-specification-openapi.yml#/components/schemas/x401_payload",
+  "type": "object",
+  "required": [
+    "credential_requirements"
+  ],
+  "properties": {
+    "credential_requirements": {
+      "type": "object",
+      "required": [
+        "digital"
+      ],
+      "properties": {
+        "digital": {
+          "type": "object",
+          "required": [
+            "requests"
+          ],
+          "properties": {
+            "requests": {
+              "type": "array",
+              "description": "Must contain exactly one Digital Credentials API request.",
+              "items": {
+                "type": "object",
+                "required": [
+                  "protocol",
+                  "data"
+                ],
+                "properties": {
+                  "protocol": {
+                    "type": "string",
+                    "enum": [
+                      "openid4vp-v1-signed"
+                    ],
+                    "description": "The DC API protocol. Only the signed variant `openid4vp-v1-signed` is supported."
+                  },
+                  "data": {
+                    "type": "object",
+                    "required": [
+                      "request"
+                    ],
+                    "properties": {
+                      "request": {
+                        "type": "string",
+                        "description": "The signed OID4VP request object (a JAR), as a compact JWS. It MUST have `typ` header `oauth-authz-req+jwt`, be signed with ES256 by a key whose JWK is registered on your OAuth Application, and carry the OID4VP request claims: `iss` (equal to `client_id`), `aud` (the Proof presentation issuer), `client_id`, `response_type` (`vp_token`), `response_mode` (`dc_api`), `scope`, `login_hint`, and `nonce`. For the intermediary flow, also include `expected_origins`. To let AI agents poll for the result instead, set `expected_origins` to exactly the agents trust list (`/.well-known/agents-trust-list` on this API host) and omit `response_uri`."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "return_uri": {
+      "type": "string",
+      "description": "Optional. Enables the x401 intermediary return channel (https://x401.proof.com/spec/latest/#return-channel). When present, Proof POSTs the Verifiable Credential Presentation to this URI instead of the request object's `response_uri`. Its origin must be listed in the request object's `expected_origins`, and the request object must not itself specify a `response_uri`. Omit it when the request object's `expected_origins` is the agents trust list: Proof then keeps the result for the calling agent to poll at `result_polling_uri`."
+    }
+  }
+}

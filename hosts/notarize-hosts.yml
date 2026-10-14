@@ -1,0 +1,90 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 7
+  own: 6
+  other_domain: 0
+  platform: 1
+  roles:
+  - api
+  - identity
+  - other
+  - portal
+  - source
+  - status
+  - website
+hosts:
+- host: api.proof.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: proof.com
+  role: api
+  relation: own
+- host: app.proof.com
+  found_by:
+  - pointer
+  types:
+  - SignUp
+  serves: []
+  registrable_domain: proof.com
+  role: identity
+  relation: own
+- host: dev.proof.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  serves:
+  - docs
+  registrable_domain: proof.com
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: security.proof.com
+  found_by:
+  - pointer
+  types:
+  - Compliance
+  serves: []
+  registrable_domain: proof.com
+  role: other
+  relation: own
+- host: status.proof.com
+  found_by:
+  - pointer
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: proof.com
+  role: status
+  relation: own
+- host: www.proof.com
+  found_by:
+  - pointer
+  types:
+  - BlogRSS
+  - Website
+  - Blog
+  - Pricing
+  - PrivacyPolicy
+  serves: []
+  registrable_domain: proof.com
+  role: website
+  relation: own

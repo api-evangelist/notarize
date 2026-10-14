@@ -1,0 +1,1360 @@
+{
+  "@context": {
+    "@vocab": "https://proof.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "notarize": "https://proof.com/schema#",
+    "errors_object": "notarize:errors_object",
+    "errors": {
+      "@id": "notarize:errors",
+      "@container": "@list"
+    },
+    "security_event_object": "notarize:security_event_object",
+    "class_uid": {
+      "@id": "notarize:class_uid",
+      "@type": "xsd:integer"
+    },
+    "class_name": {
+      "@id": "notarize:class_name",
+      "@type": "xsd:string"
+    },
+    "activity_id": {
+      "@id": "notarize:activity_id",
+      "@type": "xsd:integer"
+    },
+    "activity_name": {
+      "@id": "notarize:activity_name",
+      "@type": "xsd:string"
+    },
+    "category_uid": {
+      "@id": "notarize:category_uid",
+      "@type": "xsd:integer"
+    },
+    "category_name": {
+      "@id": "notarize:category_name",
+      "@type": "xsd:string"
+    },
+    "severity_id": {
+      "@id": "notarize:severity_id",
+      "@type": "xsd:integer"
+    },
+    "severity": {
+      "@id": "notarize:severity",
+      "@type": "xsd:string"
+    },
+    "type_uid": {
+      "@id": "notarize:type_uid",
+      "@type": "xsd:integer"
+    },
+    "time": {
+      "@id": "notarize:time",
+      "@type": "xsd:integer"
+    },
+    "metadata": {
+      "@id": "notarize:metadata"
+    },
+    "security_events_response": "notarize:security_events_response",
+    "data": {
+      "@id": "notarize:data",
+      "@container": "@list"
+    },
+    "meta": {
+      "@id": "notarize:meta"
+    },
+    "authorization_server_metadata": "notarize:authorization_server_metadata",
+    "issuer": {
+      "@id": "notarize:issuer",
+      "@type": "xsd:string"
+    },
+    "authorization_endpoint": {
+      "@id": "notarize:authorization_endpoint",
+      "@type": "xsd:string"
+    },
+    "token_endpoint": {
+      "@id": "notarize:token_endpoint",
+      "@type": "xsd:string"
+    },
+    "registration_endpoint": {
+      "@id": "notarize:registration_endpoint",
+      "@type": "xsd:string"
+    },
+    "revocation_endpoint": {
+      "@id": "notarize:revocation_endpoint",
+      "@type": "xsd:string"
+    },
+    "introspection_endpoint": {
+      "@id": "notarize:introspection_endpoint",
+      "@type": "xsd:string"
+    },
+    "jwks_uri": {
+      "@id": "notarize:jwks_uri",
+      "@type": "xsd:string"
+    },
+    "scopes_supported": {
+      "@id": "notarize:scopes_supported",
+      "@container": "@list"
+    },
+    "response_types_supported": {
+      "@id": "notarize:response_types_supported",
+      "@container": "@list"
+    },
+    "response_modes_supported": {
+      "@id": "notarize:response_modes_supported",
+      "@container": "@list"
+    },
+    "grant_types_supported": {
+      "@id": "notarize:grant_types_supported",
+      "@container": "@list"
+    },
+    "token_endpoint_auth_methods_supported": {
+      "@id": "notarize:token_endpoint_auth_methods_supported",
+      "@container": "@list"
+    },
+    "token_endpoint_auth_signing_alg_values_supported": {
+      "@id": "notarize:token_endpoint_auth_signing_alg_values_supported",
+      "@container": "@list"
+    },
+    "revocation_endpoint_auth_methods_supported": {
+      "@id": "notarize:revocation_endpoint_auth_methods_supported",
+      "@container": "@list"
+    },
+    "revocation_endpoint_auth_signing_alg_values_supported": {
+      "@id": "notarize:revocation_endpoint_auth_signing_alg_values_supported",
+      "@container": "@list"
+    },
+    "introspection_endpoint_auth_methods_supported": {
+      "@id": "notarize:introspection_endpoint_auth_methods_supported",
+      "@container": "@list"
+    },
+    "introspection_endpoint_auth_signing_alg_values_supported": {
+      "@id": "notarize:introspection_endpoint_auth_signing_alg_values_supported",
+      "@container": "@list"
+    },
+    "code_challenge_methods_supported": {
+      "@id": "notarize:code_challenge_methods_supported",
+      "@container": "@list"
+    },
+    "client_id_metadata_document_supported": {
+      "@id": "notarize:client_id_metadata_document_supported",
+      "@type": "xsd:boolean"
+    },
+    "authorization_response_iss_parameter_supported": {
+      "@id": "notarize:authorization_response_iss_parameter_supported",
+      "@type": "xsd:boolean"
+    },
+    "oauth_error": "notarize:oauth_error",
+    "error": {
+      "@id": "notarize:error",
+      "@type": "xsd:string"
+    },
+    "error_description": {
+      "@id": "notarize:error_description",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "notarize:state",
+      "@type": "xsd:string"
+    },
+    "client_registration_request": "notarize:client_registration_request",
+    "redirect_uris": {
+      "@id": "notarize:redirect_uris",
+      "@container": "@list"
+    },
+    "client_name": {
+      "@id": "notarize:client_name",
+      "@type": "xsd:string"
+    },
+    "client_uri": {
+      "@id": "notarize:client_uri",
+      "@type": "xsd:string"
+    },
+    "logo_uri": {
+      "@id": "notarize:logo_uri",
+      "@type": "xsd:string"
+    },
+    "contacts": {
+      "@id": "notarize:contacts",
+      "@container": "@list"
+    },
+    "tos_uri": {
+      "@id": "notarize:tos_uri",
+      "@type": "xsd:string"
+    },
+    "policy_uri": {
+      "@id": "notarize:policy_uri",
+      "@type": "xsd:string"
+    },
+    "jwks": {
+      "@id": "notarize:jwks"
+    },
+    "software_id": {
+      "@id": "notarize:software_id",
+      "@type": "xsd:string"
+    },
+    "software_version": {
+      "@id": "notarize:software_version",
+      "@type": "xsd:string"
+    },
+    "token_endpoint_auth_method": {
+      "@id": "notarize:token_endpoint_auth_method",
+      "@type": "xsd:string"
+    },
+    "client_registration_response": "notarize:client_registration_response",
+    "client_id": {
+      "@id": "notarize:client_id",
+      "@type": "xsd:string"
+    },
+    "client_secret": {
+      "@id": "notarize:client_secret",
+      "@type": "xsd:string"
+    },
+    "client_id_issued_at": {
+      "@id": "notarize:client_id_issued_at",
+      "@type": "xsd:integer"
+    },
+    "client_secret_expires_at": {
+      "@id": "notarize:client_secret_expires_at",
+      "@type": "xsd:integer"
+    },
+    "grant_types": {
+      "@id": "notarize:grant_types",
+      "@container": "@list"
+    },
+    "response_types": {
+      "@id": "notarize:response_types",
+      "@container": "@list"
+    },
+    "scope": {
+      "@id": "notarize:scope",
+      "@type": "xsd:string"
+    },
+    "token_info_response": "notarize:token_info_response",
+    "expires_in": {
+      "@id": "notarize:expires_in",
+      "@type": "xsd:integer"
+    },
+    "application": {
+      "@id": "notarize:application"
+    },
+    "created_at": {
+      "@id": "notarize:created_at",
+      "@type": "xsd:integer"
+    },
+    "iss": {
+      "@id": "notarize:iss",
+      "@type": "xsd:string"
+    },
+    "aud": {
+      "@id": "notarize:aud",
+      "@type": "xsd:string"
+    },
+    "sub": {
+      "@id": "notarize:sub",
+      "@type": "xsd:string"
+    },
+    "sub_type": {
+      "@id": "notarize:sub_type",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "notarize:email",
+      "@type": "xsd:string"
+    },
+    "given_name": {
+      "@id": "notarize:given_name",
+      "@type": "xsd:string"
+    },
+    "family_name": {
+      "@id": "notarize:family_name",
+      "@type": "xsd:string"
+    },
+    "client_credentials_token_request": "notarize:client_credentials_token_request",
+    "grant_type": {
+      "@id": "notarize:grant_type",
+      "@type": "xsd:string"
+    },
+    "client_assertion_type": {
+      "@id": "notarize:client_assertion_type",
+      "@type": "xsd:string"
+    },
+    "client_assertion": {
+      "@id": "notarize:client_assertion",
+      "@type": "xsd:string"
+    },
+    "authorization_code_token_request": "notarize:authorization_code_token_request",
+    "code": {
+      "@id": "notarize:code",
+      "@type": "xsd:string"
+    },
+    "redirect_uri": {
+      "@id": "notarize:redirect_uri",
+      "@type": "xsd:string"
+    },
+    "code_verifier": {
+      "@id": "notarize:code_verifier",
+      "@type": "xsd:string"
+    },
+    "refresh_token_token_request": "notarize:refresh_token_token_request",
+    "refresh_token": {
+      "@id": "notarize:refresh_token",
+      "@type": "xsd:string"
+    },
+    "token_response": "notarize:token_response",
+    "access_token": {
+      "@id": "notarize:access_token",
+      "@type": "xsd:string"
+    },
+    "token_type": {
+      "@id": "notarize:token_type",
+      "@type": "xsd:string"
+    },
+    "revocation_request": "notarize:revocation_request",
+    "token": {
+      "@id": "notarize:token",
+      "@type": "xsd:string"
+    },
+    "token_type_hint": {
+      "@id": "notarize:token_type_hint",
+      "@type": "xsd:string"
+    },
+    "introspection_request": "notarize:introspection_request",
+    "introspection_response": "notarize:introspection_response",
+    "active": {
+      "@id": "notarize:active",
+      "@type": "xsd:boolean"
+    },
+    "iat": {
+      "@id": "notarize:iat",
+      "@type": "xsd:integer"
+    },
+    "exp": {
+      "@id": "notarize:exp",
+      "@type": "xsd:integer"
+    },
+    "cost_center_object": "notarize:cost_center_object",
+    "id": {
+      "@id": "notarize:id",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "notarize:name",
+      "@type": "xsd:string"
+    },
+    "internal_id": {
+      "@id": "notarize:internal_id",
+      "@type": "xsd:string"
+    },
+    "cost_center_objects": "notarize:cost_center_objects",
+    "cost_centers": {
+      "@id": "notarize:cost_centers",
+      "@container": "@list"
+    },
+    "total_count": {
+      "@id": "notarize:total_count",
+      "@type": "xsd:integer"
+    },
+    "document": "notarize:document",
+    "allowed_actions": {
+      "@id": "notarize:allowed_actions",
+      "@container": "@list"
+    },
+    "bundle_position": {
+      "@id": "notarize:bundle_position",
+      "@type": "xsd:integer"
+    },
+    "completion_state": {
+      "@id": "notarize:completion_state",
+      "@type": "xsd:string"
+    },
+    "date_created": {
+      "@id": "notarize:date_created",
+      "@type": "xsd:string"
+    },
+    "date_updated": {
+      "@id": "notarize:date_updated",
+      "@type": "xsd:string"
+    },
+    "document_name": {
+      "@id": "notarize:document_name",
+      "@type": "xsd:string"
+    },
+    "esign_required": {
+      "@id": "notarize:esign_required",
+      "@type": "xsd:boolean"
+    },
+    "final_document_url": {
+      "@id": "notarize:final_document_url",
+      "@type": "xsd:string"
+    },
+    "identification_reviewed": {
+      "@id": "notarize:identification_reviewed",
+      "@type": "xsd:boolean"
+    },
+    "identity_confirmation_required": {
+      "@id": "notarize:identity_confirmation_required",
+      "@type": "xsd:boolean"
+    },
+    "is_enote": {
+      "@id": "notarize:is_enote",
+      "@type": "xsd:boolean"
+    },
+    "notarization_required": {
+      "@id": "notarize:notarization_required",
+      "@type": "xsd:boolean"
+    },
+    "permissions": {
+      "@id": "notarize:permissions",
+      "@container": "@list"
+    },
+    "processing_error": {
+      "@id": "notarize:processing_error",
+      "@type": "xsd:string"
+    },
+    "processing_state": {
+      "@id": "notarize:processing_state",
+      "@type": "xsd:string"
+    },
+    "rejection_anecdote": {
+      "@id": "notarize:rejection_anecdote",
+      "@type": "xsd:string"
+    },
+    "rejection_reason": {
+      "@id": "notarize:rejection_reason",
+      "@type": "xsd:string"
+    },
+    "requirement": {
+      "@id": "notarize:requirement",
+      "@type": "xsd:string"
+    },
+    "signed_url": {
+      "@id": "notarize:signed_url",
+      "@type": "xsd:string"
+    },
+    "signing_designation_groups": {
+      "@id": "notarize:signing_designation_groups",
+      "@container": "@list"
+    },
+    "signing_designations": {
+      "@id": "notarize:signing_designations",
+      "@container": "@list"
+    },
+    "signing_type": {
+      "@id": "notarize:signing_type",
+      "@type": "xsd:string"
+    },
+    "tracking_id": {
+      "@id": "notarize:tracking_id",
+      "@type": "xsd:string"
+    },
+    "vaulted": {
+      "@id": "notarize:vaulted",
+      "@type": "xsd:boolean"
+    },
+    "signing_designation_group": "notarize:signing_designation_group",
+    "min_required": {
+      "@id": "notarize:min_required",
+      "@type": "xsd:integer"
+    },
+    "max_required": {
+      "@id": "notarize:max_required",
+      "@type": "xsd:integer"
+    },
+    "signing_designation": "notarize:signing_designation",
+    "signer_identifier": {
+      "@id": "notarize:signer_identifier",
+      "@type": "xsd:string"
+    },
+    "page_number": {
+      "@id": "notarize:page_number",
+      "@type": "xsd:integer"
+    },
+    "x": {
+      "@id": "notarize:x",
+      "@type": "xsd:integer"
+    },
+    "y": {
+      "@id": "notarize:y",
+      "@type": "xsd:integer"
+    },
+    "height": {
+      "@id": "notarize:height",
+      "@type": "xsd:integer"
+    },
+    "width": {
+      "@id": "notarize:width",
+      "@type": "xsd:integer"
+    },
+    "hint": {
+      "@id": "notarize:hint",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "notarize:type",
+      "@type": "xsd:string"
+    },
+    "optional": {
+      "@id": "notarize:optional",
+      "@type": "xsd:boolean"
+    },
+    "instruction": {
+      "@id": "notarize:instruction",
+      "@type": "xsd:string"
+    },
+    "primary_designation_identifier": {
+      "@id": "notarize:primary_designation_identifier",
+      "@type": "xsd:string"
+    },
+    "conditional_on_primary": {
+      "@id": "notarize:conditional_on_primary",
+      "@type": "xsd:string"
+    },
+    "document_creation_params": "notarize:document_creation_params",
+    "filename": {
+      "@id": "notarize:filename",
+      "@type": "xsd:string"
+    },
+    "resource": {
+      "@id": "notarize:resource",
+      "@type": "xsd:string"
+    },
+    "witness_required": {
+      "@id": "notarize:witness_required",
+      "@type": "xsd:boolean"
+    },
+    "signing_requires_meeting": {
+      "@id": "notarize:signing_requires_meeting",
+      "@type": "xsd:boolean"
+    },
+    "template_id": {
+      "@id": "notarize:template_id",
+      "@type": "xsd:string"
+    },
+    "authorization_header": {
+      "@id": "notarize:authorization_header",
+      "@type": "xsd:string"
+    },
+    "customer_can_annotate": {
+      "@id": "notarize:customer_can_annotate",
+      "@type": "xsd:boolean"
+    },
+    "pdf_bookmarked": {
+      "@id": "notarize:pdf_bookmarked",
+      "@type": "xsd:boolean"
+    },
+    "text_tag_syntax": {
+      "@id": "notarize:text_tag_syntax",
+      "@type": "xsd:string"
+    },
+    "document_params": "notarize:document_params",
+    "document_url_version": {
+      "@id": "notarize:document_url_version",
+      "@type": "xsd:string"
+    },
+    "integration_params": "notarize:integration_params",
+    "organization_id": {
+      "@id": "notarize:organization_id",
+      "@type": "xsd:string"
+    },
+    "configuration": {
+      "@id": "notarize:configuration"
+    },
+    "notary_statuses": "notarize:notary_statuses",
+    "notary_status_descriptions": "notarize:notary_status_descriptions",
+    "notary_object": "notarize:notary_object",
+    "first_name": {
+      "@id": "notarize:first_name",
+      "@type": "xsd:string"
+    },
+    "middle_name": {
+      "@id": "notarize:middle_name",
+      "@type": "xsd:string"
+    },
+    "last_name": {
+      "@id": "notarize:last_name",
+      "@type": "xsd:string"
+    },
+    "us_state_abbr": {
+      "@id": "notarize:us_state_abbr",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "notarize:status",
+      "@type": "@id"
+    },
+    "status_description": {
+      "@id": "notarize:status_description",
+      "@type": "@id"
+    },
+    "notary_params": "notarize:notary_params",
+    "credential_image": "notarize:credential_image",
+    "url": {
+      "@id": "notarize:url",
+      "@type": "xsd:string"
+    },
+    "descriptor": {
+      "@id": "notarize:descriptor",
+      "@type": "xsd:string"
+    },
+    "credential_asset_object": "notarize:credential_asset_object",
+    "credential_type": {
+      "@id": "notarize:credential_type",
+      "@type": "xsd:string"
+    },
+    "credential_images": {
+      "@id": "notarize:credential_images",
+      "@container": "@list"
+    },
+    "address": "notarize:address",
+    "line1": {
+      "@id": "notarize:line1",
+      "@type": "xsd:string"
+    },
+    "line2": {
+      "@id": "notarize:line2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "notarize:city",
+      "@type": "xsd:string"
+    },
+    "postal": {
+      "@id": "notarize:postal",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "notarize:country",
+      "@type": "xsd:string"
+    },
+    "witness": "notarize:witness",
+    "credential_assets": {
+      "@id": "notarize:credential_assets",
+      "@container": "@list"
+    },
+    "notarization_record_signer_object": "notarize:notarization_record_signer_object",
+    "signer_id": {
+      "@id": "notarize:signer_id",
+      "@type": "xsd:string"
+    },
+    "dob": {
+      "@id": "notarize:dob",
+      "@type": "xsd:string"
+    },
+    "notarization_record_object": "notarize:notarization_record_object",
+    "meeting_start": {
+      "@id": "notarize:meeting_start",
+      "@type": "xsd:dateTime"
+    },
+    "meeting_end": {
+      "@id": "notarize:meeting_end",
+      "@type": "xsd:dateTime"
+    },
+    "notary_name": {
+      "@id": "notarize:notary_name",
+      "@type": "xsd:string"
+    },
+    "notary_county_city": {
+      "@id": "notarize:notary_county_city",
+      "@type": "xsd:string"
+    },
+    "notary_registration": {
+      "@id": "notarize:notary_registration",
+      "@type": "xsd:string"
+    },
+    "notary_source": {
+      "@id": "notarize:notary_source",
+      "@type": "xsd:string"
+    },
+    "signer_info": {
+      "@id": "notarize:signer_info",
+      "@type": "@id"
+    },
+    "signers": {
+      "@id": "notarize:signers",
+      "@container": "@list"
+    },
+    "cosigner_info": {
+      "@id": "notarize:cosigner_info",
+      "@type": "@id"
+    },
+    "witnesses": {
+      "@id": "notarize:witnesses",
+      "@container": "@list"
+    },
+    "notarized_documents": {
+      "@id": "notarize:notarized_documents",
+      "@container": "@list"
+    },
+    "verification_credentials": {
+      "@id": "notarize:verification_credentials"
+    },
+    "signer_photo_identification": {
+      "@id": "notarize:signer_photo_identification",
+      "@type": "@id"
+    },
+    "video_url": {
+      "@id": "notarize:video_url",
+      "@type": "xsd:string"
+    },
+    "chat_url": {
+      "@id": "notarize:chat_url",
+      "@type": "xsd:string"
+    },
+    "photo_identification": "notarize:photo_identification",
+    "primary_front": {
+      "@id": "notarize:primary_front",
+      "@type": "xsd:string"
+    },
+    "primary_back": {
+      "@id": "notarize:primary_back",
+      "@type": "xsd:string"
+    },
+    "primary_type": {
+      "@id": "notarize:primary_type",
+      "@type": "xsd:string"
+    },
+    "primary_issuer": {
+      "@id": "notarize:primary_issuer",
+      "@type": "xsd:string"
+    },
+    "primary_expiry_date": {
+      "@id": "notarize:primary_expiry_date",
+      "@type": "xsd:string"
+    },
+    "secondary_front": {
+      "@id": "notarize:secondary_front",
+      "@type": "xsd:string"
+    },
+    "recipient_details_config": "notarize:recipient_details_config",
+    "field": {
+      "@id": "notarize:field",
+      "@type": "xsd:string"
+    },
+    "display": {
+      "@id": "notarize:display",
+      "@type": "xsd:string"
+    },
+    "signer": "notarize:signer",
+    "phone_number": {
+      "@id": "notarize:phone_number",
+      "@type": "xsd:string"
+    },
+    "phone": {
+      "@id": "notarize:phone"
+    },
+    "capacity": {
+      "@id": "notarize:capacity",
+      "@type": "xsd:string"
+    },
+    "entity": {
+      "@id": "notarize:entity",
+      "@type": "xsd:string"
+    },
+    "external_id": {
+      "@id": "notarize:external_id",
+      "@type": "xsd:string"
+    },
+    "link_expired": {
+      "@id": "notarize:link_expired",
+      "@type": "xsd:boolean"
+    },
+    "personally_known_to_notary": {
+      "@id": "notarize:personally_known_to_notary",
+      "@type": "xsd:boolean"
+    },
+    "proof_requirement": {
+      "@id": "notarize:proof_requirement",
+      "@type": "@id"
+    },
+    "recipient_group": {
+      "@id": "notarize:recipient_group",
+      "@type": "@id"
+    },
+    "sdk_token": {
+      "@id": "notarize:sdk_token",
+      "@type": "xsd:string"
+    },
+    "signatory_capacities": {
+      "@id": "notarize:signatory_capacities",
+      "@container": "@list"
+    },
+    "primary_id_allow_list_by_country": {
+      "@id": "notarize:primary_id_allow_list_by_country",
+      "@type": "@id"
+    },
+    "secondary_id_allow_list_by_country": {
+      "@id": "notarize:secondary_id_allow_list_by_country",
+      "@type": "@id"
+    },
+    "signing_requirement": {
+      "@id": "notarize:signing_requirement",
+      "@type": "xsd:string"
+    },
+    "signing_status": {
+      "@id": "notarize:signing_status",
+      "@type": "xsd:string"
+    },
+    "transaction_access_link": {
+      "@id": "notarize:transaction_access_link",
+      "@type": "xsd:string"
+    },
+    "vesting_type": {
+      "@id": "notarize:vesting_type",
+      "@type": "xsd:string"
+    },
+    "skip_landing_page": {
+      "@id": "notarize:skip_landing_page",
+      "@type": "xsd:boolean"
+    },
+    "esign_authentication_records": {
+      "@id": "notarize:esign_authentication_records",
+      "@container": "@list"
+    },
+    "notary_id": {
+      "@id": "notarize:notary_id",
+      "@type": "xsd:string"
+    },
+    "order": {
+      "@id": "notarize:order",
+      "@type": "xsd:integer"
+    },
+    "suppress_communications": {
+      "@id": "notarize:suppress_communications",
+      "@type": "xsd:string"
+    },
+    "verify_tool_configuration": {
+      "@id": "notarize:verify_tool_configuration",
+      "@type": "@id"
+    },
+    "notary_instructions": "notarize:notary_instructions",
+    "notary_note": {
+      "@id": "notarize:notary_note",
+      "@type": "xsd:string"
+    },
+    "verify_tool_requirement": "notarize:verify_tool_requirement",
+    "available": {
+      "@id": "notarize:available",
+      "@type": "xsd:boolean"
+    },
+    "proof_requirement_id_verification": "notarize:proof_requirement_id_verification",
+    "selfie": {
+      "@id": "notarize:selfie",
+      "@type": "xsd:boolean"
+    },
+    "proof_requirement_multi_factor_authentication": "notarize:proof_requirement_multi_factor_authentication",
+    "attachment": "notarize:attachment",
+    "transaction_object": "notarize:transaction_object",
+    "activation_time": {
+      "@id": "notarize:activation_time",
+      "@type": "xsd:string"
+    },
+    "allowed_notary_states": {
+      "@id": "notarize:allowed_notary_states",
+      "@container": "@list"
+    },
+    "attachments": {
+      "@id": "notarize:attachments",
+      "@container": "@list"
+    },
+    "audit_trail_url": {
+      "@id": "notarize:audit_trail_url",
+      "@type": "xsd:string"
+    },
+    "cc_recipient_emails": {
+      "@id": "notarize:cc_recipient_emails",
+      "@container": "@list"
+    },
+    "charge_statement_url": {
+      "@id": "notarize:charge_statement_url",
+      "@type": "xsd:string"
+    },
+    "config_id": {
+      "@id": "notarize:config_id",
+      "@type": "xsd:string"
+    },
+    "cost_center_id": {
+      "@id": "notarize:cost_center_id",
+      "@type": "xsd:string"
+    },
+    "cost": {
+      "@id": "notarize:cost",
+      "@type": "xsd:decimal"
+    },
+    "default_text_tag_syntax": {
+      "@id": "notarize:default_text_tag_syntax",
+      "@type": "xsd:string"
+    },
+    "detailed_status": {
+      "@id": "notarize:detailed_status",
+      "@type": "xsd:string"
+    },
+    "documents": {
+      "@id": "notarize:documents",
+      "@container": "@list"
+    },
+    "expiry": {
+      "@id": "notarize:expiry",
+      "@type": "xsd:string"
+    },
+    "identity_report": {
+      "@id": "notarize:identity_report"
+    },
+    "idv_use_case": {
+      "@id": "notarize:idv_use_case",
+      "@type": "xsd:string"
+    },
+    "message_signature": {
+      "@id": "notarize:message_signature",
+      "@type": "xsd:string"
+    },
+    "message_subject": {
+      "@id": "notarize:message_subject",
+      "@type": "xsd:string"
+    },
+    "message_to_signer": {
+      "@id": "notarize:message_to_signer",
+      "@type": "xsd:string"
+    },
+    "notarization_record": {
+      "@id": "notarize:notarization_record",
+      "@type": "@id"
+    },
+    "notarization_records": {
+      "@id": "notarize:notarization_records",
+      "@container": "@list"
+    },
+    "notary_meeting_time": {
+      "@id": "notarize:notary_meeting_time",
+      "@type": "xsd:dateTime"
+    },
+    "payer": {
+      "@id": "notarize:payer",
+      "@type": "xsd:string"
+    },
+    "recall_reason": {
+      "@id": "notarize:recall_reason",
+      "@type": "xsd:string"
+    },
+    "redirect": {
+      "@id": "notarize:redirect"
+    },
+    "referral_campaign_id": {
+      "@id": "notarize:referral_campaign_id",
+      "@type": "xsd:string"
+    },
+    "referral_code": {
+      "@id": "notarize:referral_code",
+      "@type": "xsd:string"
+    },
+    "require_secondary_photo_id": {
+      "@id": "notarize:require_secondary_photo_id",
+      "@type": "xsd:boolean"
+    },
+    "sender_logo": {
+      "@id": "notarize:sender_logo",
+      "@type": "xsd:string"
+    },
+    "sender_name": {
+      "@id": "notarize:sender_name",
+      "@type": "xsd:string"
+    },
+    "transaction_name": {
+      "@id": "notarize:transaction_name",
+      "@type": "xsd:string"
+    },
+    "transaction_type": {
+      "@id": "notarize:transaction_type",
+      "@type": "xsd:string"
+    },
+    "transaction_objects": "notarize:transaction_objects",
+    "count": {
+      "@id": "notarize:count",
+      "@type": "xsd:integer"
+    },
+    "photo_validation_attempt": "notarize:photo_validation_attempt",
+    "validation_source": {
+      "@id": "notarize:validation_source",
+      "@type": "xsd:string"
+    },
+    "verified_at": {
+      "@id": "notarize:verified_at",
+      "@type": "xsd:string"
+    },
+    "verification_method": {
+      "@id": "notarize:verification_method",
+      "@type": "xsd:string"
+    },
+    "images": {
+      "@id": "notarize:images"
+    },
+    "document_address": {
+      "@id": "notarize:document_address",
+      "@type": "@id"
+    },
+    "document_claimed_type": {
+      "@id": "notarize:document_claimed_type",
+      "@type": "xsd:string"
+    },
+    "document_classification": {
+      "@id": "notarize:document_classification",
+      "@type": "xsd:string"
+    },
+    "document_date_of_birth": {
+      "@id": "notarize:document_date_of_birth",
+      "@type": "xsd:string"
+    },
+    "document_expiration_date": {
+      "@id": "notarize:document_expiration_date",
+      "@type": "xsd:string"
+    },
+    "document_first_name": {
+      "@id": "notarize:document_first_name",
+      "@type": "xsd:string"
+    },
+    "document_middle_name": {
+      "@id": "notarize:document_middle_name",
+      "@type": "xsd:string"
+    },
+    "document_last_name": {
+      "@id": "notarize:document_last_name",
+      "@type": "xsd:string"
+    },
+    "document_issue_date": {
+      "@id": "notarize:document_issue_date",
+      "@type": "xsd:string"
+    },
+    "document_issuer": {
+      "@id": "notarize:document_issuer",
+      "@type": "xsd:string"
+    },
+    "document_number": {
+      "@id": "notarize:document_number",
+      "@type": "xsd:string"
+    },
+    "verified": {
+      "@id": "notarize:verified",
+      "@type": "xsd:boolean"
+    },
+    "failure_reasons": {
+      "@id": "notarize:failure_reasons",
+      "@container": "@list"
+    },
+    "transaction_create_params": "notarize:transaction_create_params",
+    "cosigner": {
+      "@id": "notarize:cosigner",
+      "@type": "@id"
+    },
+    "draft": {
+      "@id": "notarize:draft",
+      "@type": "xsd:boolean"
+    },
+    "suppress_email": {
+      "@id": "notarize:suppress_email",
+      "@type": "xsd:boolean"
+    },
+    "authentication_requirement": {
+      "@id": "notarize:authentication_requirement",
+      "@type": "xsd:string"
+    },
+    "require_new_signer_verification": {
+      "@id": "notarize:require_new_signer_verification",
+      "@type": "xsd:boolean"
+    },
+    "transaction_params": "notarize:transaction_params",
+    "bundle_order": "notarize:bundle_order",
+    "activate_draft_params": "notarize:activate_draft_params",
+    "errors_array": "notarize:errors_array",
+    "oauth_redirect": "notarize:oauth_redirect",
+    "openid_connect_transaction_create_params": "notarize:openid_connect_transaction_create_params",
+    "request": {
+      "@id": "notarize:request",
+      "@type": "@id"
+    },
+    "workflow": {
+      "@id": "notarize:workflow",
+      "@type": "@id"
+    },
+    "external_user_id": {
+      "@id": "notarize:external_user_id",
+      "@type": "xsd:string"
+    },
+    "openid_connect_transaction_workflow": "notarize:openid_connect_transaction_workflow",
+    "parameters": {
+      "@id": "notarize:parameters",
+      "@container": "@list"
+    },
+    "options": {
+      "@id": "notarize:options",
+      "@type": "@id"
+    },
+    "openid_connect_transaction_options": "notarize:openid_connect_transaction_options",
+    "openid_connect_transaction_request_parameter": "notarize:openid_connect_transaction_request_parameter",
+    "value": {
+      "@id": "notarize:value",
+      "@type": "xsd:string"
+    },
+    "locked": {
+      "@id": "notarize:locked",
+      "@type": "xsd:boolean"
+    },
+    "openid_connect_transaction_object": "notarize:openid_connect_transaction_object",
+    "transaction_id": {
+      "@id": "notarize:transaction_id",
+      "@type": "xsd:string"
+    },
+    "access_link": {
+      "@id": "notarize:access_link",
+      "@type": "xsd:string"
+    },
+    "webhook_object": "notarize:webhook_object",
+    "header": {
+      "@id": "notarize:header",
+      "@type": "xsd:string"
+    },
+    "webhook_v2_object": "notarize:webhook_v2_object",
+    "headers": {
+      "@id": "notarize:headers",
+      "@container": "@list"
+    },
+    "enabled": {
+      "@id": "notarize:enabled",
+      "@type": "xsd:boolean"
+    },
+    "request_id_header_name": {
+      "@id": "notarize:request_id_header_name",
+      "@type": "xsd:string"
+    },
+    "request_id_header_value_template": {
+      "@id": "notarize:request_id_header_value_template",
+      "@type": "xsd:string"
+    },
+    "oauth": {
+      "@id": "notarize:oauth"
+    },
+    "subscriptions": {
+      "@id": "notarize:subscriptions",
+      "@type": "@id"
+    },
+    "webhook_v2_params": "notarize:webhook_v2_params",
+    "signing_key": {
+      "@id": "notarize:signing_key",
+      "@type": "xsd:string"
+    },
+    "oauth_config": {
+      "@id": "notarize:oauth_config"
+    },
+    "webhook_v2_event": "notarize:webhook_v2_event",
+    "event": {
+      "@id": "notarize:event",
+      "@type": "xsd:string"
+    },
+    "response": {
+      "@id": "notarize:response"
+    },
+    "delivered": {
+      "@id": "notarize:delivered",
+      "@type": "xsd:string"
+    },
+    "payload": {
+      "@id": "notarize:payload",
+      "@type": "xsd:string"
+    },
+    "webhook_tests_error_object": "notarize:webhook_tests_error_object",
+    "webhook_test_object": "notarize:webhook_test_object",
+    "webhook_body": {
+      "@id": "notarize:webhook_body"
+    },
+    "organization_object": "notarize:organization_object",
+    "branding": {
+      "@id": "notarize:branding",
+      "@type": "@id"
+    },
+    "logo_s3_link": {
+      "@id": "notarize:logo_s3_link",
+      "@type": "xsd:string"
+    },
+    "referral_params": "notarize:referral_params",
+    "cover_payment": {
+      "@id": "notarize:cover_payment",
+      "@type": "xsd:boolean"
+    },
+    "redirect_url": {
+      "@id": "notarize:redirect_url",
+      "@type": "xsd:string"
+    },
+    "use_branding": {
+      "@id": "notarize:use_branding",
+      "@type": "xsd:boolean"
+    },
+    "referral_object": "notarize:referral_object",
+    "link": {
+      "@id": "notarize:link",
+      "@type": "xsd:string"
+    },
+    "referral_code_params": "notarize:referral_code_params",
+    "expires_at": {
+      "@id": "notarize:expires_at",
+      "@type": "xsd:string"
+    },
+    "referral_link_object": "notarize:referral_link_object",
+    "template_object": "notarize:template_object",
+    "updated_at": {
+      "@id": "notarize:updated_at",
+      "@type": "xsd:dateTime"
+    },
+    "permalink": {
+      "@id": "notarize:permalink",
+      "@type": "xsd:string"
+    },
+    "template_objects": "notarize:template_objects",
+    "templates": {
+      "@id": "notarize:templates",
+      "@container": "@list"
+    },
+    "document_update_params": "notarize:document_update_params",
+    "recording_location": "notarize:recording_location",
+    "supported": {
+      "@id": "notarize:supported",
+      "@type": "xsd:boolean"
+    },
+    "recording_type": {
+      "@id": "notarize:recording_type",
+      "@type": "xsd:string"
+    },
+    "eligible": {
+      "@id": "notarize:eligible",
+      "@type": "xsd:boolean"
+    },
+    "eligible_title_agencies": {
+      "@id": "notarize:eligible_title_agencies",
+      "@container": "@list"
+    },
+    "eligible_title_underwriters": {
+      "@id": "notarize:eligible_title_underwriters",
+      "@container": "@list"
+    },
+    "title_agency": "notarize:title_agency",
+    "alta_id": {
+      "@id": "notarize:alta_id",
+      "@type": "xsd:string"
+    },
+    "eligible_underwriters": {
+      "@id": "notarize:eligible_underwriters",
+      "@container": "@list"
+    },
+    "company_notaries": {
+      "@id": "notarize:company_notaries",
+      "@type": "xsd:boolean"
+    },
+    "organization": "notarize:organization",
+    "enote_borrower_object": "notarize:enote_borrower_object",
+    "ssn": {
+      "@id": "notarize:ssn",
+      "@type": "xsd:string"
+    },
+    "enote_params": "notarize:enote_params",
+    "file": {
+      "@id": "notarize:file",
+      "@type": "xsd:string"
+    },
+    "integration": {
+      "@id": "notarize:integration",
+      "@type": "xsd:string"
+    },
+    "borrowers": {
+      "@id": "notarize:borrowers",
+      "@container": "@list"
+    },
+    "container": {
+      "@id": "notarize:container"
+    },
+    "contact": "notarize:contact",
+    "role": {
+      "@id": "notarize:role",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "notarize:title",
+      "@type": "xsd:string"
+    },
+    "shown_to_signer": {
+      "@id": "notarize:shown_to_signer",
+      "@type": "xsd:boolean"
+    },
+    "access_to_transaction": {
+      "@id": "notarize:access_to_transaction",
+      "@type": "xsd:boolean"
+    },
+    "organization_name": {
+      "@id": "notarize:organization_name",
+      "@type": "xsd:string"
+    },
+    "organization_address": {
+      "@id": "notarize:organization_address",
+      "@type": "@id"
+    },
+    "street_address": "notarize:street_address",
+    "full_address": {
+      "@id": "notarize:full_address",
+      "@type": "xsd:string"
+    },
+    "x401_payload": "notarize:x401_payload",
+    "credential_requirements": {
+      "@id": "notarize:credential_requirements"
+    },
+    "return_uri": {
+      "@id": "notarize:return_uri",
+      "@type": "xsd:string"
+    },
+    "x401_handoff_response": "notarize:x401_handoff_response",
+    "request_uri": {
+      "@id": "notarize:request_uri",
+      "@type": "xsd:string"
+    },
+    "result_polling_uri": {
+      "@id": "notarize:result_polling_uri",
+      "@type": "xsd:string"
+    },
+    "x401_result_response": "notarize:x401_result_response",
+    "credential_result": {
+      "@id": "notarize:credential_result"
+    },
+    "x401_signature_response": "notarize:x401_signature_response",
+    "issuer_signature": {
+      "@id": "notarize:issuer_signature",
+      "@type": "xsd:string"
+    },
+    "kb_signature": {
+      "@id": "notarize:kb_signature",
+      "@type": "xsd:string"
+    },
+    "user_creation_params": "notarize:user_creation_params",
+    "userName": {
+      "@id": "notarize:userName",
+      "@type": "xsd:string"
+    },
+    "emails": {
+      "@id": "notarize:emails",
+      "@container": "@list"
+    },
+    "roles": {
+      "@id": "notarize:roles",
+      "@container": "@list"
+    },
+    "externalId": {
+      "@id": "notarize:externalId",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Notarize API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Notarize's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-14) from openapi/notarize-logs-api-specification-openapi.yml, openapi/notarize-oauth-2-0-api-specification-openapi.yml, openapi/notarize-proof-business-api-specification-openapi.yml.",
+  "dcterms:created": "2026-10-14",
+  "dcterms:source": [
+    "openapi/notarize-logs-api-specification-openapi.yml",
+    "openapi/notarize-oauth-2-0-api-specification-openapi.yml",
+    "openapi/notarize-proof-business-api-specification-openapi.yml",
+    "openapi/notarize-proof-real-estate-api-specification-openapi.yml",
+    "openapi/notarize-proof-verifiable-credentials-api-specification-openapi.yml"
+  ]
+}

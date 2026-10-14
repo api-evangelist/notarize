@@ -1,0 +1,67 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/notarize-logs-api-specification-openapi.yml
+- openapi/notarize-oauth-2-0-api-specification-openapi.yml
+- openapi/notarize-proof-business-api-specification-openapi.yml
+- openapi/notarize-proof-real-estate-api-specification-openapi.yml
+- openapi/notarize-proof-verifiable-credentials-api-specification-openapi.yml
+- openapi/notarize-scim-api-specification-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: errors_object
+coverage:
+  operations: 111
+  statuses_declared: 7
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  operations: 40
+  media_types:
+  - application/json
+  schema: errors_object
+- status: 401
+  title: Unauthorized
+  description: Unauthorized
+  operations: 17
+  media_types:
+  - application/json
+  schema: oauth_error
+- status: 402
+  title: Payment Required
+  description: Payment Required
+  operations: 1
+  media_types:
+  - application/json
+  schema: null
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  operations: 14
+  media_types:
+  - application/json
+  schema: errors_object
+- status: 404
+  title: Not Found
+  description: Not Found
+  operations: 62
+  media_types:
+  - application/json
+  schema: errors_object
+- status: 409
+  title: Conflict
+  description: conflict
+  operations: 2
+  media_types:
+  - application/json
+  schema: errors_object
+- status: 422
+  title: Unprocessable Content
+  description: Unprocessable Entity
+  operations: 39
+  media_types:
+  - application/json
+  schema: errors_object

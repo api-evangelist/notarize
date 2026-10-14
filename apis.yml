@@ -1,19 +1,22 @@
 aid: notarize
+
 name: Notarize
-description: >-
-  Notarize (rebranded as Proof) provides Remote Online Notarization (RON), eSignature,
-  identity verification, and reusable digital credentials through the Notarize Network.
-  Its REST API (api.proof.com) lets businesses create notarization, eSign, Identify, and
-  real-estate/mortgage closing transactions, attach and template documents, invite signers,
-  manage notaries, and receive V2 webhooks for every transaction and notary state change.
-  Authentication is by API key or OAuth 2.0 client credentials, with a Fairfax test
-  environment for end-to-end sandbox testing. Widely used across proptech, lending, title,
-  and legal workflows.
+
+description: Notarize (rebranded as Proof) provides Remote Online Notarization (RON), eSignature, identity verification, and reusable digital
+  credentials through the Notarize Network. Its REST API (api.proof.com) lets businesses create notarization, eSign, Identify, and real-estate/mortgage
+  closing transactions, attach and template documents, invite signers, manage notaries, and receive V2 webhooks for every transaction and notary
+  state change. Authentication is by API key or OAuth 2.0 client credentials, with a Fairfax test environment for end-to-end sandbox testing.
+  Widely used across proptech, lending, title, and legal workflows.
+
 url: https://raw.githubusercontent.com/api-evangelist/notarize/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - fifth-wall
+
 deliveryModel:
   model: saas
   open_source: false
@@ -25,6 +28,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -37,10 +41,15 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-10-06'
+
 image: https://github.com/notarize.png
+
 tags:
 - Company
 - PropTech
@@ -52,6 +61,7 @@ tags:
 - Real Estate
 - Mortgage
 - Legal Tech
+
 tags_raw:
 - Company
 - Proptech
@@ -64,32 +74,32 @@ tags_raw:
 - Mortgage
 - Legal Tech
 - Real-Estate
-apis:
-- name: Proof API (formerly Notarize)
-  description: >-
-    REST API for creating and managing notarization, eSign, Identify, and real-estate
-    transactions, documents, signers, notaries, templates, and Webhooks V2 subscriptions.
-  humanURL: https://dev.proof.com/
-  baseURL: https://api.proof.com/v1
-  properties:
-  - type: Documentation
-    url: https://dev.proof.com/docs
-  - type: APIReference
-    url: https://dev.proof.com/reference
-  - type: GettingStarted
-    url: https://dev.proof.com/docs/business-quick-start
-  - type: Authentication
-    url: authentication/notarize-authentication.yml
-  - type: OAuthScopes
-    url: scopes/notarize-scopes.yml
-  - type: Webhooks
-    url: asyncapi/notarize-webhooks.yml
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: AgenticAccess
+  url: agentic-access/notarize-agentic-access.yml
+- type: Spectral
+  url: rules/notarize-rules.yml
+- type: JSONLD
+  url: json-ld/notarize-context.jsonld
+- type: Vocabulary
+  url: vocabulary/notarize-vocabulary.yml
+- type: Deprecation
+  url: lifecycle/notarize-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/notarize-problem-types.yml
+- type: Hosts
+  url: hosts/notarize-hosts.yml
+- type: Vendors
+  url: vendors/notarize-vendors.yml
+- type: Newsroom
+  url: https://www.proof.com/about/press
 - url: https://www.proof.com/blog/rss.xml
   type: BlogRSS
 - type: TrustCenter
@@ -142,15 +152,155 @@ common:
   url: well-known/notarize-well-known.yml
 - type: X-MCPServerCandidate
   url: mcp/notarize-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+    API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+    the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/notarize-llms.txt
 - type: DataModel
   url: data-model/notarize-data-model.yml
 - type: AgentSkill
   url: skills/_index.yml
+
+apis:
+- name: Proof API (formerly Notarize)
+  description: REST API for creating and managing notarization, eSign, Identify, and real-estate transactions, documents, signers, notaries, templates,
+    and Webhooks V2 subscriptions.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  properties:
+  - type: Documentation
+    url: https://dev.proof.com/docs
+  - type: APIReference
+    url: https://dev.proof.com/reference
+  - type: GettingStarted
+    url: https://dev.proof.com/docs/business-quick-start
+  - type: Authentication
+    url: authentication/notarize-authentication.yml
+  - type: OAuthScopes
+    url: scopes/notarize-scopes.yml
+  - type: Webhooks
+    url: asyncapi/notarize-webhooks.yml
+  aid: notarize:proof-api-formerly-notarize
+- aid: notarize:notarize-logs-api-specification
+  name: Notarize Logs Api Specification Openapi.Yml API
+  description: The Logs Api Specification Openapi.Yml API from Notarize — 1 operation(s) for logs api specification openapi.yml.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Logs Api Specification Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-logs-api-specification-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+- aid: notarize:notarize-oauth-2-0-api-specification
+  name: Notarize Oauth 2 0 Api Specification Openapi.Yml API
+  description: The Oauth 2 0 Api Specification Openapi.Yml API from Notarize — 7 operation(s) for oauth 2 0 api specification openapi.yml.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Oauth 2 0 Api Specification Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-oauth-2-0-api-specification-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+- aid: notarize:notarize-proof-business-api-specification
+  name: Notarize Proof Business Api Specification Openapi.Yml API
+  description: The Proof Business Api Specification Openapi.Yml API from Notarize — 32 operation(s) for proof business api specification openapi.yml.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Proof Business Api Specification Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-proof-business-api-specification-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+- aid: notarize:notarize-proof-real-estate-api-specification
+  name: Notarize Proof Real Estate Api Specification Openapi.Yml API
+  description: The Proof Real Estate Api Specification Openapi.Yml API from Notarize — 32 operation(s) for proof real estate api specification
+    openapi.yml.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Proof Real Estate Api Specification Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-proof-real-estate-api-specification-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+- aid: notarize:notarize-proof-verifiable-credentials-api-specification
+  name: Notarize Proof Verifiable Credentials Api Specification Openapi.Yml API
+  description: The Proof Verifiable Credentials Api Specification Openapi.Yml API from Notarize — 4 operation(s) for proof verifiable credentials
+    api specification openapi.yml.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Proof Verifiable Credentials Api Specification Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-proof-verifiable-credentials-api-specification-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+- aid: notarize:notarize-scim-api-specification
+  name: Notarize Scim Api Specification Openapi.Yml API
+  description: The Scim Api Specification Openapi.Yml API from Notarize — 6 operation(s) for scim api specification openapi.yml.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Scim Api Specification Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-scim-api-specification-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+
 x-enrichment:
   date: '2026-07-20'
   status: enriched
   artifacts_added: 19
   pass: local-v1
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 111
+  tool: harvest-readme-openapi.py
+  portal: https://dev.proof.com

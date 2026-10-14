@@ -1,0 +1,442 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/notarize-logs-api-specification-openapi.yml
+- openapi/notarize-oauth-2-0-api-specification-openapi.yml
+- openapi/notarize-proof-business-api-specification-openapi.yml
+- openapi/notarize-proof-real-estate-api-specification-openapi.yml
+- openapi/notarize-proof-verifiable-credentials-api-specification-openapi.yml
+vocabulary:
+  name: Notarize Domain Vocabulary
+  description: 'Terms declared by Notarize''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: errors_object
+    definition: 'Object declared by the contract with fields: errors.'
+    tags:
+    - Object
+    source: openapi/notarize-logs-api-specification-openapi.yml#/components/schemas/errors_object
+  - term: security_event_object
+    definition: 'Object declared by the contract with fields: class_uid, class_name, activity_id, activity_name, category_uid, category_name,
+      severity_id, severity, type_uid, time, metadata.'
+    tags:
+    - Object
+    source: openapi/notarize-logs-api-specification-openapi.yml#/components/schemas/security_event_object
+  - term: security_events_response
+    definition: 'Object declared by the contract with fields: data, meta.'
+    tags:
+    - Object
+    source: openapi/notarize-logs-api-specification-openapi.yml#/components/schemas/security_events_response
+  - term: authorization_server_metadata
+    definition: 'Object declared by the contract with fields: issuer, authorization_endpoint, token_endpoint, registration_endpoint, revocation_endpoint,
+      introspection_endpoint, jwks_uri, scopes_supported, response_types_supported, response_modes_supported, grant_types_supported, token_endpoint_auth_methods_supported.
+      (8 more)'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/authorization_server_metadata
+  - term: oauth_error
+    definition: 'Object declared by the contract with fields: error, error_description, state.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/oauth_error
+  - term: client_registration_request
+    definition: 'Object declared by the contract with fields: redirect_uris, client_name, client_uri, logo_uri, contacts, tos_uri, policy_uri,
+      jwks_uri, jwks, software_id, software_version, token_endpoint_auth_method.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/client_registration_request
+  - term: client_registration_response
+    definition: 'Object declared by the contract with fields: client_id, client_secret, client_id_issued_at, client_secret_expires_at, token_endpoint_auth_method,
+      grant_types, response_types, scope, client_name, redirect_uris, client_uri, logo_uri. (7 more)'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/client_registration_response
+  - term: token_info_response
+    definition: 'Object declared by the contract with fields: scope, expires_in, application, created_at, iss, aud, sub, sub_type, email, given_name,
+      family_name.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/token_info_response
+  - term: client_credentials_token_request
+    definition: 'Object declared by the contract with fields: grant_type, scope, client_id, client_secret, client_assertion_type, client_assertion.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/client_credentials_token_request
+  - term: authorization_code_token_request
+    definition: 'Object declared by the contract with fields: grant_type, code, redirect_uri, code_verifier, client_id, client_secret, client_assertion_type,
+      client_assertion.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/authorization_code_token_request
+  - term: refresh_token_token_request
+    definition: 'Object declared by the contract with fields: grant_type, refresh_token, client_id, client_secret, client_assertion_type, client_assertion.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/refresh_token_token_request
+  - term: token_response
+    definition: 'Object declared by the contract with fields: access_token, token_type, expires_in, scope, created_at, refresh_token.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/token_response
+  - term: revocation_request
+    definition: 'Object declared by the contract with fields: token, token_type_hint, client_id, client_secret, client_assertion_type, client_assertion.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/revocation_request
+  - term: introspection_request
+    definition: 'Object declared by the contract with fields: token, token_type_hint, client_id, client_secret, client_assertion_type, client_assertion.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/introspection_request
+  - term: introspection_response
+    definition: 'Object declared by the contract with fields: active, scope, client_id, token_type, iat, exp, iss, aud, sub, sub_type.'
+    tags:
+    - Object
+    source: openapi/notarize-oauth-2-0-api-specification-openapi.yml#/components/schemas/introspection_response
+  - term: cost_center_object
+    definition: 'Object declared by the contract with fields: id, name, internal_id.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/cost_center_object
+  - term: cost_center_objects
+    definition: 'Object declared by the contract with fields: cost_centers, total_count.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/cost_center_objects
+  - term: document
+    definition: 'Object declared by the contract with fields: id, allowed_actions, bundle_position, completion_state, data, date_created, date_updated,
+      document_name, esign_required, final_document_url, identification_reviewed, identity_confirmation_required. (14 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/document
+  - term: signing_designation_group
+    definition: 'Object declared by the contract with fields: name, min_required, max_required.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/signing_designation_group
+  - term: signing_designation
+    definition: 'Object declared by the contract with fields: signer_identifier, page_number, x, y, height, width, hint, type, signing_designation_group,
+      optional, instruction, primary_designation_identifier. (1 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/signing_designation
+  - term: document_creation_params
+    definition: 'Object declared by the contract with fields: filename, resource, document, requirement, notarization_required, witness_required,
+      bundle_position, esign_required, identity_confirmation_required, signing_requires_meeting, vaulted, template_id. (7 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/document_creation_params
+  - term: document_params
+    definition: 'Object declared by the contract with fields: name, document_url_version, requirement, notarization_required, witness_required,
+      identity_confirmation_required, customer_can_annotate, pdf_bookmarked, tracking_id.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/document_params
+  - term: integration_params
+    definition: 'Object declared by the contract with fields: name, organization_id, configuration.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/integration_params
+  - term: notary_statuses
+    definition: 'Enumeration declared by the contract with values: compliant, needs_review, not_compliant.'
+    tags:
+    - Enumeration
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/notary_statuses
+  - term: notary_status_descriptions
+    definition: 'Enumeration declared by the contract with values: Notary is clear to take meetings., Notary awaiting Proof approval of documentation.,
+      Notary is missing required documentation., Notary status is pending..'
+    tags:
+    - Enumeration
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/notary_status_descriptions
+  - term: notary_object
+    definition: An object representing a notary.
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/notary_object
+  - term: notary_params
+    definition: 'Object declared by the contract with fields: email, us_state_abbr, first_name, middle_name, last_name.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/notary_params
+  - term: credential_image
+    definition: 'Object declared by the contract with fields: url, descriptor.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/credential_image
+  - term: credential_asset_object
+    definition: 'Object declared by the contract with fields: credential_type, credential_images.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/credential_asset_object
+  - term: address
+    definition: 'Object declared by the contract with fields: line1, line2, city, state, postal, country.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/address
+  - term: witness
+    definition: 'Object declared by the contract with fields: first_name, middle_name, last_name, address, credential_assets.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/witness
+  - term: notarization_record_signer_object
+    definition: 'Object declared by the contract with fields: signer_id, email, first_name, middle_name, last_name, address, dob.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/notarization_record_signer_object
+  - term: notarization_record_object
+    definition: 'Object declared by the contract with fields: id, meeting_start, meeting_end, notary_name, notary_county_city, notary_registration,
+      notary_source, signer_info, signers, cosigner_info, witnesses, notarized_documents. (4 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/notarization_record_object
+  - term: photo_identification
+    definition: 'Object declared by the contract with fields: primary_front, primary_back, primary_type, primary_issuer, primary_expiry_date,
+      secondary_front.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/photo_identification
+  - term: recipient_details_config
+    definition: 'Object declared by the contract with fields: field, display.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/recipient_details_config
+  - term: signer
+    definition: 'Object declared by the contract with fields: signer_id, email, first_name, middle_name, last_name, phone_number, phone, address,
+      dob, capacity, entity, external_id. (19 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/signer
+  - term: id_allow_list_by_country
+    definition: 'A dictionary of id allow lists by country code, e.g. { "US": [ "driver_license", "passport" ], "CA": ["passport"] }, where the
+      key is a 2 digit ISO-3166 country code, and the value is an array of id types. Primary ID lists must only contain government IDs (["driver_license",
+      "passport", "id_card", "passport_card", "work_permit", "permanent_resident_card", "matricula_consular"]). Secondary ID lists'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/id_allow_list_by_country
+  - term: signers
+    definition: 'Object declared by the contract with fields: signer_id, email, first_name, middle_name, last_name, phone_number, phone, address,
+      dob, capacity, entity, external_id. (19 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/signers
+  - term: cc_recipient_email
+    definition: Email address of the recipient to be CC'd on the transaction.
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/cc_recipient_email
+  - term: notary_instructions
+    definition: 'Object declared by the contract with fields: notary_note.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/notary_instructions
+  - term: verify_tool_configuration
+    definition: 'Object declared by the contract with fields: credit_card_config, selfie_config, credential_analysis_config.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/verify_tool_configuration
+  - term: verify_tool_requirement
+    definition: 'Object declared by the contract with fields: requirement, available.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/verify_tool_requirement
+  - term: proof_requirement
+    definition: 'Object declared by the contract with fields: id_verification, knowledge_based_authentication, multi_factor_authentication.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/proof_requirement
+  - term: proof_requirement_id_verification
+    definition: 'Object declared by the contract with fields: selfie.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/proof_requirement_id_verification
+  - term: proof_requirement_multi_factor_authentication
+    definition: 'Object declared by the contract with fields: type.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/proof_requirement_multi_factor_authentication
+  - term: recipient_group
+    definition: 'Object declared by the contract with fields: shared_inbox_email.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/recipient_group
+  - term: attachment
+    definition: 'Object declared by the contract with fields: date_created, name, url.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/attachment
+  - term: transaction_object
+    definition: 'Object declared by the contract with fields: id, activation_time, allowed_notary_states, attachments, audit_trail_url, cc_recipient_emails,
+      charge_statement_url, config_id, cost_center_id, cosigner_info, cost, date_created. (31 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/transaction_object
+  - term: transaction_objects
+    definition: 'Object declared by the contract with fields: count, data, total_count.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/transaction_objects
+  - term: photo_validation_attempt
+    definition: 'Object declared by the contract with fields: validation_source, verified_at, verification_method, images, status, document_address,
+      document_claimed_type, document_classification, document_date_of_birth, document_expiration_date, document_first_name, document_middle_name.
+      (6 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/photo_validation_attempt
+  - term: expiry
+    definition: An ISO-8601 formatted DateTime String, optionally including the timezone offset. If timezone offset is not provided, the account’s
+      default timezone settings will be applied. This param sets time after which the signer is NOT permitted to complete the transaction. If
+      a signer attempts to complete the transaction after this time is reached, they will receive an error. Expiration time is optional, an
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/expiry
+  - term: transaction_create_params
+    definition: 'Object declared by the contract with fields: activation_time, allowed_notary_states, signer, signers, cosigner, draft, expiry,
+      payer, external_id, transaction_name, message_to_signer, transaction_type. (20 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/transaction_create_params
+  - term: redirect
+    definition: 'Object declared by the contract with fields: url, message.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/redirect
+  - term: cosigner
+    definition: 'Object declared by the contract with fields: first_name, last_name, signing_requirement.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/cosigner
+  - term: transaction_params
+    definition: 'Object declared by the contract with fields: activation_time, allowed_notary_states, signer, documents, signers, cosigner, draft,
+      expiry, payer, external_id, transaction_name, message_to_signer. (19 more)'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/transaction_params
+  - term: bundle_order
+    definition: 'Object declared by the contract with fields: id, bundle_position.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/bundle_order
+  - term: activate_draft_params
+    definition: 'Object declared by the contract with fields: suppress_email, require_new_signer_verification.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/activate_draft_params
+  - term: errors_array
+    definition: 'Object declared by the contract with fields: errors.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/errors_array
+  - term: oauth_redirect
+    definition: 'Object declared by the contract with fields: client_id, redirect_uri, scope, state.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/oauth_redirect
+  - term: openid_connect_transaction_create_params
+    definition: 'Object declared by the contract with fields: request, workflow, external_user_id.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/openid_connect_transaction_create_params
+  - term: openid_connect_transaction_workflow
+    definition: 'Object declared by the contract with fields: id, parameters, options.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/openid_connect_transaction_workflow
+  - term: openid_connect_transaction_options
+    definition: 'Object declared by the contract with fields: skip_landing_page, expiry.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/openid_connect_transaction_options
+  - term: openid_connect_transaction_request_parameter
+    definition: 'Object declared by the contract with fields: name, value, locked.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/openid_connect_transaction_request_parameter
+  - term: openid_connect_transaction_object
+    definition: 'Object declared by the contract with fields: transaction_id, access_link.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/openid_connect_transaction_object
+  - term: webhook_object
+    definition: 'Object declared by the contract with fields: url, header.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/webhook_object
+  - term: webhook_v2_subscriptions
+    definition: An array containing the desired events that Proof should POST a webhook for. See our [Webhooks V2 guide](https://dev.proof.com/docs/webhooks-v2)
+      for a list of valid subscriptions.
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/webhook_v2_subscriptions
+  - term: webhook_v2_object
+    definition: An object representing a Webhook V2.
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/webhook_v2_object
+  - term: webhook_v2_params
+    definition: An object containing Webhook V2 creation parameters.
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/webhook_v2_params
+  - term: webhook_v2_event
+    definition: An object representing a Webhook V2 event.
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/webhook_v2_event
+  - term: webhook_tests_error_object
+    definition: 'Object declared by the contract with fields: error.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/webhook_tests_error_object
+  - term: webhook_test_object
+    definition: 'Object declared by the contract with fields: webhook_body.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/webhook_test_object
+  - term: organization_object
+    definition: 'Object declared by the contract with fields: id, name, email, branding, logo_s3_link.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/organization_object
+  - term: branding
+    definition: Specifies a list of co-branding related attributes for the partner organization.
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/branding
+  - term: referral_params
+    definition: 'Object declared by the contract with fields: name, cover_payment, organization_id, redirect_url, use_branding.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/referral_params
+  - term: referral_object
+    definition: 'Object declared by the contract with fields: referral_campaign_id, link.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/referral_object
+  - term: referral_code_params
+    definition: 'Object declared by the contract with fields: expires_at.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/referral_code_params
+  - term: referral_link_object
+    definition: 'Object declared by the contract with fields: link.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/referral_link_object
+  - term: template_object
+    definition: 'Object declared by the contract with fields: id, created_at, updated_at, permalink, name.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/template_object
+  - term: template_objects
+    definition: 'Object declared by the contract with fields: templates, total_count.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-business-api-specification-openapi.yml#/components/schemas/template_objects
+  - term: document_update_params
+    definition: 'Object declared by the contract with fields: name, tracking_id, requirement, customer_can_annotate, notarization_required, identity_confirmation_required,
+      witness_required, authorization_header.'
+    tags:
+    - Object
+    source: openapi/notarize-proof-real-estate-api-specification-openapi.yml#/components/schemas/document_update_params
