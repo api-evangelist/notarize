@@ -164,8 +164,9 @@ common:
 
 apis:
 - name: Proof API (formerly Notarize)
-  description: REST API for creating and managing notarization, eSign, Identify, and real-estate transactions, documents, signers, notaries, templates,
-    and Webhooks V2 subscriptions.
+  description: >-
+    REST API for creating and managing notarization, eSign, Identify, and real-estate transactions, documents,
+    signers, notaries, templates, and Webhooks V2 subscriptions.
   humanURL: https://dev.proof.com/
   baseURL: https://api.proof.com/v1
   properties:
@@ -182,28 +183,18 @@ apis:
   - type: Webhooks
     url: asyncapi/notarize-webhooks.yml
   aid: notarize:proof-api-formerly-notarize
-- aid: notarize:notarize-logs-api-specification
-  name: Notarize Logs Api Specification Openapi.Yml API
-  description: The Logs Api Specification Openapi.Yml API from Notarize — 1 operation(s) for logs api specification openapi.yml.
+- aid: notarize:notarize-cost-centers-api
+  name: Notarize Cost Centers API
+  description: The Cost Centers API from Notarize — 2 operation(s) for cost centers.
   humanURL: https://dev.proof.com/
   baseURL: https://api.proof.com/v1
   tags:
-  - Logs Api Specification Openapi.Yml
+  - Cost Centers
   properties:
   - type: OpenAPI
-    url: openapi/notarize-logs-api-specification-openapi.yml
+    url: openapi/notarize-cost-centers-api-openapi.yml
   - type: JSONSchema
     url: json-schema/notarize-security-events-response-schema.json
-- aid: notarize:notarize-oauth-2-0-api-specification
-  name: Notarize Oauth 2 0 Api Specification Openapi.Yml API
-  description: The Oauth 2 0 Api Specification Openapi.Yml API from Notarize — 7 operation(s) for oauth 2 0 api specification openapi.yml.
-  humanURL: https://dev.proof.com/
-  baseURL: https://api.proof.com/v1
-  tags:
-  - Oauth 2 0 Api Specification Openapi.Yml
-  properties:
-  - type: OpenAPI
-    url: openapi/notarize-oauth-2-0-api-specification-openapi.yml
   - type: JSONSchema
     url: json-schema/notarize-authorization-server-metadata-schema.json
   - type: JSONSchema
@@ -216,16 +207,6 @@ apis:
     url: json-schema/notarize-introspection-response-schema.json
   - type: JSONSchema
     url: json-schema/notarize-revocation-request-schema.json
-- aid: notarize:notarize-proof-business-api-specification
-  name: Notarize Proof Business Api Specification Openapi.Yml API
-  description: The Proof Business Api Specification Openapi.Yml API from Notarize — 32 operation(s) for proof business api specification openapi.yml.
-  humanURL: https://dev.proof.com/
-  baseURL: https://api.proof.com/v1
-  tags:
-  - Proof Business Api Specification Openapi.Yml
-  properties:
-  - type: OpenAPI
-    url: openapi/notarize-proof-business-api-specification-openapi.yml
   - type: JSONSchema
     url: json-schema/notarize-transaction-create-params-schema.json
   - type: JSONSchema
@@ -238,17 +219,42 @@ apis:
     url: json-schema/notarize-document-schema.json
   - type: JSONSchema
     url: json-schema/notarize-document-params-schema.json
-- aid: notarize:notarize-proof-real-estate-api-specification
-  name: Notarize Proof Real Estate Api Specification Openapi.Yml API
-  description: The Proof Real Estate Api Specification Openapi.Yml API from Notarize — 32 operation(s) for proof real estate api specification
-    openapi.yml.
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-documents-api
+  name: Notarize Documents API
+  description: The Documents API from Notarize — 7 operation(s) for documents.
   humanURL: https://dev.proof.com/
   baseURL: https://api.proof.com/v1
   tags:
-  - Proof Real Estate Api Specification Openapi.Yml
+  - Documents
   properties:
   - type: OpenAPI
-    url: openapi/notarize-proof-real-estate-api-specification-openapi.yml
+    url: openapi/notarize-documents-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
   - type: JSONSchema
     url: json-schema/notarize-transaction-create-params-schema.json
   - type: JSONSchema
@@ -260,18 +266,9 @@ apis:
   - type: JSONSchema
     url: json-schema/notarize-document-schema.json
   - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
     url: json-schema/notarize-document-update-params-schema.json
-- aid: notarize:notarize-proof-verifiable-credentials-api-specification
-  name: Notarize Proof Verifiable Credentials Api Specification Openapi.Yml API
-  description: The Proof Verifiable Credentials Api Specification Openapi.Yml API from Notarize — 4 operation(s) for proof verifiable credentials
-    api specification openapi.yml.
-  humanURL: https://dev.proof.com/
-  baseURL: https://api.proof.com/v1
-  tags:
-  - Proof Verifiable Credentials Api Specification Openapi.Yml
-  properties:
-  - type: OpenAPI
-    url: openapi/notarize-proof-verifiable-credentials-api-specification-openapi.yml
   - type: JSONSchema
     url: json-schema/notarize-x401-payload-schema.json
   - type: JSONSchema
@@ -280,19 +277,728 @@ apis:
     url: json-schema/notarize-x401-handoff-response-schema.json
   - type: JSONSchema
     url: json-schema/notarize-x401-signature-response-schema.json
-- aid: notarize:notarize-scim-api-specification
-  name: Notarize Scim Api Specification Openapi.Yml API
-  description: The Scim Api Specification Openapi.Yml API from Notarize — 6 operation(s) for scim api specification openapi.yml.
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-eligibilities-api
+  name: Notarize Eligibilities API
+  description: The Eligibilities API from Notarize — 3 operation(s) for eligibilities.
   humanURL: https://dev.proof.com/
   baseURL: https://api.proof.com/v1
   tags:
-  - Scim Api Specification Openapi.Yml
+  - Eligibilities
   properties:
   - type: OpenAPI
-    url: openapi/notarize-scim-api-specification-openapi.yml
+    url: openapi/notarize-eligibilities-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
   - type: JSONSchema
     url: json-schema/notarize-user-creation-params-schema.json
-
+- aid: notarize:notarize-enote-api
+  name: Notarize E Note API
+  description: The eNote API from Notarize — 1 operation(s) for enote.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - eNote
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-enote-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-integrations-api
+  name: Notarize Integrations API
+  description: The Integrations API from Notarize — 1 operation(s) for integrations.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-integrations-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-notaries-api
+  name: Notarize Notaries API
+  description: The Notaries API from Notarize — 4 operation(s) for notaries.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Notaries
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-notaries-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-notarization-records-api
+  name: Notarize Notarization Records API
+  description: The Notarization Records API from Notarize — 3 operation(s) for notarization records.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Notarization Records
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-notarization-records-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-oauth-2-0-api
+  name: Notarize OAuth 2.0 API
+  description: The OAuth 2.0 API from Notarize — 7 operation(s) for oauth 2.0.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - OAuth 2.0
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-oauth-2-0-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-oid4vp-api
+  name: Notarize OID4VP API
+  description: The OID4VP API from Notarize — 4 operation(s) for oid4vp.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - OID4VP
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-oid4vp-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-organizations-api
+  name: Notarize Organizations API
+  description: The Organizations API from Notarize — 5 operation(s) for organizations.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-organizations-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-referrals-api
+  name: Notarize Referrals API
+  description: The Referrals API from Notarize — 2 operation(s) for referrals.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Referrals
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-referrals-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-scim-api
+  name: Notarize SCIM API
+  description: The SCIM API from Notarize — 6 operation(s) for scim.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - SCIM
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-scim-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-security-events-api
+  name: Notarize Security Events API
+  description: The Security Events API from Notarize — 1 operation(s) for security events.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Security Events
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-security-events-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-templates-api
+  name: Notarize Templates API
+  description: The Templates API from Notarize — 2 operation(s) for templates.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-templates-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-title-agencies-api
+  name: Notarize Title Agencies API
+  description: The Title Agencies API from Notarize — 1 operation(s) for title agencies.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Title Agencies
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-title-agencies-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-transactions-api
+  name: Notarize Transactions API
+  description: The Transactions API from Notarize — 21 operation(s) for transactions.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-transactions-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
+- aid: notarize:notarize-webhooks-api
+  name: Notarize Webhooks API
+  description: The Webhooks API from Notarize — 12 operation(s) for webhooks.
+  humanURL: https://dev.proof.com/
+  baseURL: https://api.proof.com/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/notarize-webhooks-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/notarize-security-events-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-authorization-server-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-client-registration-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-token-info-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-introspection-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-revocation-request-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-create-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-transaction-object-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-creation-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-document-update-params-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-payload-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-result-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-handoff-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-x401-signature-response-schema.json
+  - type: JSONSchema
+    url: json-schema/notarize-user-creation-params-schema.json
 x-enrichment:
   date: '2026-07-20'
   status: enriched

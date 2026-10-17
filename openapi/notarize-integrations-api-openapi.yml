@@ -1,0 +1,157 @@
+openapi: 3.2.0
+info:
+  title: Proof Business API Specification Integrations API
+  version: v1
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Integrations
+paths:
+  /v1/integrations:
+    post:
+      summary: Create Integration
+      tags:
+      - Integrations
+      operationId: createIntegration
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                transaction_types:
+                - NOTARIZE_NETWORK
+                - COLLECT
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Invalid adobe url: random'
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: Organization Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Not Found: Organization'
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/integration_params'
+components:
+  schemas:
+    integration_params:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+          - ADOBE
+          - DOCUTECH
+          description: Name of Integration
+        organization_id:
+          type: string
+          maxLength: 5000
+          description: Organization to create integration for.
+        configuration:
+          type: object
+          properties:
+            account_id:
+              type: string
+              maxLength: 5000
+              description: Integration Account
+            environment:
+              type: string
+              maxLength: 5000
+              description: Integration Environment
+      example:
+        name: ADOBE
+        configuration:
+          account_id: '1234'
+          environment: echosigndemo.com
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/activatedrafttransaction.md
+  - https://dev.proof.com/reference/adddocument.md
+  - https://dev.proof.com/reference/canceltransaction.md
+  - https://dev.proof.com/reference/createintegration.md
+  - https://dev.proof.com/reference/createnotary.md
+  - https://dev.proof.com/reference/createopenidconnecttransaction.md
+  - https://dev.proof.com/reference/createpartnerorganization.md
+  - https://dev.proof.com/reference/createreferral.md
+  - https://dev.proof.com/reference/createtestwebhook.md
+  - https://dev.proof.com/reference/createtransaction.md
+  - https://dev.proof.com/reference/createwebhookurl.md
+  - https://dev.proof.com/reference/createwebhookv2.md
+  - https://dev.proof.com/reference/deletedocument.md
+  - https://dev.proof.com/reference/deletenotary.md
+  - https://dev.proof.com/reference/deletetransaction.md
+  - https://dev.proof.com/reference/deletewebhookurl.md
+  - https://dev.proof.com/reference/deletewebhookv2.md
+  - https://dev.proof.com/reference/forcecompletetransaction.md
+  - https://dev.proof.com/reference/generatereferralcode.md
+  - https://dev.proof.com/reference/getallcostcenters.md
+  - https://dev.proof.com/reference/getalleligiblenotaries.md
+  - https://dev.proof.com/reference/getallnotaries.md
+  - https://dev.proof.com/reference/getalltemplates.md
+  - https://dev.proof.com/reference/getalltransactions.md
+  - https://dev.proof.com/reference/getallwebhooksv2.md
+  - https://dev.proof.com/reference/getaudittrail.md
+  - https://dev.proof.com/reference/getdocument.md
+  - https://dev.proof.com/reference/getnotarizationrecord.md
+  - https://dev.proof.com/reference/getnotarizationrecords.md
+  - https://dev.proof.com/reference/getnotary.md
+  - https://dev.proof.com/reference/getorganizationinformation.md
+  - https://dev.proof.com/reference/gettransaction.md
+  - https://dev.proof.com/reference/getwebhookeventsv2.md
+  - https://dev.proof.com/reference/getwebhooksubscriptionsv2.md
+  - https://dev.proof.com/reference/getwebhookurl.md
+  - https://dev.proof.com/reference/getwebhookv2.md
+  - https://dev.proof.com/reference/patchdocuments.md
+  - https://dev.proof.com/reference/patchdrafttransaction.md
+  - https://dev.proof.com/reference/recalltransaction-1.md
+  - https://dev.proof.com/reference/resendtransactionemail.md
+  - https://dev.proof.com/reference/resendtransactionsms.md
+  - https://dev.proof.com/reference/updatedocuments.md
+  - https://dev.proof.com/reference/updatedrafttransaction.md
+  - https://dev.proof.com/reference/updatepartnerorganization.md
+  - https://dev.proof.com/reference/updatewebhookv2.md
+  merge:
+    pages: 45
+    deduped: 353
+    conflicts_kept_first: 0

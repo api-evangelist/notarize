@@ -1,0 +1,1304 @@
+openapi: 3.2.0
+info:
+  title: Notarize Webhooks API
+  version: '1.0'
+  description: 'Operations tagged Webhooks across 2 of this provider''s published API definitions: notarize-proof-business-api-specification-openapi.yml, notarize-proof-real-estate-api-specification-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Webhooks
+paths:
+  /v1/webhook_tests:
+    post:
+      summary: Create Webhook Test
+      tags:
+      - Webhooks
+      operationId: createTestWebhook
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example: {}
+              schema:
+                $ref: '#/components/schemas/webhook_test_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                error: Missing Webhook
+              schema:
+                $ref: '#/components/schemas/webhook_tests_error_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                error: Webhook call failed with Exception from WebMock on https://webhook.site/c043db1a-ba1b-47a9-a373-18ceb6e2bb66
+              schema:
+                $ref: '#/components/schemas/webhook_tests_error_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_test_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v1/webhooks:
+    get:
+      summary: Retrieve Webhook URL
+      tags:
+      - Webhooks
+      operationId: getWebhookURL
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                url: https://webhook.proof.com
+                header: ''
+              schema:
+                $ref: '#/components/schemas/webhook_object'
+        '404':
+          description: not_found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+    post:
+      summary: Set/Update Webhook URL
+      tags:
+      - Webhooks
+      operationId: createWebhookURL
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              example:
+                url: http://www.google.com
+                header: ''
+              schema:
+                $ref: '#/components/schemas/webhook_object'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                  request:
+                  - Invalid URL
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_object'
+        description: Notarize will make a POST request to this URL for every transaction status change
+    delete:
+      summary: Delete Webhook URL
+      tags:
+      - Webhooks
+      operationId: deleteWebhookURL
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: Not Found
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v2/webhooks:
+    get:
+      summary: List Webhook V2
+      tags:
+      - Webhooks
+      operationId: getAllWebhooksV2
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: Webhooks retrieved
+          content:
+            application/json:
+              example:
+              - url: https://webhook.proof.com
+                header: ''
+                request_id_header_name: X-Request-Id
+                request_id_header_value_template: null
+                headers: []
+                subscriptions:
+                - notary.*
+                enabled: true
+                id: wh8znm4da
+                oauth:
+                  enabled: false
+                  token_url: null
+                  client_id: null
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/webhook_v2_object'
+    post:
+      summary: Create Webhook V2
+      tags:
+      - Webhooks
+      operationId: createWebhookV2
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: Webhook created
+          content:
+            application/json:
+              example:
+                url: https://www.yourapp.com/proof_webhooks
+                header: X-Custom-Header:X-Custom-Key
+                request_id_header_name: X-Request-Id
+                request_id_header_value_template: null
+                headers:
+                - X-Custom-Header:X-Custom-Key
+                subscriptions:
+                - transaction.*
+                enabled: true
+                id: whyxdwjng
+                oauth:
+                  enabled: false
+                  token_url: null
+                  client_id: null
+              schema:
+                $ref: '#/components/schemas/webhook_v2_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for required field subscriptions - expected Array
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_v2_params'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v2/webhooks/subscriptions:
+    get:
+      summary: Get Webhook V2 Subscriptions
+      tags:
+      - Webhooks
+      operationId: getWebhookSubscriptionsV2
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: Webhook subscriptions retrieved
+          content:
+            application/json:
+              example:
+                transaction:
+                - transaction.*
+                - transaction.created
+                - transaction.sent
+                - transaction.updated
+                - transaction.received
+                - transaction.completed
+                - transaction.completed_with_rejections
+                - transaction.partially_completed
+                - transaction.deleted
+                - transaction.recalled
+                - transaction.canceled
+                - transaction.expired
+                - transaction.released
+                - transaction.held_for_review
+                - transaction.declined
+                - transaction.reviewed
+                - transaction.sent_to_closing_ops
+                - transaction.sent_to_signer
+                - transaction.sent_to_title_agency
+                - transaction.document.upload
+                - transaction.document.processed
+                - transaction.import.processed
+                - transaction.import.failed
+                - transaction.meeting.created
+                - transaction.meeting.failed
+                - transaction.meeting.requested
+                - transaction.meeting.video.processed
+                - transaction.notary.assigned
+                - transaction.signer.kba_failed
+                - transaction.signer.kba_passed
+                - transaction.signer.high_risk_detected
+                - transaction.signer.medium_risk_detected
+                - transaction.transaction.automated_identity_verification_by_idv_service_failed
+                - transaction.transaction.automated_identity_verification_by_idv_service_passed
+                - transaction.underwriter.not_available
+                notary:
+                - notary.*
+                - notary.created
+                - notary.needs_review
+                - notary.compliant
+                - notary.non_compliant
+                - notary.signer_ready
+              schema:
+                type: object
+                properties:
+                  transaction:
+                    $ref: '#/components/schemas/webhook_v2_subscriptions'
+                  notary:
+                    $ref: '#/components/schemas/webhook_v2_subscriptions'
+                required:
+                - transaction
+                - notary
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v2/webhooks/{id}:
+    get:
+      summary: Get Webhook V2
+      tags:
+      - Webhooks
+      operationId: getWebhookV2
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the webhook to be retrieved.
+        required: true
+        x-example: wh53ngknk
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook retrieved
+          content:
+            application/json:
+              example:
+                url: https://webhook.proof.com
+                header: ''
+                request_id_header_name: X-Request-Id
+                request_id_header_value_template: null
+                headers: []
+                subscriptions:
+                - '*'
+                enabled: true
+                id: wh53ngknk
+                oauth:
+                  enabled: false
+                  token_url: null
+                  client_id: null
+              schema:
+                $ref: '#/components/schemas/webhook_v2_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+    put:
+      summary: Update Webhook V2
+      tags:
+      - Webhooks
+      operationId: updateWebhookV2
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the webhook to be updated.
+        required: true
+        x-example: whmqdj4dz
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook updated
+          content:
+            application/json:
+              example:
+                updated: true
+              schema:
+                type: object
+                properties:
+                  updated:
+                    type: boolean
+                required:
+                - updated
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid subscription passed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_v2_params'
+    delete:
+      summary: Delete Webhook V2
+      tags:
+      - Webhooks
+      operationId: deleteWebhookV2
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the webhook to be deleted.
+        required: true
+        x-example: whkwd35d7
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook deleted
+          content:
+            application/json:
+              example:
+                deleted: true
+              schema:
+                type: object
+                properties:
+                  deleted:
+                    type: boolean
+                required:
+                - deleted
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v2/webhooks/{id}/events:
+    get:
+      summary: Get Webhook V2 Events
+      tags:
+      - Webhooks
+      operationId: getWebhookEventsV2
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the webhook to retrieve events for.
+        required: true
+        x-example: wh47n8bn6
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: How many results to return. Default is 20; max is 100.
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        required: false
+        description: 'Offset request by given # of items. Default is 0.'
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Webhook events retrieved
+          content:
+            application/json:
+              example: []
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/webhook_v2_event'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v1/webhook_tests:
+    post:
+      summary: Create Webhook Test
+      tags:
+      - Webhooks
+      operationId: postMortgageV1WebhookTests
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example: {}
+              schema:
+                $ref: '#/components/schemas/webhook_test_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                error: Missing Webhook
+              schema:
+                $ref: '#/components/schemas/webhook_tests_error_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                error: Webhook call failed with Exception from WebMock on https://invalid.proof.com
+              schema:
+                $ref: '#/components/schemas/webhook_tests_error_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_test_object'
+      x-operation-id-source: normalized
+      x-operation-id-original: createTestWebhook
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v1/webhooks:
+    get:
+      summary: Retrieve Webhook URL
+      tags:
+      - Webhooks
+      operationId: getMortgageWebhookURL
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                url: https://webhook.proof.com
+                header: ''
+              schema:
+                $ref: '#/components/schemas/webhook_object'
+        '404':
+          description: not_found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+    post:
+      summary: Set/Update Webhook URL
+      tags:
+      - Webhooks
+      operationId: createMortgageWebhookURL
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              example:
+                url: http://www.google.com
+                header: ''
+              schema:
+                $ref: '#/components/schemas/webhook_object'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                  request:
+                  - Invalid URL
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_object'
+        description: Notarize will make a POST request to this URL for every transaction status change.
+    delete:
+      summary: Delete Webhook URL
+      tags:
+      - Webhooks
+      operationId: deleteMortgageWebhookURL
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: successful
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/webhooks:
+    get:
+      summary: List Webhook V2
+      tags:
+      - Webhooks
+      operationId: getAllMortgageWebhooksV2
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: Webhooks retrieved
+          content:
+            application/json:
+              example:
+              - url: https://webhook.proof.com
+                header: ''
+                request_id_header_name: X-Request-Id
+                request_id_header_value_template: null
+                headers: []
+                subscriptions:
+                - notary.*
+                enabled: true
+                id: whxdwwjdg
+                oauth:
+                  enabled: false
+                  token_url: null
+                  client_id: null
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/webhook_v2_object'
+    post:
+      summary: Create Webhook V2
+      tags:
+      - Webhooks
+      operationId: createMortgageWebhookV2
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: Webhook created
+          content:
+            application/json:
+              example:
+                url: https://www.yourapp.com/proof_webhooks
+                header: X-Custom-Header:X-Custom-Key
+                request_id_header_name: X-Request-Id
+                request_id_header_value_template: null
+                headers:
+                - X-Custom-Header:X-Custom-Key
+                subscriptions:
+                - transaction.*
+                enabled: true
+                id: wh3ng5knk
+                oauth:
+                  enabled: false
+                  token_url: null
+                  client_id: null
+              schema:
+                $ref: '#/components/schemas/webhook_v2_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for required field subscriptions - expected Array
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_v2_params'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/webhooks/subscriptions:
+    get:
+      summary: Get Webhook V2 Subscriptions
+      tags:
+      - Webhooks
+      operationId: getMortgageWebhookSubscriptionsV2
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: Webhook subscriptions retrieved
+          content:
+            application/json:
+              example:
+                transaction:
+                - transaction.*
+                - transaction.created
+                - transaction.sent
+                - transaction.updated
+                - transaction.received
+                - transaction.completed
+                - transaction.completed_with_rejections
+                - transaction.partially_completed
+                - transaction.deleted
+                - transaction.recalled
+                - transaction.canceled
+                - transaction.expired
+                - transaction.released
+                - transaction.held_for_review
+                - transaction.declined
+                - transaction.reviewed
+                - transaction.sent_to_closing_ops
+                - transaction.sent_to_signer
+                - transaction.sent_to_title_agency
+                - transaction.document.upload
+                - transaction.document.processed
+                - transaction.import.processed
+                - transaction.import.failed
+                - transaction.meeting.created
+                - transaction.meeting.failed
+                - transaction.meeting.requested
+                - transaction.meeting.video.processed
+                - transaction.notary.assigned
+                - transaction.signer.kba_failed
+                - transaction.signer.kba_passed
+                - transaction.signer.high_risk_detected
+                - transaction.signer.medium_risk_detected
+                - transaction.transaction.automated_identity_verification_by_idv_service_failed
+                - transaction.transaction.automated_identity_verification_by_idv_service_passed
+                - transaction.underwriter.not_available
+                notary:
+                - notary.*
+                - notary.created
+                - notary.needs_review
+                - notary.compliant
+                - notary.non_compliant
+                - notary.signer_ready
+              schema:
+                type: object
+                properties:
+                  transaction:
+                    $ref: '#/components/schemas/webhook_v2_subscriptions'
+                  notary:
+                    $ref: '#/components/schemas/webhook_v2_subscriptions'
+                required:
+                - transaction
+                - notary
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/webhooks/{id}:
+    get:
+      summary: Get Webhook V2
+      tags:
+      - Webhooks
+      operationId: getMortgageWebhookV2
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the webhook to be retrieved.
+        required: true
+        x-example: whbd5mrd9
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook retrieved
+          content:
+            application/json:
+              example:
+                url: https://webhook.proof.com
+                header: ''
+                request_id_header_name: X-Request-Id
+                request_id_header_value_template: null
+                headers: []
+                subscriptions:
+                - '*'
+                enabled: true
+                id: whbd5mrd9
+                oauth:
+                  enabled: false
+                  token_url: null
+                  client_id: null
+              schema:
+                $ref: '#/components/schemas/webhook_v2_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+    put:
+      summary: Update Webhook V2
+      tags:
+      - Webhooks
+      operationId: updateMortgageWebhookV2
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the webhook to be updated.
+        required: true
+        x-example: wh6nzpkn9
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook updated
+          content:
+            application/json:
+              example:
+                updated: true
+              schema:
+                type: object
+                properties:
+                  updated:
+                    type: boolean
+                required:
+                - updated
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid subscription passed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_v2_params'
+    delete:
+      summary: Delete Webhook V2
+      tags:
+      - Webhooks
+      operationId: deleteMortgageWebhookV2
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the webhook to be deleted.
+        required: true
+        x-example: whod4q9nk
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook deleted
+          content:
+            application/json:
+              example:
+                deleted: true
+              schema:
+                type: object
+                properties:
+                  deleted:
+                    type: boolean
+                required:
+                - deleted
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/webhooks/{id}/events:
+    get:
+      summary: Get Webhook V2 Events
+      tags:
+      - Webhooks
+      operationId: getMortgageWebhookEventsV2
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the webhook to retrieve events for.
+        required: true
+        x-example: whxna57nm
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook events retrieved
+          content:
+            application/json:
+              example: []
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/webhook_v2_event_2'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+components:
+  schemas:
+    webhook_v2_object:
+      description: An object representing a Webhook V2.
+      type: object
+      properties:
+        id:
+          description: The ID of the Webhook V2 object.
+          maxLength: 5000
+          type: string
+        url:
+          description: Proof will make a POST request to this URL for every subscribed event.
+          maxLength: 5000
+          type: string
+        header:
+          description: 'A header value to pass through every request Proof makes back to your webhook URL.
+
+            This can be required authentication to your system for security purposes. (E.g. "header": "X-Custom-Header:X-Custom-Key")'
+          maxLength: 5000
+          type:
+          - string
+          - 'null'
+        headers:
+          description: 'A list of header values to pass through every request Proof makes back to your webhook URL.
+
+            This can be required authentication to your system for security purposes. (E.g. "headers": ["[X-Custom-Header]:[X-Custom-Key]"])'
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+        enabled:
+          type: boolean
+          description: A boolean value to indicate if the webhook is active.
+        request_id_header_name:
+          type: string
+          description: The name of the header that will contain the request ID for each webhook request. Defaults to X-Request-Id.
+        request_id_header_value_template:
+          type:
+          - string
+          - 'null'
+        oauth:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            token_url:
+              type:
+              - string
+              - 'null'
+            client_id:
+              type:
+              - string
+              - 'null'
+        subscriptions:
+          $ref: '#/components/schemas/webhook_v2_subscriptions'
+      required:
+      - id
+      - url
+      - enabled
+      - subscriptions
+    webhook_v2_subscriptions:
+      description: 'An array containing the desired events that Proof should POST a webhook for.
+
+        See our [Webhooks V2 guide](https://dev.proof.com/docs/webhooks-v2) for a list of valid subscriptions.'
+      type: array
+      items:
+        type: string
+        enum:
+        - '*'
+        - transaction.*
+        - transaction.created
+        - transaction.sent
+        - transaction.updated
+        - transaction.received
+        - transaction.completed
+        - transaction.completed_with_rejections
+        - transaction.partially_completed
+        - transaction.deleted
+        - transaction.recalled
+        - transaction.canceled
+        - transaction.expired
+        - transaction.released
+        - transaction.held_for_review
+        - transaction.declined
+        - transaction.reviewed
+        - transaction.sent_to_closing_ops
+        - transaction.sent_to_signer
+        - transaction.sent_to_title_agency
+        - transaction.document.upload
+        - transaction.document.processed
+        - transaction.import.processed
+        - transaction.import.failed
+        - transaction.meeting.created
+        - transaction.meeting.failed
+        - transaction.meeting.requested
+        - transaction.meeting.video.processed
+        - transaction.notary.assigned
+        - transaction.signer.kba_failed
+        - transaction.signer.kba_passed
+        - transaction.signer.high_risk_detected
+        - transaction.signer.medium_risk_detected
+        - transaction.transaction.automated_identity_verification_by_idv_service_failed
+        - transaction.transaction.automated_identity_verification_by_idv_service_passed
+        - transaction.underwriter.not_available
+        - notary.*
+        - notary.created
+        - notary.needs_review
+        - notary.compliant
+        - notary.non_compliant
+        - notary.signer_ready
+    webhook_v2_params:
+      description: An object containing Webhook V2 creation parameters.
+      type: object
+      properties:
+        url:
+          description: Proof will make a POST request to this URL for every subscribed event.
+          maxLength: 5000
+          type: string
+        header:
+          description: 'A header value to pass through every request Proof makes back to your webhook URL.
+
+            This can be required authentication to your system for security purposes. (E.g. "header": "X-Custom-Header:X-Custom-Key")'
+          maxLength: 5000
+          type:
+          - string
+          - 'null'
+        request_id_header_name:
+          description: The name of the header that will contain the request ID for each webhook request. Defaults to X-Request-Id.
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+        headers:
+          description: 'A list of header values to pass through every request Proof makes back to your webhook URL.
+
+            This can be required authentication to your system for security purposes. (E.g. "headers": ["[X-Custom-Header]:[X-Custom-Key]"]). If passed, value for header (singular) is ignored.'
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            maxLength: 5000
+        signing_key:
+          description: 'A signing key to sign the webhook payloads with. This is used to verify the authenticity of the webhook requests.
+
+            If not passed and if using api keys to authenticate, Proof will use the api key to sign the payloads. https://dev.proof.com/docs/webhooks-v2#security'
+          type:
+          - string
+          - 'null'
+        oauth_config:
+          description: OAuth 2.0 client-credentials block. Supply either this object or an API key/header to authenticate incoming webhook requests.
+          type:
+          - object
+          - 'null'
+          properties:
+            oauth_token_url:
+              description: Token endpoint URL where Proof will request bearer tokens.
+              type: string
+              format: uri
+            client_id:
+              description: OAuth client ID.
+              type: string
+            client_secret:
+              description: OAuth client secret.
+              type: string
+              writeOnly: true
+          required:
+          - oauth_token_url
+          - client_id
+          - client_secret
+        subscriptions:
+          $ref: '#/components/schemas/webhook_v2_subscriptions'
+      required:
+      - url
+      - subscriptions
+      example:
+        url: https://www.yourapp.com/proof_webhooks
+        header: X-Custom-Header:X-Custom-Key
+        subscriptions:
+        - transaction.*
+    webhook_object:
+      type: object
+      properties:
+        url:
+          type: string
+          maxLength: 5000
+          description: Proof will make a POST request to this URL for every event.
+        header:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Proof will add this header to every POST request.
+      required:
+      - url
+      example:
+        url: http://www.google.com
+    webhook_v2_event:
+      description: An object representing a Webhook V2 event.
+      type: object
+      properties:
+        event:
+          description: The Webhook V2 event type. See our [Webhooks V2 guide](https://dev.proof.com/docs/webhooks-v2) for a list of valid events.
+          type: string
+          enum:
+          - transaction.*
+          - transaction.created
+          - transaction.sent
+          - transaction.updated
+          - transaction.received
+          - transaction.completed
+          - transaction.completed_with_rejections
+          - transaction.partially_completed
+          - transaction.deleted
+          - transaction.recalled
+          - transaction.canceled
+          - transaction.expired
+          - transaction.released
+          - transaction.held_for_review
+          - transaction.declined
+          - transaction.reviewed
+          - transaction.sent_to_closing_ops
+          - transaction.sent_to_signer
+          - transaction.sent_to_title_agency
+          - transaction.document.upload
+          - transaction.document.processed
+          - transaction.import.processed
+          - transaction.import.failed
+          - transaction.meeting.created
+          - transaction.meeting.failed
+          - transaction.meeting.requested
+          - transaction.meeting.video.processed
+          - transaction.notary.assigned
+          - transaction.signer.kba_failed
+          - transaction.signer.kba_passed
+          - transaction.signer.high_risk_detected
+          - transaction.signer.medium_risk_detected
+          - transaction.transaction.automated_identity_verification_by_idv_service_failed
+          - transaction.transaction.automated_identity_verification_by_idv_service_passed
+          - transaction.underwriter.not_available
+          - notary.*
+          - notary.created
+          - notary.needs_review
+          - notary.compliant
+          - notary.non_compliant
+          - notary.signer_ready
+        response:
+          type: object
+          properties:
+            body:
+              description: The body of the response from your webhook receiver.
+              maxLength: 5000
+              type: string
+            code:
+              description: The status code of the response from your webhook receiver.
+              type: integer
+            headers:
+              properties:
+                date:
+                  type: string
+                  maxLength: 5000
+                etag:
+                  type: string
+                  maxLength: 5000
+                connection:
+                  type: string
+                  maxLength: 5000
+                content-type:
+                  type: string
+                  maxLength: 5000
+                x-powered-by:
+                  type: string
+                  maxLength: 5000
+                content-length:
+                  type: string
+                  maxLength: 5000
+                access-control-allow-origin:
+                  type: string
+                  maxLength: 5000
+        delivered:
+          description: The date and time of the event delivery in ISO-8601 format.
+          maxLength: 100
+          type: string
+        payload:
+          description: The payload of the event.
+          maxLength: 5000
+          type: string
+    webhook_test_object:
+      type: object
+      properties:
+        webhook_body:
+          type: object
+          properties:
+            event:
+              type: string
+              maxLength: 5000
+            data:
+              type: object
+              properties:
+                transaction_id:
+                  type: string
+                  maxLength: 5000
+                status:
+                  type: string
+                  maxLength: 5000
+      example:
+        webhook_body:
+          event: user_failed_transaction
+          data:
+            transaction_id: ot_ny695pd
+            details: User Exceeded Authentication Attempts
+    webhook_tests_error_object:
+      type: object
+      properties:
+        error:
+          type: string
+          maxLength: 5000
+    webhook_v2_event_2:
+      description: An object representing a Webhook V2 event.
+      type: object
+      properties:
+        event:
+          description: The Webhook V2 event type. See our [Webhooks V2 guide](https://dev.proof.com/docs/webhooks-v2) for a list of valid events.
+          maxLength: 5000
+          type: string
+          enum:
+          - transaction.*
+          - transaction.created
+          - transaction.sent
+          - transaction.updated
+          - transaction.received
+          - transaction.completed
+          - transaction.completed_with_rejections
+          - transaction.partially_completed
+          - transaction.deleted
+          - transaction.recalled
+          - transaction.canceled
+          - transaction.expired
+          - transaction.released
+          - transaction.held_for_review
+          - transaction.declined
+          - transaction.reviewed
+          - transaction.sent_to_closing_ops
+          - transaction.sent_to_signer
+          - transaction.sent_to_title_agency
+          - transaction.document.upload
+          - transaction.document.processed
+          - transaction.import.processed
+          - transaction.import.failed
+          - transaction.meeting.created
+          - transaction.meeting.failed
+          - transaction.meeting.requested
+          - transaction.meeting.video.processed
+          - transaction.notary.assigned
+          - transaction.signer.kba_failed
+          - transaction.signer.kba_passed
+          - transaction.signer.high_risk_detected
+          - transaction.signer.medium_risk_detected
+          - transaction.transaction.automated_identity_verification_by_idv_service_failed
+          - transaction.transaction.automated_identity_verification_by_idv_service_passed
+          - transaction.underwriter.not_available
+          - notary.*
+          - notary.created
+          - notary.needs_review
+          - notary.compliant
+          - notary.non_compliant
+          - notary.signer_ready
+        response:
+          type: object
+          properties:
+            body:
+              description: The body of the response from your webhook receiver.
+              maxLength: 5000
+              type: string
+            code:
+              description: The status code of the response from your webhook receiver.
+              maxLength: 5000
+              type: integer
+            headers:
+              properties:
+                date:
+                  type: string
+                  maxLength: 5000
+                etag:
+                  type: string
+                  maxLength: 5000
+                connection:
+                  type: string
+                  maxLength: 5000
+                content-type:
+                  type: string
+                  maxLength: 5000
+                x-powered-by:
+                  type: string
+                  maxLength: 5000
+                content-length:
+                  type: string
+                  maxLength: 5000
+                access-control-allow-origin:
+                  type: string
+                  maxLength: 5000
+        delivered:
+          description: The date and time of the event delivery in ISO-8601 format.
+          maxLength: 100
+          type: string
+        payload:
+          description: The payload of the event.
+          maxLength: 5000
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-refined-from:
+- notarize-proof-business-api-specification-openapi.yml
+- notarize-proof-real-estate-api-specification-openapi.yml
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/listsecurityevents.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

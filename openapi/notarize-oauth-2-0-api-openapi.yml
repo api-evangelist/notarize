@@ -1,10 +1,12 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: OAuth 2.0 API Specification
+  title: Specification OAuth 2.0 API
   version: v1
 servers:
 - url: https://api.proof.com
   description: Public API URL
+tags:
+- name: OAuth 2.0
 paths:
   /.well-known/oauth-authorization-server:
     get:
@@ -12,7 +14,7 @@ paths:
       tags:
       - OAuth 2.0
       operationId: getOAuthAuthorizationServerMetadata
-      description: 'Returns the [authorization server metadata](https://datatracker.ietf.org/doc/html/rfc8414#section-2): the endpoints, grant types, scopes, response types, response modes, PKCE methods and client authentication methods this authorization server supports.'
+      description: 'Returns the authorization server metadata: the endpoints, grant types, scopes, response types, response modes, PKCE methods and client authentication methods this authorization server supports.'
       responses:
         '200':
           description: successful
@@ -80,8 +82,13 @@ paths:
       tags:
       - OAuth 2.0
       operationId: authorizeOAuth
-      description: "Starts the [Authorization Code grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1) at the [authorization endpoint](https://datatracker.ietf.org/doc/html/rfc6749#section-3.1). Redirect the User's browser to this endpoint. The User signs in, then approves or denies the request. \n\nProof then redirects to your `redirect_uri` per `response_mode`, carrying `code` and `state` on approval or `error` and `error_description` on denial. Every redirect also carries [`iss`](https://datatracker.ietf.org/doc/html/rfc9207#section-2), the issuer identifier of this authorization server. Compare it to `issuer` from `GET /.well-known/oauth-authorization-server` and reject the response when they differ. Exchange the `code` at `POST /oauth/v2/token` within 10 minutes. \n\nAn unknown `client_id` or an unregistered `redirect_uri` sends the User to a Proof-hosted error page. Redirected [errors](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2.1) use `invalid_scope`,\
-        \ `invalid_target`, `access_denied` and `invalid_request`."
+      description: 'Starts the Authorization Code grant at the authorization endpoint. Redirect the User''s browser to this endpoint. The User signs in, then approves or denies the request.
+
+
+        Proof then redirects to your `redirect_uri` per `response_mode`, carrying `code` and `state` on approval or `error` and `error_description` on denial. Every redirect also carries `iss`, the issuer identifier of this authorization server. Compare it to `issuer` from `GET /.well-known/oauth-authorization-server` and reject the response when they differ. Exchange the `code` at `POST /oauth/v2/token` within 10 minutes.
+
+
+        An unknown `client_id` or an unregistered `redirect_uri` sends the User to a Proof-hosted error page. Redirected errors use `invalid_scope`, `invalid_target`, `access_denied` and `invalid_request`.'
       parameters:
       - name: client_id
         in: query
@@ -153,7 +160,7 @@ paths:
       tags:
       - OAuth 2.0
       operationId: introspectOAuthToken
-      description: 'Returns the state of a token, per [RFC 7662](https://datatracker.ietf.org/doc/html/rfc7662). Callers authenticate as the client the token was issued to, or as the protected resource the token was issued for, with [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1), [`client_secret_basic`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1), [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) or a [Bearer token](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1). Expired, revoked and unknown tokens return `active: false`.'
+      description: 'Returns the state of a token, per RFC 7662. Callers authenticate as the client the token was issued to, or as the protected resource the token was issued for, with `client_secret_post`, `client_secret_basic`, `private_key_jwt` or a Bearer token. Expired, revoked and unknown tokens return `active: false`.'
       parameters: []
       responses:
         '200':
@@ -190,7 +197,10 @@ paths:
       tags:
       - OAuth 2.0
       operationId: registerOAuthClient
-      description: "Registers an OAuth client from the [client metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2) in the request body and returns a [client information response](https://datatracker.ietf.org/doc/html/rfc7591#section-3.2.1). The endpoint is unauthenticated. \n\nThe `client_secret` appears in this response only. Proof sets `grant_types`, `response_types` and `scope`, and sets `token_endpoint_auth_method` to `client_secret_post` unless the request asks for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) with a `jwks` or `jwks_uri`, in which case no `client_secret` is issued."
+      description: 'Registers an OAuth client from the client metadata in the request body and returns a client information response. The endpoint is unauthenticated.
+
+
+        The `client_secret` appears in this response only. Proof sets `grant_types`, `response_types` and `scope`, and sets `token_endpoint_auth_method` to `client_secret_post` unless the request asks for `private_key_jwt` with a `jwks` or `jwks_uri`, in which case no `client_secret` is issued.'
       parameters: []
       responses:
         '201':
@@ -238,7 +248,7 @@ paths:
       tags:
       - OAuth 2.0
       operationId: revokeOAuthToken
-      description: Revokes an [access token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.4) or [refresh token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.5) issued to the authenticated client, per [RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009). Client authentication uses [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1), [`client_secret_basic`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) or [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2). Responds 200 for a revoked token and for an unknown token.
+      description: Revokes an access token or refresh token issued to the authenticated client, per RFC 7009. Client authentication uses `client_secret_post`, `client_secret_basic` or `private_key_jwt`. Responds 200 for a revoked token and for an unknown token.
       parameters: []
       responses:
         '200':
@@ -269,7 +279,7 @@ paths:
       tags:
       - OAuth 2.0
       operationId: createOAuthToken
-      description: Issues an [access token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.4) from the [token endpoint](https://datatracker.ietf.org/doc/html/rfc6749#section-3.2). Client authentication uses [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1), [`client_secret_basic`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) or [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2). `GET /.well-known/oauth-authorization-server` lists the supported grant types.
+      description: Issues an access token from the token endpoint. Client authentication uses `client_secret_post`, `client_secret_basic` or `private_key_jwt`. `GET /.well-known/oauth-authorization-server` lists the supported grant types.
       parameters: []
       responses:
         '200':
@@ -316,7 +326,7 @@ paths:
       operationId: getOAuthTokenInfo
       security:
       - bearer_auth: []
-      description: Returns the scopes, remaining lifetime and OAuth application of the [access token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.4) presented as a [Bearer token](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
+      description: Returns the scopes, remaining lifetime and OAuth application of the access token presented as a Bearer token.
       responses:
         '200':
           description: successful
@@ -344,6 +354,405 @@ paths:
                 $ref: '#/components/schemas/oauth_error'
 components:
   schemas:
+    client_registration_request:
+      type: object
+      required:
+      - redirect_uris
+      properties:
+        redirect_uris:
+          type: array
+          items:
+            type: string
+          description: '[Redirect URIs](https://datatracker.ietf.org/doc/html/rfc6749#section-3.1.2) for the authorization endpoint. At least one is required.'
+        client_name:
+          type: string
+          description: Name shown to the User on the authorization page. Proof generates one when this is absent.
+        client_uri:
+          type: string
+          description: URL of the client home page.
+        logo_uri:
+          type: string
+          description: URL of a logo for the client.
+        contacts:
+          type: array
+          items:
+            type: string
+          description: Email addresses of people responsible for the client.
+        tos_uri:
+          type: string
+          description: URL of the terms of service of the client.
+        policy_uri:
+          type: string
+          description: URL of the privacy policy of the client.
+        jwks_uri:
+          type: string
+          description: URL of the [JWK Set](https://datatracker.ietf.org/doc/html/rfc7517#section-5) of the client. Supply either `jwks_uri` or `jwks`.
+        jwks:
+          type: object
+          description: The [JWK Set](https://datatracker.ietf.org/doc/html/rfc7517#section-5) of the client, by value. Supply either `jwks` or `jwks_uri`.
+        software_id:
+          type: string
+          description: Identifier the client developer assigns to the client software.
+        software_version:
+          type: string
+          description: Version of the client software.
+        token_endpoint_auth_method:
+          type: string
+          enum:
+          - client_secret_post
+          - private_key_jwt
+          description: Requested client authentication method. `private_key_jwt` requires `jwks` or `jwks_uri` and issues no `client_secret`; any other value results in `client_secret_post`.
+      example:
+        client_name: Example App
+        redirect_uris:
+        - https://example.com/oauth/callback
+        client_uri: https://example.com
+        contacts:
+        - support@example.com
+    client_credentials_token_request:
+      type: object
+      required:
+      - grant_type
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - client_credentials
+          description: The [Client Credentials grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4).
+        scope:
+          type: string
+          description: Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values. `read` and `write` are accepted.
+        client_id:
+          type: string
+          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
+        client_secret:
+          type: string
+          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
+        client_assertion_type:
+          type: string
+          enum:
+          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
+        client_assertion:
+          type: string
+          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
+    token_request:
+      oneOf:
+      - $ref: '#/components/schemas/client_credentials_token_request'
+      - $ref: '#/components/schemas/authorization_code_token_request'
+      - $ref: '#/components/schemas/refresh_token_token_request'
+      example:
+        grant_type: client_credentials
+        client_id: your-client-id
+        client_secret: your-client-secret
+        scope: read
+    token_response:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The issued [access token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.4).
+        token_type:
+          type: string
+          description: Always `Bearer`. See [Bearer token usage](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
+        expires_in:
+          type: integer
+          description: Access token lifetime, in seconds.
+        scope:
+          type: string
+          description: Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values granted to the access token.
+        created_at:
+          type: integer
+          description: Issue time, as a Unix timestamp in seconds.
+        refresh_token:
+          type: string
+          description: A [refresh token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.5), for grants that support refreshing.
+    introspection_request:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          description: The token to introspect.
+        token_type_hint:
+          type: string
+          enum:
+          - access_token
+          - refresh_token
+          description: A [`token_type_hint`](https://datatracker.ietf.org/doc/html/rfc7009#section-2.1) for the submitted token.
+        client_id:
+          type: string
+          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
+        client_secret:
+          type: string
+          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
+        client_assertion_type:
+          type: string
+          enum:
+          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
+        client_assertion:
+          type: string
+          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
+      example:
+        token: the-token-to-introspect
+        client_id: your-client-id
+        client_secret: your-client-secret
+    introspection_response:
+      type: object
+      required:
+      - active
+      properties:
+        active:
+          type: boolean
+          description: Whether the token is currently active, per the [introspection response](https://datatracker.ietf.org/doc/html/rfc7662#section-2.2). `false` stands alone.
+        scope:
+          type: string
+          description: Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values granted to the token.
+        client_id:
+          type: string
+          description: The [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2) the token was issued to.
+        token_type:
+          type: string
+          description: Always `Bearer`.
+        iat:
+          type: integer
+          description: 'The [`iat`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.6) claim: issue time, as a Unix timestamp in seconds.'
+        exp:
+          type: integer
+          description: 'The [`exp`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.4) claim: expiry, as a Unix timestamp in seconds. Present for tokens that expire.'
+        iss:
+          type: string
+          description: 'The [`iss`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1) claim: the authorization server that issued the token.'
+        aud:
+          type: string
+          description: 'The [`aud`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3) claim: the protected resource the token was issued for. Present for resource-bound tokens.'
+        sub:
+          type: string
+          description: 'The [`sub`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.2) claim: the subject the token was issued for.'
+        sub_type:
+          type: string
+          description: The kind of subject `sub` identifies.
+    token_info_response:
+      type: object
+      properties:
+        scope:
+          type: array
+          items:
+            type: string
+          description: '[Scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values granted to the access token.'
+        expires_in:
+          type: integer
+          description: Remaining access token lifetime, in seconds.
+        application:
+          type: object
+          properties:
+            uid:
+              type: string
+              description: The [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2) the access token was issued to.
+        created_at:
+          type: integer
+          description: Issue time, as a Unix timestamp in seconds.
+        iss:
+          type: string
+          description: 'The [`iss`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1) claim: the authorization server that issued the access token.'
+        aud:
+          type: string
+          description: 'The [`aud`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3) claim: the protected resource the access token was issued for. Present for resource-bound access tokens.'
+        sub:
+          type: string
+          description: 'The [`sub`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.2) claim: the subject the access token was issued for.'
+        sub_type:
+          type: string
+          description: The kind of subject `sub` identifies.
+        email:
+          type: string
+          description: Email address of the User the access token was issued for. Returned when the granted scopes cover it.
+        given_name:
+          type: string
+          description: First name of the User the access token was issued for. Returned when the granted scopes cover it.
+        family_name:
+          type: string
+          description: Last name of the User the access token was issued for. Returned when the granted scopes cover it.
+    client_registration_response:
+      type: object
+      properties:
+        client_id:
+          type: string
+          description: The [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2) issued to the client.
+        client_secret:
+          type: string
+          description: The client secret issued to the client. Returned in this response only.
+        client_id_issued_at:
+          type: integer
+          description: Issue time of the `client_id`, as a Unix timestamp in seconds.
+        client_secret_expires_at:
+          type: integer
+          description: Expiry of the `client_secret`, as a Unix timestamp in seconds. `0` marks a secret that lasts indefinitely.
+        token_endpoint_auth_method:
+          type: string
+          description: The client authentication method the client uses at the token endpoint.
+        grant_types:
+          type: array
+          items:
+            type: string
+          description: Grant types the client may use.
+        response_types:
+          type: array
+          items:
+            type: string
+          description: Response types the client may use.
+        scope:
+          type: string
+          description: Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values the client may request.
+        client_name:
+          type: string
+          description: Name of the registered client.
+        redirect_uris:
+          type: array
+          items:
+            type: string
+          description: Redirect URIs registered for the client.
+        client_uri:
+          type: string
+          description: Echoed from the registration request.
+        logo_uri:
+          type: string
+          description: Echoed from the registration request.
+        contacts:
+          type: array
+          items:
+            type: string
+          description: Echoed from the registration request.
+        tos_uri:
+          type: string
+          description: Echoed from the registration request.
+        policy_uri:
+          type: string
+          description: Echoed from the registration request.
+        jwks_uri:
+          type: string
+          description: Echoed from the registration request.
+        jwks:
+          type: object
+          description: Echoed from the registration request.
+        software_id:
+          type: string
+          description: Echoed from the registration request.
+        software_version:
+          type: string
+          description: Echoed from the registration request.
+    revocation_request:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          description: The access token or refresh token to revoke, issued to the authenticated client.
+        token_type_hint:
+          type: string
+          enum:
+          - access_token
+          - refresh_token
+          description: A [`token_type_hint`](https://datatracker.ietf.org/doc/html/rfc7009#section-2.1) for the submitted token.
+        client_id:
+          type: string
+          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
+        client_secret:
+          type: string
+          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
+        client_assertion_type:
+          type: string
+          enum:
+          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
+        client_assertion:
+          type: string
+          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
+      example:
+        token: the-token-to-revoke
+        client_id: your-client-id
+        client_secret: your-client-secret
+    revocation_response:
+      type: object
+      properties: {}
+    authorization_code_token_request:
+      type: object
+      required:
+      - grant_type
+      - code
+      - redirect_uri
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - authorization_code
+          description: The [Authorization Code grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1).
+        code:
+          type: string
+          description: The [authorization code](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.1) returned to your `redirect_uri`. Valid for 10 minutes and a single exchange.
+        redirect_uri:
+          type: string
+          description: The `redirect_uri` from the authorization request.
+        code_verifier:
+          type: string
+          description: The [PKCE code verifier](https://datatracker.ietf.org/doc/html/rfc7636#section-4.1) matching the `code_challenge` sent to the authorization endpoint.
+        client_id:
+          type: string
+          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
+        client_secret:
+          type: string
+          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
+        client_assertion_type:
+          type: string
+          enum:
+          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
+        client_assertion:
+          type: string
+          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
+    refresh_token_token_request:
+      type: object
+      required:
+      - grant_type
+      - refresh_token
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - refresh_token
+          description: The [Refresh Token grant](https://datatracker.ietf.org/doc/html/rfc6749#section-6).
+        refresh_token:
+          type: string
+          description: The [refresh token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.5) issued with a previous access token.
+        client_id:
+          type: string
+          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
+        client_secret:
+          type: string
+          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
+        client_assertion_type:
+          type: string
+          enum:
+          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
+        client_assertion:
+          type: string
+          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
+    oauth_error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: An [error code](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2).
+        error_description:
+          type: string
+          description: Human-readable detail about the error, for developers.
+        state:
+          type: string
+          description: Accompanies some error responses.
     authorization_server_metadata:
       type: object
       properties:
@@ -429,405 +838,6 @@ components:
         authorization_response_iss_parameter_supported:
           type: boolean
           description: Whether authorization responses carry the [`iss` parameter](https://datatracker.ietf.org/doc/html/rfc9207#section-2) identifying this authorization server. Compare it to `issuer` before using the `code`.
-    oauth_error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: An [error code](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2).
-        error_description:
-          type: string
-          description: Human-readable detail about the error, for developers.
-        state:
-          type: string
-          description: Accompanies some error responses.
-    client_registration_request:
-      type: object
-      required:
-      - redirect_uris
-      properties:
-        redirect_uris:
-          type: array
-          items:
-            type: string
-          description: '[Redirect URIs](https://datatracker.ietf.org/doc/html/rfc6749#section-3.1.2) for the authorization endpoint. At least one is required.'
-        client_name:
-          type: string
-          description: Name shown to the User on the authorization page. Proof generates one when this is absent.
-        client_uri:
-          type: string
-          description: URL of the client home page.
-        logo_uri:
-          type: string
-          description: URL of a logo for the client.
-        contacts:
-          type: array
-          items:
-            type: string
-          description: Email addresses of people responsible for the client.
-        tos_uri:
-          type: string
-          description: URL of the terms of service of the client.
-        policy_uri:
-          type: string
-          description: URL of the privacy policy of the client.
-        jwks_uri:
-          type: string
-          description: URL of the [JWK Set](https://datatracker.ietf.org/doc/html/rfc7517#section-5) of the client. Supply either `jwks_uri` or `jwks`.
-        jwks:
-          type: object
-          description: The [JWK Set](https://datatracker.ietf.org/doc/html/rfc7517#section-5) of the client, by value. Supply either `jwks` or `jwks_uri`.
-        software_id:
-          type: string
-          description: Identifier the client developer assigns to the client software.
-        software_version:
-          type: string
-          description: Version of the client software.
-        token_endpoint_auth_method:
-          type: string
-          enum:
-          - client_secret_post
-          - private_key_jwt
-          description: Requested client authentication method. `private_key_jwt` requires `jwks` or `jwks_uri` and issues no `client_secret`; any other value results in `client_secret_post`.
-      example:
-        client_name: Example App
-        redirect_uris:
-        - https://example.com/oauth/callback
-        client_uri: https://example.com
-        contacts:
-        - support@example.com
-    client_registration_response:
-      type: object
-      properties:
-        client_id:
-          type: string
-          description: The [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2) issued to the client.
-        client_secret:
-          type: string
-          description: The client secret issued to the client. Returned in this response only.
-        client_id_issued_at:
-          type: integer
-          description: Issue time of the `client_id`, as a Unix timestamp in seconds.
-        client_secret_expires_at:
-          type: integer
-          description: Expiry of the `client_secret`, as a Unix timestamp in seconds. `0` marks a secret that lasts indefinitely.
-        token_endpoint_auth_method:
-          type: string
-          description: The client authentication method the client uses at the token endpoint.
-        grant_types:
-          type: array
-          items:
-            type: string
-          description: Grant types the client may use.
-        response_types:
-          type: array
-          items:
-            type: string
-          description: Response types the client may use.
-        scope:
-          type: string
-          description: Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values the client may request.
-        client_name:
-          type: string
-          description: Name of the registered client.
-        redirect_uris:
-          type: array
-          items:
-            type: string
-          description: Redirect URIs registered for the client.
-        client_uri:
-          type: string
-          description: Echoed from the registration request.
-        logo_uri:
-          type: string
-          description: Echoed from the registration request.
-        contacts:
-          type: array
-          items:
-            type: string
-          description: Echoed from the registration request.
-        tos_uri:
-          type: string
-          description: Echoed from the registration request.
-        policy_uri:
-          type: string
-          description: Echoed from the registration request.
-        jwks_uri:
-          type: string
-          description: Echoed from the registration request.
-        jwks:
-          type: object
-          description: Echoed from the registration request.
-        software_id:
-          type: string
-          description: Echoed from the registration request.
-        software_version:
-          type: string
-          description: Echoed from the registration request.
-    token_info_response:
-      type: object
-      properties:
-        scope:
-          type: array
-          items:
-            type: string
-          description: '[Scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values granted to the access token.'
-        expires_in:
-          type: integer
-          description: Remaining access token lifetime, in seconds.
-        application:
-          type: object
-          properties:
-            uid:
-              type: string
-              description: The [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2) the access token was issued to.
-        created_at:
-          type: integer
-          description: Issue time, as a Unix timestamp in seconds.
-        iss:
-          type: string
-          description: 'The [`iss`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1) claim: the authorization server that issued the access token.'
-        aud:
-          type: string
-          description: 'The [`aud`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3) claim: the protected resource the access token was issued for. Present for resource-bound access tokens.'
-        sub:
-          type: string
-          description: 'The [`sub`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.2) claim: the subject the access token was issued for.'
-        sub_type:
-          type: string
-          description: The kind of subject `sub` identifies.
-        email:
-          type: string
-          description: Email address of the User the access token was issued for. Returned when the granted scopes cover it.
-        given_name:
-          type: string
-          description: First name of the User the access token was issued for. Returned when the granted scopes cover it.
-        family_name:
-          type: string
-          description: Last name of the User the access token was issued for. Returned when the granted scopes cover it.
-    client_credentials_token_request:
-      type: object
-      required:
-      - grant_type
-      properties:
-        grant_type:
-          type: string
-          enum:
-          - client_credentials
-          description: The [Client Credentials grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4).
-        scope:
-          type: string
-          description: Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values. `read` and `write` are accepted.
-        client_id:
-          type: string
-          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
-        client_secret:
-          type: string
-          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
-        client_assertion_type:
-          type: string
-          enum:
-          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
-          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
-        client_assertion:
-          type: string
-          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
-    authorization_code_token_request:
-      type: object
-      required:
-      - grant_type
-      - code
-      - redirect_uri
-      properties:
-        grant_type:
-          type: string
-          enum:
-          - authorization_code
-          description: The [Authorization Code grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1).
-        code:
-          type: string
-          description: The [authorization code](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.1) returned to your `redirect_uri`. Valid for 10 minutes and a single exchange.
-        redirect_uri:
-          type: string
-          description: The `redirect_uri` from the authorization request.
-        code_verifier:
-          type: string
-          description: The [PKCE code verifier](https://datatracker.ietf.org/doc/html/rfc7636#section-4.1) matching the `code_challenge` sent to the authorization endpoint.
-        client_id:
-          type: string
-          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
-        client_secret:
-          type: string
-          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
-        client_assertion_type:
-          type: string
-          enum:
-          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
-          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
-        client_assertion:
-          type: string
-          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
-    refresh_token_token_request:
-      type: object
-      required:
-      - grant_type
-      - refresh_token
-      properties:
-        grant_type:
-          type: string
-          enum:
-          - refresh_token
-          description: The [Refresh Token grant](https://datatracker.ietf.org/doc/html/rfc6749#section-6).
-        refresh_token:
-          type: string
-          description: The [refresh token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.5) issued with a previous access token.
-        client_id:
-          type: string
-          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
-        client_secret:
-          type: string
-          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
-        client_assertion_type:
-          type: string
-          enum:
-          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
-          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
-        client_assertion:
-          type: string
-          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
-    token_request:
-      oneOf:
-      - $ref: '#/components/schemas/client_credentials_token_request'
-      - $ref: '#/components/schemas/authorization_code_token_request'
-      - $ref: '#/components/schemas/refresh_token_token_request'
-      example:
-        grant_type: client_credentials
-        client_id: your-client-id
-        client_secret: your-client-secret
-        scope: read
-    token_response:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: The issued [access token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.4).
-        token_type:
-          type: string
-          description: Always `Bearer`. See [Bearer token usage](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
-        expires_in:
-          type: integer
-          description: Access token lifetime, in seconds.
-        scope:
-          type: string
-          description: Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values granted to the access token.
-        created_at:
-          type: integer
-          description: Issue time, as a Unix timestamp in seconds.
-        refresh_token:
-          type: string
-          description: A [refresh token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.5), for grants that support refreshing.
-    revocation_request:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          description: The access token or refresh token to revoke, issued to the authenticated client.
-        token_type_hint:
-          type: string
-          enum:
-          - access_token
-          - refresh_token
-          description: A [`token_type_hint`](https://datatracker.ietf.org/doc/html/rfc7009#section-2.1) for the submitted token.
-        client_id:
-          type: string
-          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
-        client_secret:
-          type: string
-          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
-        client_assertion_type:
-          type: string
-          enum:
-          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
-          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
-        client_assertion:
-          type: string
-          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
-      example:
-        token: the-token-to-revoke
-        client_id: your-client-id
-        client_secret: your-client-secret
-    revocation_response:
-      type: object
-      properties: {}
-    introspection_request:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          description: The token to introspect.
-        token_type_hint:
-          type: string
-          enum:
-          - access_token
-          - refresh_token
-          description: A [`token_type_hint`](https://datatracker.ietf.org/doc/html/rfc7009#section-2.1) for the submitted token.
-        client_id:
-          type: string
-          description: Your [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2).
-        client_secret:
-          type: string
-          description: Your client secret, for [`client_secret_post`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1) client authentication.
-        client_assertion_type:
-          type: string
-          enum:
-          - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
-          description: Set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication.
-        client_assertion:
-          type: string
-          description: 'A JWT signed with one of your registered keys, for [`private_key_jwt`](https://datatracker.ietf.org/doc/html/rfc7523#section-2.2) client authentication: `iss` and `sub` are your `client_id`, `aud` is the issuer or the token endpoint URL, with `exp` and a single-use `jti`.'
-      example:
-        token: the-token-to-introspect
-        client_id: your-client-id
-        client_secret: your-client-secret
-    introspection_response:
-      type: object
-      required:
-      - active
-      properties:
-        active:
-          type: boolean
-          description: Whether the token is currently active, per the [introspection response](https://datatracker.ietf.org/doc/html/rfc7662#section-2.2). `false` stands alone.
-        scope:
-          type: string
-          description: Space-separated [scope](https://datatracker.ietf.org/doc/html/rfc6749#section-3.3) values granted to the token.
-        client_id:
-          type: string
-          description: The [`client_id`](https://datatracker.ietf.org/doc/html/rfc6749#section-2.2) the token was issued to.
-        token_type:
-          type: string
-          description: Always `Bearer`.
-        iat:
-          type: integer
-          description: 'The [`iat`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.6) claim: issue time, as a Unix timestamp in seconds.'
-        exp:
-          type: integer
-          description: 'The [`exp`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.4) claim: expiry, as a Unix timestamp in seconds. Present for tokens that expire.'
-        iss:
-          type: string
-          description: 'The [`iss`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1) claim: the authorization server that issued the token.'
-        aud:
-          type: string
-          description: 'The [`aud`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3) claim: the protected resource the token was issued for. Present for resource-bound tokens.'
-        sub:
-          type: string
-          description: 'The [`sub`](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.2) claim: the subject the token was issued for.'
-        sub_type:
-          type: string
-          description: The kind of subject `sub` identifies.
   securitySchemes:
     bearer_auth:
       type: http

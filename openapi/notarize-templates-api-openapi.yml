@@ -1,0 +1,185 @@
+openapi: 3.2.0
+info:
+  title: Notarize Templates API
+  version: '1.0'
+  description: 'Operations tagged Templates across 2 of this provider''s published API definitions: notarize-proof-business-api-specification-openapi.yml, notarize-proof-real-estate-api-specification-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Templates
+paths:
+  /v1/templates:
+    get:
+      summary: List Templates
+      tags:
+      - Templates
+      operationId: getAllTemplates
+      security:
+      - api_key: []
+      parameters:
+      - name: limit
+        in: query
+        description: How many results to return. Default is 100; max is 1000.
+        x-example: 2
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: 'Offset request by given # of items. Default is 0.'
+        x-example: 1
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                total_count: 3
+                templates:
+                - id: od6rn64nq
+                  created_at: '2026-10-13T16:08:07.317Z'
+                  updated_at: '2026-10-13T16:08:07.317Z'
+                  permalink: show_test
+                  name: Test Template
+                - id: odxynqone
+                  created_at: '2026-10-13T16:08:07.417Z'
+                  updated_at: '2026-10-13T16:08:07.417Z'
+                  permalink: second_test
+                  name: Test Template
+              schema:
+                $ref: '#/components/schemas/template_objects'
+        '400':
+          description: errors for limit out of range
+          content:
+            application/json:
+              example:
+                errors:
+                  request:
+                  - invalid request parameters
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/templates:
+    get:
+      summary: List Templates
+      tags:
+      - Templates
+      operationId: getAllRealEstateTemplates
+      security:
+      - api_key: []
+      parameters:
+      - name: limit
+        in: query
+        description: How many results to return. Default is 100; max is 1000.
+        x-example: 2
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: 'Offset request by given # of items. Default is 0.'
+        x-example: 0
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                total_count: 2
+                templates:
+                - id: od8znm4da
+                  created_at: '2026-10-13T16:08:44.246Z'
+                  updated_at: '2026-10-13T16:08:44.246Z'
+                  permalink: title_one
+                  name: Test Template
+                - id: odyxdwjng
+                  created_at: '2026-10-13T16:08:44.341Z'
+                  updated_at: '2026-10-13T16:08:44.341Z'
+                  permalink: title_two
+                  name: Test Template
+              schema:
+                $ref: '#/components/schemas/template_objects'
+        '400':
+          description: errors for limit out of range
+          content:
+            application/json:
+              example:
+                errors:
+                  request:
+                  - invalid request parameters
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+components:
+  schemas:
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+    template_object:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+        created_at:
+          type: string
+          format: date-time
+          maxLength: 100
+        updated_at:
+          type: string
+          format: date-time
+          maxLength: 100
+        permalink:
+          type: string
+          maxLength: 5000
+        name:
+          type: string
+          maxLength: 5000
+    template_objects:
+      type: object
+      properties:
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/template_object'
+        total_count:
+          type: integer
+          description: Total number of templates.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-refined-from:
+- notarize-proof-business-api-specification-openapi.yml
+- notarize-proof-real-estate-api-specification-openapi.yml
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/listsecurityevents.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

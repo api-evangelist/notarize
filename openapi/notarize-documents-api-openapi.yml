@@ -1,0 +1,1534 @@
+openapi: 3.2.0
+info:
+  title: Notarize Documents API
+  version: '1.0'
+  description: 'Operations tagged Documents across 2 of this provider''s published API definitions: notarize-proof-business-api-specification-openapi.yml, notarize-proof-real-estate-api-specification-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Documents
+paths:
+  /v1/documents/{id}:
+    put:
+      summary: Update Documents
+      tags:
+      - Documents
+      operationId: updateDocuments
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the document to update.
+        required: true
+        x-example: do_c98b5496-3465-4763-9479-4c0d35e6a0e4
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: do_c98b5496-3465-4763-9479-4c0d35e6a0e4
+                allowed_actions:
+                - CUSTOMER_CAN_ANNOTATE
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                bundle_position: 0
+                completion_state: incomplete
+                date_created: '2026-10-13T16:07:56.030890Z'
+                date_updated: '2026-10-13T16:07:56.200885Z'
+                document_name: new-name1
+                esign_required: false
+                identity_confirmation_required: false
+                notarization_required: true
+                processing_state: done
+                requirement: notarization
+                signing_designation_groups: []
+                signing_designations: []
+                tracking_id: tracking_id
+                vaulted: false
+              schema:
+                $ref: '#/components/schemas/document'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for name - expected String
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/document_params'
+    patch:
+      summary: Update Documents
+      tags:
+      - Documents
+      operationId: patchDocuments
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the document to update.
+        required: true
+        x-example: do_46f879b1-48f4-406d-9074-213fef8e6cf1
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: do_46f879b1-48f4-406d-9074-213fef8e6cf1
+                allowed_actions:
+                - CUSTOMER_CAN_ANNOTATE
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                bundle_position: 0
+                completion_state: incomplete
+                date_created: '2026-10-13T16:07:56.594379Z'
+                date_updated: '2026-10-13T16:07:56.722309Z'
+                document_name: new-name1
+                esign_required: false
+                identity_confirmation_required: false
+                notarization_required: true
+                processing_state: done
+                requirement: notarization
+                signing_designation_groups: []
+                signing_designations: []
+                tracking_id: tracking_id
+                vaulted: false
+              schema:
+                $ref: '#/components/schemas/document'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for name - expected String
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/document_params'
+    delete:
+      summary: Delete Documents
+      tags:
+      - Documents
+      operationId: deleteDocument
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the document being deleted.
+        required: true
+        x-example: do_b68fbe94-0659-49e0-badc-b5c07ddb9da2
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                message: Deleted document do_b68fbe94-0659-49e0-badc-b5c07ddb9da2 successfully
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Document Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - You must use the RealEstate API for real estate transactions
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v1/transactions/{id}/documents:
+    post:
+      summary: Add Document
+      tags:
+      - Documents
+      operationId: addDocument
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the Transaction to add the document to.
+        required: true
+        x-example: ot_kgnkanj
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: do_94244883-9df6-4ded-9133-a2246d14983f
+                allowed_actions:
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                bundle_position: 1
+                completion_state: incomplete
+                date_created: '2026-10-13T16:07:54.948502Z'
+                date_updated: '2026-10-13T16:07:55.043216Z'
+                document_name: one_page.pdf
+                esign_required: false
+                identity_confirmation_required: false
+                notarization_required: true
+                processing_state: pending
+                requirement: notarization
+                signing_designation_groups: []
+                signing_designations: []
+                vaulted: false
+              schema:
+                $ref: '#/components/schemas/document'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for signing_designations - expected Array
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction Cannot Be Modified
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/document_creation_params'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v1/transactions/{id}/documents/{document_id}:
+    get:
+      summary: Get Document
+      tags:
+      - Documents
+      operationId: getDocument
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the transaction to get the document from.
+        required: true
+        x-example: ot_j6nzkd9
+        schema:
+          type: string
+      - name: document_id
+        in: path
+        description: The ID of the document to be retrieved.
+        required: true
+        x-example: do_8daadff2-b49a-4a01-aad4-aa30bd96648e
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      - name: encoding
+        in: query
+        required: false
+        description: Can be either "base64" or "uri". Using "uri" will return a hosted url for the document only after the transaction has been completed.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: do_8daadff2-b49a-4a01-aad4-aa30bd96648e
+                allowed_actions: []
+                bundle_position: 0
+                completion_state: complete
+                date_created: '2026-10-13T16:07:58.005340Z'
+                date_updated: '2026-10-13T16:07:58.013953Z'
+                document_name: name1
+                is_enote: false
+                permissions: []
+                processing_error: null
+                processing_state: done
+                rejection_reason: null
+                rejection_anecdote: null
+                requirement: esign
+                signing_designation_groups: []
+                signing_designations: []
+                signing_type: ESIGN
+                tracking_id: null
+                final_document_url: signed_url
+              schema:
+                $ref: '#/components/schemas/document'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid encoding
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/documents/{id}:
+    put:
+      summary: Update Documents
+      tags:
+      - Documents
+      operationId: updateMortgageDocuments
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the document to update.
+        required: true
+        x-example: do_c45fe57a-776d-485f-b3ec-e4f2f6053566
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: do_c45fe57a-776d-485f-b3ec-e4f2f6053566
+                allowed_actions:
+                - CUSTOMER_CAN_ANNOTATE
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                bundle_position: 0
+                completion_state: incomplete
+                date_created: '2026-10-13T16:08:30.687244Z'
+                date_updated: '2026-10-13T16:08:30.804820Z'
+                document_name: new-name1
+                is_enote: false
+                permissions:
+                - CUSTOMER_CAN_ANNOTATE
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                processing_error: null
+                processing_state: done
+                rejection_reason: null
+                rejection_anecdote: null
+                requirement: notarization
+                signing_designation_groups: []
+                signing_designations: []
+                signing_type: NOTARIZATION
+                tracking_id: tracking_id
+                final_document_url: null
+              schema:
+                $ref: '#/components/schemas/document_2'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for name - expected String
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Document Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction Cannot Be Modified
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/document_update_params'
+    patch:
+      summary: Update Documents
+      tags:
+      - Documents
+      operationId: patchMortgageDocuments
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the document to update.
+        required: true
+        x-example: do_2d6d0ad7-8ac1-4f75-8a30-3c1a1e46c7de
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: do_2d6d0ad7-8ac1-4f75-8a30-3c1a1e46c7de
+                allowed_actions:
+                - CUSTOMER_CAN_ANNOTATE
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                bundle_position: 0
+                completion_state: incomplete
+                date_created: '2026-10-13T16:08:32.010872Z'
+                date_updated: '2026-10-13T16:08:32.127672Z'
+                document_name: new-name1
+                is_enote: false
+                permissions:
+                - CUSTOMER_CAN_ANNOTATE
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                processing_error: null
+                processing_state: done
+                rejection_reason: null
+                rejection_anecdote: null
+                requirement: notarization
+                signing_designation_groups: []
+                signing_designations: []
+                signing_type: NOTARIZATION
+                tracking_id: tracking_id
+                final_document_url: null
+              schema:
+                $ref: '#/components/schemas/document_2'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for name - expected String
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Document Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction Cannot Be Modified
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/document_update_params'
+    delete:
+      summary: Delete Documents
+      tags:
+      - Documents
+      operationId: deleteMortgageDocument
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the document being deleted.
+        required: true
+        x-example: do_cbee6427-601a-4111-aad4-48de0baaa2db
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                message: Deleted document do_cbee6427-601a-4111-aad4-48de0baaa2db successfully
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Document Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction Cannot Be Modified
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/transactions/{id}/documents:
+    post:
+      summary: Add Document
+      tags:
+      - Documents
+      operationId: addMortgageDocument
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the transaction to add the document to.
+        required: true
+        x-example: ot_6no93n7
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+              - id: do_434c49b0-6622-4f51-baeb-45ab12d77a12
+                allowed_actions:
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                - COLLATERAL_DOCUMENT
+                bundle_position: 1
+                completion_state: incomplete
+                date_created: '2026-10-13T16:08:29.241075Z'
+                date_updated: '2026-10-13T16:08:29.267582Z'
+                document_name: one_page.pdf
+                is_enote: false
+                permissions:
+                - WITNESS_REQUIRED
+                - NOTARIZATION_REQUIRED
+                - COLLATERAL_DOCUMENT
+                processing_error: null
+                processing_state: pending
+                rejection_reason: null
+                rejection_anecdote: null
+                requirement: notarization
+                signing_designation_groups: []
+                signing_designations: []
+                signing_type: NOTARIZATION
+                tracking_id: null
+                final_document_url: null
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/document_2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for signing_designations - expected Array
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction Cannot Be Modified
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/document_creation_params_2'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/transactions/{id}/documents/{document_id}:
+    get:
+      summary: Get Document
+      tags:
+      - Documents
+      operationId: getMortgageDocument
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the transaction to get the document from.
+        required: true
+        x-example: ot_mdr9gnw
+        schema:
+          type: string
+      - name: document_id
+        in: path
+        description: The ID of the document to be retrieved.
+        required: true
+        x-example: do_edd432aa-7a97-46ac-a872-56242d42e744
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      - name: encoding
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - uri
+          - base64
+        description: Can be either "base64" or "uri". Uses "base64" by default. Using "uri" will return a hosted url for the document only after the transaction has been completed.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: do_edd432aa-7a97-46ac-a872-56242d42e744
+                allowed_actions: []
+                bundle_position: 0
+                completion_state: complete
+                date_created: '2026-10-13T16:08:34.327817Z'
+                date_updated: '2026-10-13T16:08:34.337118Z'
+                document_name: name2
+                is_enote: false
+                permissions: []
+                processing_error: null
+                processing_state: done
+                rejection_reason: null
+                rejection_anecdote: null
+                requirement: esign
+                signing_designation_groups: []
+                signing_designations: []
+                signing_type: ESIGN
+                tracking_id: null
+                final_document_url: null
+              schema:
+                $ref: '#/components/schemas/document_2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid encoding
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Document processing: done'
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/transactions/{transaction_id}/documents/external:
+    post:
+      summary: Add External Document
+      tags:
+      - Documents
+      operationId: addMortgageExternalDocument
+      security:
+      - api_key: []
+      parameters:
+      - name: transaction_id
+        in: path
+        description: Returned when creating a transaction.
+        required: true
+        x-example: ot_rn6a4dq
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                response: processing
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    enum:
+                    - processing
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Mortgage::ExternalDocumentService::JobExists
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document_code:
+                  type: string
+                  description: The document code provided from the external source. DocMagic supplies a WebDocs Retrieval code that identifies a set of generated documents.
+                external_source:
+                  type: string
+                  enum:
+                  - docmagic
+                  description: The name of the external source.
+              required:
+              - document_code
+              - external_source
+              example:
+                transaction_id: ot_rn6a4dq
+                document_code: 10101-29292-38383
+                external_source: docmagic
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+components:
+  schemas:
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+    document_params:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          description: Plain language name given to the document. If this parameter is not provided, Proof will automatically assign a name using the end of the page path of the resource URL.
+        document_url_version:
+          type: string
+          description: Optional param to test v2 document urls.
+          enum:
+          - v1
+          - v2
+        requirement:
+          type: string
+          maxLength: 5000
+          description: 'Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements.'
+        notarization_required:
+          type: boolean
+          description: ''
+        witness_required:
+          type: boolean
+          description: Boolean flag indicating whether an additional witness must be present for this document's signing. A witness is a third person, in addition to the signer and the notary, who must be physically located with the signer.
+        identity_confirmation_required:
+          type: boolean
+        customer_can_annotate:
+          type: boolean
+          description: Boolean flag indicating whether a signer can add their own annotations onto the document. Defaults to false, limiting the signer to only filling out designated fields setup on the document or as directed by a notary.
+        pdf_bookmarked:
+          type: boolean
+          description: Boolean flag indicating whether the document is a bookmarked PDF. If passed true, the document will be split by bookmark into multiple documents.
+        tracking_id:
+          type: string
+          maxLength: 5000
+          description: External tracking identifier such as a UUID string that can be useful for mapping documents back to your own system.
+      example:
+        name: new-name1
+        customer_can_annotate: 'true'
+        witness_required: 'true'
+        notarization_required: 'true'
+        tracking_id: tracking_id
+    signing_designation_group:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          description: 'The specified name of the group, type string. Use a naming convention of your choice, the only restrictions are that the name must be between 1 and 64 characters
+
+            and can consist of alpha-numeric characters, hyphens, parentheses, and underscores. Valid regular expression for you tech nerds is /^[a-zA-Z0-9_-()]{1,64}$/'
+        min_required:
+          type: integer
+          description: a positive integer between 0 and N where N is the minimum number of designations in the group that must be fulfilled (checked).
+        max_required:
+          type: integer
+          description: 'a positive integer between min_required and N where N is the maximum number of designations in the group that are allowed to be fulfilled.
+
+            NOTE: max_required cannot be set to greater than 1 for designation groups used with radio_checkmark type signing designations.'
+    signing_designation:
+      type: object
+      properties:
+        signer_identifier:
+          type: string
+          maxLength: 5000
+          description: For signers, the external_id value set on the signers array when creating a transaction; for witnesses, `witness{n}` i.e. `witness1` or `witness2`; for notaries, `notary`
+        page_number:
+          type: integer
+          description: The page of the designation, starting at 0
+        x:
+          type: integer
+          description: The X coordinate (from bottom left)
+        y:
+          type: integer
+          description: The Y coordinate (from bottom left)
+        height:
+          type: integer
+          description: Height
+        width:
+          type: integer
+          description: Width
+        hint:
+          type: string
+          maxLength: 5000
+          description: Hint
+        type:
+          type: string
+          enum:
+          - date_signed
+          - day_signed
+          - month_signed
+          - year_signed
+          - first_name
+          - middle_name
+          - last_name
+          - full_name
+          - signature
+          - initials
+          - checkmark
+          - radio_checkmark
+          - free_text
+          - signature_and_date
+          - dob
+          - email
+          - address_line1
+          - address_line2
+          - address_zip5
+          - address_state
+          - address_city
+          - representative_capacity_type
+          - disclosure
+          - notary_id
+          - seal
+          - commission_expiration_date
+          - commission_state
+          - county
+          - commission_county
+          - principal_id_type
+          - notary_city
+          description: 'The type of field designation. Accepted values for signers: dob, email, address_line1, address_line2, address_zip5, address_state, address_city, representative_capacity_type. Accepted values for notaries: disclosure, notary_id, seal, commission_expiration_date, commission_state, county, commission_county, principal_id_type, notary_city. Universal types: date_signed, day_signed, month_signed, year_signed, first_name, middle_name, last_name, full_name, signature, initials, checkmark, radio_checkmark, free_text, signature_and_date'
+        signing_designation_group:
+          $ref: '#/components/schemas/signing_designation_group'
+        optional:
+          type: boolean
+          description: Non-notary designation that is not part of a group can be set as optional
+        instruction:
+          type: string
+          maxLength: 5000
+          description: Instruction specific to this signing designation to be shown to the signer
+        primary_designation_identifier:
+          type: string
+          maxLength: 5000
+          description: Unique identification string to denote this designation is the primary designation
+        conditional_on_primary:
+          type: string
+          maxLength: 5000
+          description: Identification string that denotes this designation is conditional on the designation with the same value set for primary_designation_identifier
+    document:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+        allowed_actions:
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+          description: List of allowed actions on document.
+        bundle_position:
+          type: integer
+          description: Position to put document in bundle
+        completion_state:
+          type: string
+          maxLength: 5000
+        data:
+          type:
+          - string
+          - 'null'
+          description: base64 encoded document. Present if base64 encoding was specified in request. Currently supported for get_document only.
+        date_created:
+          type: string
+          maxLength: 100
+          description: Date document was created/uploaded.
+        date_updated:
+          type: string
+          maxLength: 100
+          description: Date document was last updated.
+        document_name:
+          type: string
+          maxLength: 5000
+          description: Name of document.
+        esign_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires esigning.
+        final_document_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+        identification_reviewed:
+          type: boolean
+        identity_confirmation_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires identity confirmation.
+        is_enote:
+          type:
+          - boolean
+          - 'null'
+          description: Boolean flag indicating whether the document is an eNote.
+        notarization_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires notarization. If `true`, identity_confirmation_required must be `false`. If `false`, the document may still be e-signed in the notary meeting. At least one document in a transaction must require notarization or identity confirmation.
+        permissions:
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+          description: List of allowed actions on document.
+        processing_error:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Error message if document processing failed.
+        processing_state:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: State of document processing.
+        rejection_anecdote:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Anecdote for document rejection.
+        rejection_reason:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Reason for document rejection.
+        requirement:
+          type: string
+          maxLength: 5000
+          description: 'Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements.'
+        signed_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Signed URL for the final document PDF.
+        signing_designation_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation_group'
+          description: This array contains a prescribed list of groups of designations for signers and/or a notary to annotate the document.
+        signing_designations:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation'
+          description: This array contains a prescribed list of designations for signers and/or a notary to annotate the document.
+        signing_type:
+          type: string
+          enum:
+          - NOTARIZATION
+          - ESIGN
+        tracking_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: The external tracking ID of the document.
+        vaulted:
+          type: boolean
+          description: Boolean flag indicating whether the document is vaulted.
+    document_creation_params:
+      type: object
+      properties:
+        filename:
+          type: string
+          maxLength: 5000
+          description: Plain language name given to the document. If this parameter is not provided, Proof will automatically assign a name using the end of the page path of the resource URL.
+        resource:
+          type: string
+          maxLength: 70000000
+          description: The document file resource. Accepted values can be a URL pointing to the PDF file, the full contents of the PDF file in Base64 encoding, the file itself as a direct upload, or a template permalink string pointing to a preconfigured PDF. The maximum accepted file size is 50MB.
+        document:
+          type: string
+          description: ''
+        requirement:
+          type: string
+          maxLength: 5000
+          description: 'Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements.'
+        notarization_required:
+          type: boolean
+          description: ''
+        witness_required:
+          type: boolean
+          description: Boolean flag indicating whether an additional witness must be present for this document's signing. A witness is a third person, in addition to the signer and the notary, who must be physically located with the signer.
+        bundle_position:
+          type: integer
+          description: Position to put document in bundle
+        esign_required:
+          type: boolean
+          description: ''
+        identity_confirmation_required:
+          type: boolean
+          description: ''
+        signing_requires_meeting:
+          type: boolean
+          description: ''
+        vaulted:
+          type: boolean
+          description: Boolean flag indicating whether the authoritative copy of the document should be stored in an eVault upon transaction completion. Defaults to false, indicating that the authoritative copy of the document will be accessible to both the signer and users in your Proof business account. If passed true, the authoritative copy will be stored in the eVault associated with this account; signers and business users will only be able to access a watermarked copy.
+        template_id:
+          type: string
+          maxLength: 38
+          description: ID of an existing template whose designations are applied to this document, in place of automated template matching. Retrieve available IDs from the `/templates` endpoint. The template is applied once the uploaded document finishes processing, and it also overrides `pdf_bookmarked` for this document. This parameter requires the custom template selection feature to be enabled for your account.
+        authorization_header:
+          type: string
+          maxLength: 5000
+          description: Used to fetch doc URLs. Value passed should be in the form of a key-value pair with format "header_name:header_value"
+        customer_can_annotate:
+          type: boolean
+          description: Boolean flag indicating whether a signer can add their own annotations onto the document. Defaults to false, limiting the signer to only filling out designated fields setup on the document or as directed by a notary.
+        pdf_bookmarked:
+          type: boolean
+          description: Boolean flag indicating whether the document is a bookmarked PDF. If passed true, the document will be split by bookmark into multiple documents.
+        tracking_id:
+          type: string
+          maxLength: 5000
+          description: External tracking identifier such as a UUID string that can be useful for mapping documents back to your own system.
+        text_tag_syntax:
+          type: string
+          maxLength: 5000
+          description: Syntax used by text tags within the document.
+        signing_designations:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation'
+          description: This array contains a prescribed list of designations for signers and/or a notary to annotate the document.
+        signing_designation_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation_group'
+          description: This array contains a prescribed list of designations for signers and/or a notary to annotate the document.
+      example:
+        document: https://fakecloudstorage/one_page.pdf
+        notarization_required: true
+        witness_required: true
+    document_update_params:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 5000
+          description: Modified document name.
+        tracking_id:
+          type: string
+          maxLength: 5000
+          description: External tracking identifier such as a UUID string that can be useful for mapping documents back to your own system.
+        requirement:
+          type: string
+          maxLength: 5000
+          description: 'Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements.'
+        customer_can_annotate:
+          type: boolean
+          description: 'Boolean flag indicating whether a signer can add their own annotations onto the document. Defaults to false, limiting the signer to only filling
+
+            out designated fields setup on the document or as directed by a notary.'
+        notarization_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires notarization. If `true`, identity_confirmation_required must be `false`. If `false`, the document may still be e-signed in the notary meeting. At least one document in a transaction must require notarization or identity confirmation.
+        identity_confirmation_required:
+          type: boolean
+          description: '[Enterprise feature.](https://dev.proof.com/docs/enterprise-features) Boolean flag indicating whether the document requires identity confirmation. If true, notarization_required must be false. At least one document in a transaction must require notarization or identity confirmation.'
+        witness_required:
+          type: boolean
+          description: Boolean flag indicating whether an additional witness must be present. This witness is a third person, in addition to the signer and the notary, who must be physically located with the signer. If `true`, this witness must be present. If `false`, no witness is required.
+        authorization_header:
+          type: string
+          maxLength: 5000
+          description: Used to fetch doc URLs. Value passed should be in the form of a key-value pair with format "header_name:header_value"
+      example:
+        name: new-name1
+        customer_can_annotate: 'true'
+        witness_required: 'true'
+        notarization_required: 'true'
+        tracking_id: tracking_id
+    signing_designation_group_2:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 64
+          description: 'The specified name of the group, type string. Use a naming convention of your choice, the only restrictions are that the name must be between 1 and 64 characters
+
+            and can consist of alpha-numeric characters, hyphens, parentheses, and underscores. Valid regular expression for you tech nerds is /^[a-zA-Z0-9_-()]{1,64}$/'
+        min_required:
+          type: integer
+          description: a positive integer between 0 and N where N is the minimum number of designations in the group that must be fulfilled (checked).
+        max_required:
+          type: integer
+          description: 'a positive integer between min_required and N where N is the maximum number of designations in the group that are allowed to be fulfilled.
+
+            NOTE: max_required cannot be set to greater than 1 for designation groups used with radio_checkmark type signing designations.'
+    signing_designation_2:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 100
+        signer_identifier:
+          type: string
+          maxLength: 5000
+          description: For signers, the external_id value set on the signers array when creating a transaction; for witnesses, `witness{n}` i.e. `witness1` or `witness2`; for notaries, `notary`
+        page_number:
+          type: integer
+          description: The page of the designation, starting at 0
+        x:
+          type: integer
+          description: The X coordinate (from bottom left)
+        y:
+          type: integer
+          description: The Y coordinate (from bottom left)
+        height:
+          type: integer
+          description: Height
+        width:
+          type: integer
+          description: Width
+        hint:
+          type: string
+          maxLength: 5000
+          description: Hint
+        type:
+          type: string
+          enum:
+          - date_signed
+          - day_signed
+          - month_signed
+          - year_signed
+          - first_name
+          - middle_name
+          - last_name
+          - full_name
+          - signature
+          - initials
+          - checkmark
+          - radio_checkmark
+          - free_text
+          - signature_and_date
+          - dob
+          - email
+          - address_line1
+          - address_line2
+          - address_zip5
+          - address_state
+          - address_city
+          - representative_capacity_type
+          - disclosure
+          - notary_id
+          - seal
+          - commission_expiration_date
+          - commission_state
+          - county
+          - commission_county
+          - principal_id_type
+          - notary_city
+          description: 'The type of field designation. Accepted values for signers: dob, email, address_line1, address_line2, address_zip5, address_state, address_city, representative_capacity_type. Accepted values for notaries: disclosure, notary_id, seal, commission_expiration_date, commission_state, county, commission_county, principal_id_type, notary_city. Universal types: date_signed, day_signed, month_signed, year_signed, first_name, middle_name, last_name, full_name, signature, initials, checkmark, radio_checkmark, free_text, signature_and_date'
+        designation_group_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+        signing_designation_group:
+          $ref: '#/components/schemas/signing_designation_group_2'
+        optional:
+          type: boolean
+          description: Non-notary designation that is not part of a group can be set as optional
+        instruction:
+          type: string
+          maxLength: 5000
+          description: Instruction specific to this signing designation to be shown to the signer
+        primary_designation:
+          type:
+          - object
+          - 'null'
+          properties:
+            id:
+              type: string
+              maxLength: 100
+        primary_designation_identifier:
+          type: string
+          maxLength: 5000
+          description: Unique identification string to denote this designation is the primary designation
+        conditional_on_primary:
+          type: string
+          maxLength: 5000
+          description: Identification string that denotes this designation is conditional on the designation with the same value set for primary_designation_identifier
+    document_2:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+        allowed_actions:
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+          description: List of allowed actions on document.
+        bundle_position:
+          type: integer
+          description: Position to put document in bundle
+        completion_state:
+          type: string
+          maxLength: 5000
+        data:
+          type:
+          - string
+          - 'null'
+          description: base64 encoded document. Present if base64 encoding was specified in request. Currently supported for get_document only.
+        date_created:
+          type: string
+          maxLength: 5000
+          description: Date document was created/uploaded.
+        date_updated:
+          type: string
+          maxLength: 5000
+          description: Date document was last updated.
+        document_name:
+          type: string
+          maxLength: 5000
+          description: Name of document.
+        esign_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires esigning.
+        final_document_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+        identity_confirmation_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires identity confirmation.
+        is_enote:
+          type: boolean
+          description: Boolean flag indicating whether the document is an eNote.
+        notarization_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires notarization. If `true`, identity_confirmation_required must be `false`. If `false`, the document may still be e-signed in the notary meeting. At least one document in a transaction must require notarization or identity confirmation.
+        permissions:
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+        processing_error:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Error message if document processing failed.
+        processing_state:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: State of document processing.
+        rejection_anecdote:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Anecdote for document rejection.
+        rejection_reason:
+          type:
+          - string
+          - 'null'
+          description: Reason for document rejection.
+        requirement:
+          type: string
+          maxLength: 5000
+          description: 'Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements.'
+        signed_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Signed URL for the final document PDF.
+        signing_designation_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation_group_2'
+          description: This array contains a prescribed list of groups of designations for signers and/or a notary to annotate the document.
+        signing_designations:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation_2'
+          description: This array contains a prescribed list of designations for signers and/or a notary to annotate the document.
+        signing_type:
+          type: string
+          maxLength: 5000
+        tracking_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: The external tracking ID of the document.
+    document_creation_params_2:
+      type: object
+      properties:
+        filename:
+          type: string
+          maxLength: 5000
+          description: 'Plain language name given to the document. If this parameter is not provided, Proof will automatically assign a name using the end of the page path of the
+
+            resource URL.'
+        resource:
+          type: string
+          maxLength: 70000000
+          description: 'The document file resource. Accepted values can be a URL pointing to the PDF file, the full contents of the PDF file in Base64 encoding, the file itself as a
+
+            direct upload, or a template permalink string pointing to a preconfigured PDF. The maximum accepted file size is 50MB.'
+        document:
+          type: string
+          maxLength: 70000000
+        requirement:
+          type: string
+          maxLength: 5000
+          description: 'Completion requirement for the document. Accepted values can be notarization, esign, identity_confirmation (identity confirmation feature), readonly,
+
+            and non_essential. Completion requirement for the document. If the value is set to non_essential, the document will be hidden from signers before the notary meeting and values for
+
+            customer_can_annotate and witness_required will be ignored and set to false. identity_confirmation is used to support signing of PS Form 1583 for signers without a US SSN.
+
+            Note: if identity_confirmation is set as the document requirement, ensure that all  requiring notarization in the transaction also use identity confirmation as the requirement to avoid
+
+            requiring KBA on the transaction. Read more about document requirements.'
+        notarization_required:
+          type: boolean
+        bundle_position:
+          type: integer
+          description: Position to put document in bundle
+        witness_required:
+          type: boolean
+          description: 'Boolean flag indicating whether an additional witness must be present for this document''s signing. A witness is a third person, in addition to the
+
+            signer and the notary, who must be physically located with the signer.'
+        esign_required:
+          type: boolean
+        identity_confirmation_required:
+          type: boolean
+        signing_requires_meeting:
+          type: boolean
+        customer_can_annotate:
+          type: boolean
+          description: 'Boolean flag indicating whether a signer can add their own annotations onto the document. Defaults to false, limiting the signer to only filling
+
+            out designated fields setup on the document or as directed by a notary.'
+        pdf_bookmarked:
+          type: boolean
+          description: Boolean flag indicating whether the document is a bookmarked PDF. If passed true the document will be split by bookmark into multiple documents.
+        template_id:
+          type: string
+          maxLength: 38
+          description: ID of an existing template whose designations are applied to this document, in place of automated template matching. Retrieve available IDs from the `/templates` endpoint. The template is applied once the uploaded document finishes processing, and it also overrides `pdf_bookmarked` for this document. This parameter requires the custom template selection feature to be enabled for your account.
+        tracking_id:
+          type: string
+          maxLength: 5000
+          description: External tracking identifier such as a UUID string that can be useful for mapping documents back to your own system.
+        text_tag_syntax:
+          type: string
+          maxLength: 5000
+        authorization_header:
+          type: string
+          maxLength: 5000
+          description: Used to fetch doc URLs. Value passed should be in the form of a key-value pair with format "header_name:header_value"
+        signing_designations:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation_2'
+          description: This array contains a prescribed list of designations for signers and/or a notary to annotate the document.
+        signing_designation_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation_group_2'
+          description: This array contains a specified list of groups for radio_checkmark and checkmark designations. Grouped designations can be used to logically enforce minimum and/or maximum fulfillment requirements. For example a group of three radio_checkmark designations that require one to be fulfilled (checked) or a group of five checkmark designations that are optional (none or all 5 may be checked).
+      example:
+        document: https://fakecloudstorage/one_page.pdf
+        notarization_required: true
+        witness_required: true
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-refined-from:
+- notarize-proof-business-api-specification-openapi.yml
+- notarize-proof-real-estate-api-specification-openapi.yml
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/listsecurityevents.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

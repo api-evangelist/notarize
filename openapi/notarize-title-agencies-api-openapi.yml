@@ -1,0 +1,216 @@
+openapi: 3.2.0
+info:
+  title: Proof Real Estate API Specification Title Agencies API
+  version: v2
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Title Agencies
+paths:
+  /mortgage/v2/title_agencies:
+    get:
+      summary: Get Title Agency
+      tags:
+      - Title Agencies
+      security:
+      - api_key: []
+      parameters:
+      - name: email
+        in: query
+        required: false
+        description: Can be either a domain ("example.com") or a full address ("person@example.com").
+        x-example: d9d6168812.blick.tessie@hahn.example
+        schema:
+          type: string
+      - name: address[line1]
+        in: query
+        required: false
+        description: The first line property of the address of the title agency.
+        schema:
+          type: string
+      - name: address[line2]
+        in: query
+        required: false
+        description: The second line property of the address of the title agency.
+        schema:
+          type: string
+      - name: address[city]
+        in: query
+        required: false
+        description: The city property of the address of the title agency.
+        schema:
+          type: string
+      - name: address[state]
+        in: query
+        required: false
+        description: The state property of the address of the title agency.
+        schema:
+          type: string
+      - name: address[postal]
+        in: query
+        required: false
+        description: The postal property of the address of the title agency.
+        schema:
+          type: string
+      - name: address[country]
+        in: query
+        required: false
+        description: The country property of the address of the title agency.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+              - id: orynq9ane
+                name: Rohan-Langosh
+                eligible_underwriters: []
+                company_notaries: true
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/title_agency'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Email or address is required
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              example:
+                errors:
+                - Organization not permitted to use this endpoint
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      operationId: getMortgageV2TitleAgencies
+      x-operation-id-source: derived
+components:
+  schemas:
+    title_agency:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+          description: The ID of the title agency.
+        name:
+          type: string
+          maxLength: 5000
+          description: The name of the title agency.
+        alta_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: The ALTA ID of the title agency.
+        address:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: The address of the title agency.
+        eligible_underwriters:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/organization'
+          description: The list of title underwriters that the title agency works with.
+        company_notaries:
+          type: boolean
+          description: Whether the title agency has company notaries.
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+    organization:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+          description: The ID of the organization.
+        name:
+          type: string
+          maxLength: 5000
+          description: The name of the organization.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/addenote.md
+  - https://dev.proof.com/reference/addmortgagedocument.md
+  - https://dev.proof.com/reference/addmortgageexternaldocument.md
+  - https://dev.proof.com/reference/cancelmortgagetransaction.md
+  - https://dev.proof.com/reference/createmortgagenotary.md
+  - https://dev.proof.com/reference/createmortgagepartnerorganization.md
+  - https://dev.proof.com/reference/createmortgagetransaction.md
+  - https://dev.proof.com/reference/createmortgagewebhookurl.md
+  - https://dev.proof.com/reference/createmortgagewebhookv2.md
+  - https://dev.proof.com/reference/createtestwebhook-1.md
+  - https://dev.proof.com/reference/deleteenote.md
+  - https://dev.proof.com/reference/deletemortgagedocument.md
+  - https://dev.proof.com/reference/deletemortgagenotary.md
+  - https://dev.proof.com/reference/deletemortgagetransaction.md
+  - https://dev.proof.com/reference/deletemortgagewebhookurl.md
+  - https://dev.proof.com/reference/deletemortgagewebhookv2.md
+  - https://dev.proof.com/reference/forcecompletetransaction-1.md
+  - https://dev.proof.com/reference/get_mortgage-v2-title-agencies.md
+  - https://dev.proof.com/reference/getalleligiblenotaries-1.md
+  - https://dev.proof.com/reference/getallmortgagenotaries.md
+  - https://dev.proof.com/reference/getallmortgagetransactions.md
+  - https://dev.proof.com/reference/getallmortgagewebhooksv2.md
+  - https://dev.proof.com/reference/getallrealestatecostcenters.md
+  - https://dev.proof.com/reference/getallrealestatetemplates.md
+  - https://dev.proof.com/reference/getmortgagedocument.md
+  - https://dev.proof.com/reference/getmortgagenotarizationrecord.md
+  - https://dev.proof.com/reference/getmortgagenotary.md
+  - https://dev.proof.com/reference/getmortgagetransaction.md
+  - https://dev.proof.com/reference/getmortgagewebhookeventsv2.md
+  - https://dev.proof.com/reference/getmortgagewebhooksubscriptionsv2.md
+  - https://dev.proof.com/reference/getmortgagewebhookurl.md
+  - https://dev.proof.com/reference/getmortgagewebhookv2.md
+  - https://dev.proof.com/reference/getrecordinglocations.md
+  - https://dev.proof.com/reference/getvalidunderwriters.md
+  - https://dev.proof.com/reference/patchmortgagedocuments.md
+  - https://dev.proof.com/reference/placeorder.md
+  - https://dev.proof.com/reference/recalltransaction.md
+  - https://dev.proof.com/reference/resendmortgagecontactsemail.md
+  - https://dev.proof.com/reference/resendmortgagetransactionemail.md
+  - https://dev.proof.com/reference/resendmortgagetransactionsms.md
+  - https://dev.proof.com/reference/updatemortgagedocuments.md
+  - https://dev.proof.com/reference/updatemortgagepartnerorganization.md
+  - https://dev.proof.com/reference/updatemortgagetransaction.md
+  - https://dev.proof.com/reference/updatemortgagewebhookv2.md
+  - https://dev.proof.com/reference/verifypropertyaddress.md
+  merge:
+    pages: 45
+    deduped: 416
+    conflicts_kept_first: 0

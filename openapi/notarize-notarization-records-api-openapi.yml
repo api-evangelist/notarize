@@ -1,0 +1,882 @@
+openapi: 3.2.0
+info:
+  title: Notarize Notarization Records API
+  version: '1.0'
+  description: 'Operations tagged Notarization Records across 2 of this provider''s published API definitions: notarize-proof-business-api-specification-openapi.yml, notarize-proof-real-estate-api-specification-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Notarization Records
+paths:
+  /v1/notarization_records:
+    get:
+      summary: Retrieve Meeting Records
+      tags:
+      - Notarization Records
+      operationId: getNotarizationRecords
+      security:
+      - api_key: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        description: Max number of notarization records to return. Defaults to 20.
+        x-example: 20
+        schema:
+          type: number
+      - name: offset
+        in: query
+        required: false
+        description: Number to offset the notarization records if limit is reached. Defaults to 0.
+        x-example: 1
+        schema:
+          type: number
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                records: []
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/notarization_record_object'
+        '401':
+          description: invalid api_key
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v1/notarization_records/{id}:
+    get:
+      summary: Retrieve Meeting Record
+      tags:
+      - Notarization Records
+      operationId: getNotarizationRecord
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the notarization record to be retrieved. Can be found by querying the associated transaction.
+        required: true
+        x-example: me_kgnkanj
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: me_kgnkanj
+                meeting_start: '2026-10-13T16:08:01.598320Z'
+                meeting_end: '2026-10-13T15:58:01.591258Z'
+                notary_name: notary name
+                notary_county_city: county, VA
+                notary_registration: '7237492'
+                notary_source: Notarize Network
+                signer_info:
+                  email: records_controller_spec@proof.com
+                  first_name: Test
+                  middle_name: Malcolm
+                  last_name: Gomez
+                  dob: '1999-04-27'
+                  address:
+                    line1: 745 Boyston St
+                    line2: Apt 67
+                    city: Somerville
+                    state: MA
+                    postal: '11111'
+                    country: CA
+                signers:
+                - email: records_controller_spec@proof.com
+                  first_name: Test
+                  middle_name: Malcolm
+                  last_name: Gomez
+                  dob: '1999-04-27'
+                  address:
+                    line1: 745 Boyston St
+                    line2: Apt 67
+                    city: Somerville
+                    state: MA
+                    postal: '11111'
+                    country: CA
+                  primary_front: signed_url
+                  primary_back: signed_url
+                  primary_type: unknown
+                  primary_issuer: US
+                  primary_expiry_date: '2030-01-01'
+                  secondary_front: signed_url
+                witnesses: []
+                notarized_documents: []
+                verification_credentials:
+                  retrieval_id: J7CWYHQ4
+                  retrieval_pin: TMFWM4
+                  last_name: last
+                  date_completed: 10/13/2026
+                signer_photo_identification:
+                  primary_front: signed_url
+                  primary_back: signed_url
+                  primary_type: unknown
+                  primary_issuer: US
+                  primary_expiry_date: '2030-01-01'
+                  secondary_front: signed_url
+                video_url: https://api.local.dev-notarize.com/v1/transactions/ot_kwd35d7/notarization_records/me_kgnkanj/download_asset?asset_key=generic_video_session
+              schema:
+                $ref: '#/components/schemas/notarization_record_object'
+        '401':
+          description: invalid api_key
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: invalid id
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v2/notarization_records/{id}:
+    get:
+      summary: Retrieve Meeting Record
+      tags:
+      - Notarization Records
+      operationId: getMortgageNotarizationRecord
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the notarization record to be retrieved. Can be found by querying the associated transaction.
+        required: true
+        x-example: me_6rn64nq
+        schema:
+          type: string
+      - name: document_url_version
+        in: query
+        schema:
+          type: string
+          enum:
+          - v1
+          - v2
+          default: v1
+        required: false
+        description: Control documents and signer photo identifications download URLs. v1 for AWS S3 pre-signed URLs. v2 for Proof secure URLs.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: me_6rn64nq
+                meeting_start: '2026-10-13T16:08:40.663449Z'
+                meeting_end: '2026-10-13T15:58:40.663032Z'
+                notary_name: notary name
+                notary_county_city: county, VA
+                notary_registration: '7237492'
+                notary_source: Notarize Network
+                signer_info:
+                  email: priscilla@schuster.example
+                  first_name: Clint
+                  last_name: Breitenberg
+                  dob: '2005-10-13'
+                  address:
+                    line1: 123 Boylston St
+                    line2: Fl 6
+                    city: Boston
+                    state: MA
+                    postal: '02116'
+                    country: US
+                signers:
+                - email: priscilla@schuster.example
+                  first_name: Clint
+                  last_name: Breitenberg
+                  dob: '2005-10-13'
+                  address:
+                    line1: 123 Boylston St
+                    line2: Fl 6
+                    city: Boston
+                    state: MA
+                    postal: '02116'
+                    country: US
+                  primary_front: signed_url
+                  primary_back: signed_url
+                  primary_type: unknown
+                  primary_issuer: US
+                  primary_expiry_date: '2030-01-01'
+                  secondary_front: signed_url
+                witnesses: []
+                notarized_documents: []
+                verification_credentials:
+                  retrieval_id: M5PSXUAU
+                  retrieval_pin: RBYZ9A
+                  date_completed: 10/13/2026
+                signer_photo_identification:
+                  primary_front: signed_url
+                  primary_back: signed_url
+                  primary_type: unknown
+                  primary_issuer: US
+                  primary_expiry_date: '2030-01-01'
+                  secondary_front: signed_url
+                video_url: https://api.local.dev-notarize.com/v1/transactions/ot_3nggknk/notarization_records/me_6rn64nq/download_asset?asset_key=generic_video_session
+              schema:
+                $ref: '#/components/schemas/notarization_record_object_2'
+        '401':
+          description: invalid api_key
+          content:
+            application/json:
+              example:
+                message: Invalid authentication credentials
+                errors:
+                - Invalid authentication credentials
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: invalid id
+          content:
+            application/json:
+              example:
+                errors:
+                  request: resource not found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+components:
+  schemas:
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+    notarization_record_signer_object:
+      type: object
+      properties:
+        signer_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 38
+          description: Signer ID
+        email:
+          type: string
+          maxLength: 100
+          description: Email
+        first_name:
+          type: string
+          maxLength: 30
+          description: First name
+        middle_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 30
+          description: Middle name
+        last_name:
+          type: string
+          maxLength: 30
+          description: Last name
+        address:
+          $ref: '#/components/schemas/address'
+          description: The most recent known address for the signer.
+        dob:
+          type: string
+          maxLength: 30
+          description: The signer's date of birth.
+    credential_image:
+      type: object
+      properties:
+        url:
+          type: string
+          maxLength: 5000
+          description: URL of the image
+        descriptor:
+          type: string
+          enum:
+          - back
+          - front
+    photo_identification:
+      type: object
+      properties:
+        primary_front:
+          type: string
+          maxLength: 5000
+          description: URL of the front of the primary photo identification document.
+        primary_back:
+          type: string
+          maxLength: 5000
+          description: URL of the back of the primary photo identification document.
+        primary_type:
+          type: string
+          maxLength: 5000
+          description: Type of the primary photo identification document.
+        primary_issuer:
+          type: string
+          maxLength: 5000
+          description: Issuer of the primary photo identification document.
+        primary_expiry_date:
+          type: string
+          maxLength: 100
+          description: Expiry date of the primary photo identification document.
+        secondary_front:
+          type: string
+          maxLength: 5000
+          description: URL of the front of the secondary photo identification document.
+    witness:
+      type: object
+      properties:
+        first_name:
+          type: string
+          maxLength: 100
+        middle_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        address:
+          $ref: '#/components/schemas/address'
+        credential_assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/credential_asset_object'
+    notarization_record_object:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+        meeting_start:
+          type: string
+          maxLength: 100
+          format: date-time
+        meeting_end:
+          type: string
+          maxLength: 100
+          format: date-time
+        notary_name:
+          type: string
+          maxLength: 5000
+        notary_county_city:
+          type: string
+          maxLength: 5000
+        notary_registration:
+          type: string
+          maxLength: 5000
+        notary_source:
+          type: string
+          enum:
+          - In-house notary
+          - Custom Panel
+          - Notarize Network
+          description: 'Indicates how the notary who fulfilled this session was sourced: In-house notary, Custom Panel, or Notarize Network. Reflects actual session fulfillment, not original routing.'
+        signer_info:
+          $ref: '#/components/schemas/notarization_record_signer_object'
+        signers:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/notarization_record_signer_object'
+            - $ref: '#/components/schemas/photo_identification'
+        cosigner_info:
+          $ref: '#/components/schemas/notarization_record_signer_object'
+        witnesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/witness'
+        notarized_documents:
+          type: array
+          items:
+            type: object
+            properties:
+              document_url:
+                type: string
+                maxLength: 5000
+              notorial_acts:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - acknowledgement
+                  - copy_certification
+                  - jurat
+                  - oath_affirmation
+                  - verification_of_fact
+                  - vof_ps1583
+                  - affidavit
+                  - attestation
+              tracking_id:
+                oneOf:
+                - type:
+                  - integer
+                  - 'null'
+                - type:
+                  - string
+                  - 'null'
+                  maxLength: 5000
+        verification_credentials:
+          type: object
+          properties:
+            retrieval_id:
+              type: string
+              maxLength: 5000
+            retrieval_pin:
+              type: string
+              maxLength: 5000
+            last_name:
+              type:
+              - string
+              - 'null'
+              maxLength: 5000
+            date_completed:
+              type: string
+              maxLength: 100
+        signer_photo_identification:
+          $ref: '#/components/schemas/photo_identification'
+        video_url:
+          type: string
+          maxLength: 5000
+          description: Download URL of the video recording of the meeting.
+        chat_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Download URL of the chat transcript of the meeting.
+    address:
+      type: object
+      properties:
+        line1:
+          type: string
+          maxLength: 5000
+          description: House number and Street name
+        line2:
+          type: string
+          maxLength: 5000
+          description: Unit number
+        city:
+          type: string
+          maxLength: 5000
+          description: Town name
+        state:
+          type: string
+          maxLength: 2
+          description: Only two character state abbreviations are accepted. i.e. "CO".
+        postal:
+          type: string
+          maxLength: 10
+          description: Five or ten digit postal code.
+        country:
+          type: string
+          maxLength: 2
+          description: Only two character country codes are accepted. i.e. "US".
+    credential_asset_object:
+      type: object
+      properties:
+        credential_type:
+          type: string
+          enum:
+          - primary
+          - secondary
+          - selfie
+        credential_images:
+          type: array
+          items:
+            $ref: '#/components/schemas/credential_image'
+    signing_designation_group:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 64
+          description: 'The specified name of the group, type string. Use a naming convention of your choice, the only restrictions are that the name must be between 1 and 64 characters
+
+            and can consist of alpha-numeric characters, hyphens, parentheses, and underscores. Valid regular expression for you tech nerds is /^[a-zA-Z0-9_-()]{1,64}$/'
+        min_required:
+          type: integer
+          description: a positive integer between 0 and N where N is the minimum number of designations in the group that must be fulfilled (checked).
+        max_required:
+          type: integer
+          description: 'a positive integer between min_required and N where N is the maximum number of designations in the group that are allowed to be fulfilled.
+
+            NOTE: max_required cannot be set to greater than 1 for designation groups used with radio_checkmark type signing designations.'
+    photo_identification_2:
+      type: object
+      properties:
+        primary_front:
+          type: string
+          maxLength: 5000
+          description: URL of the front of the primary photo identification document.
+        primary_back:
+          type: string
+          maxLength: 5000
+          description: URL of the back of the primary photo identification document.
+        primary_type:
+          type: string
+          maxLength: 5000
+          description: Type of the primary photo identification document.
+        primary_issuer:
+          type: string
+          maxLength: 5000
+          description: Issuer of the primary photo identification document.
+        primary_expiry_date:
+          type: string
+          maxLength: 5000
+          description: Expiry date of the primary photo identification document.
+        secondary_front:
+          type: string
+          maxLength: 5000
+          description: URL of the front of the secondary photo identification document.
+    notarization_record_object_2:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+        meeting_start:
+          type: string
+          maxLength: 100
+          format: date-time
+        meeting_end:
+          type: string
+          maxLength: 100
+          format: date-time
+        notary_name:
+          type: string
+          maxLength: 5000
+        notary_county_city:
+          type: string
+          maxLength: 5000
+        notary_registration:
+          type: string
+          maxLength: 5000
+        notary_source:
+          type: string
+          enum:
+          - In-house notary
+          - Custom Panel
+          - Notarize Network
+          description: 'Indicates how the notary who fulfilled this session was sourced: In-house notary, Custom Panel, or Notarize Network. Reflects actual session fulfillment, not original routing.'
+        signer_info:
+          $ref: '#/components/schemas/notarization_record_signer_object'
+        signers:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/notarization_record_signer_object'
+            - $ref: '#/components/schemas/photo_identification_2'
+        cosigner_info:
+          $ref: '#/components/schemas/notarization_record_signer_object'
+        witnesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/witness'
+        notarized_documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/document'
+        verification_credentials:
+          type: object
+          properties:
+            retrieval_id:
+              type: string
+              maxLength: 5000
+            retrieval_pin:
+              type: string
+              maxLength: 5000
+            last_name:
+              type:
+              - string
+              - 'null'
+              maxLength: 5000
+            date_completed:
+              type: string
+              maxLength: 100
+        signer_photo_identification:
+          $ref: '#/components/schemas/photo_identification_2'
+        video_url:
+          type: string
+          maxLength: 5000
+          description: Download URL of the video recording of the meeting.
+        chat_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Download URL of the chat transcript of the meeting.
+    signing_designation:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 100
+        signer_identifier:
+          type: string
+          maxLength: 5000
+          description: For signers, the external_id value set on the signers array when creating a transaction; for witnesses, `witness{n}` i.e. `witness1` or `witness2`; for notaries, `notary`
+        page_number:
+          type: integer
+          description: The page of the designation, starting at 0
+        x:
+          type: integer
+          description: The X coordinate (from bottom left)
+        y:
+          type: integer
+          description: The Y coordinate (from bottom left)
+        height:
+          type: integer
+          description: Height
+        width:
+          type: integer
+          description: Width
+        hint:
+          type: string
+          maxLength: 5000
+          description: Hint
+        type:
+          type: string
+          enum:
+          - date_signed
+          - day_signed
+          - month_signed
+          - year_signed
+          - first_name
+          - middle_name
+          - last_name
+          - full_name
+          - signature
+          - initials
+          - checkmark
+          - radio_checkmark
+          - free_text
+          - signature_and_date
+          - dob
+          - email
+          - address_line1
+          - address_line2
+          - address_zip5
+          - address_state
+          - address_city
+          - representative_capacity_type
+          - disclosure
+          - notary_id
+          - seal
+          - commission_expiration_date
+          - commission_state
+          - county
+          - commission_county
+          - principal_id_type
+          - notary_city
+          description: 'The type of field designation. Accepted values for signers: dob, email, address_line1, address_line2, address_zip5, address_state, address_city, representative_capacity_type. Accepted values for notaries: disclosure, notary_id, seal, commission_expiration_date, commission_state, county, commission_county, principal_id_type, notary_city. Universal types: date_signed, day_signed, month_signed, year_signed, first_name, middle_name, last_name, full_name, signature, initials, checkmark, radio_checkmark, free_text, signature_and_date'
+        designation_group_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+        signing_designation_group:
+          $ref: '#/components/schemas/signing_designation_group'
+        optional:
+          type: boolean
+          description: Non-notary designation that is not part of a group can be set as optional
+        instruction:
+          type: string
+          maxLength: 5000
+          description: Instruction specific to this signing designation to be shown to the signer
+        primary_designation:
+          type:
+          - object
+          - 'null'
+          properties:
+            id:
+              type: string
+              maxLength: 100
+        primary_designation_identifier:
+          type: string
+          maxLength: 5000
+          description: Unique identification string to denote this designation is the primary designation
+        conditional_on_primary:
+          type: string
+          maxLength: 5000
+          description: Identification string that denotes this designation is conditional on the designation with the same value set for primary_designation_identifier
+    document:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+        allowed_actions:
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+          description: List of allowed actions on document.
+        bundle_position:
+          type: integer
+          description: Position to put document in bundle
+        completion_state:
+          type: string
+          maxLength: 5000
+        data:
+          type:
+          - string
+          - 'null'
+          description: base64 encoded document. Present if base64 encoding was specified in request. Currently supported for get_document only.
+        date_created:
+          type: string
+          maxLength: 5000
+          description: Date document was created/uploaded.
+        date_updated:
+          type: string
+          maxLength: 5000
+          description: Date document was last updated.
+        document_name:
+          type: string
+          maxLength: 5000
+          description: Name of document.
+        esign_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires esigning.
+        final_document_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+        identity_confirmation_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires identity confirmation.
+        is_enote:
+          type: boolean
+          description: Boolean flag indicating whether the document is an eNote.
+        notarization_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires notarization. If `true`, identity_confirmation_required must be `false`. If `false`, the document may still be e-signed in the notary meeting. At least one document in a transaction must require notarization or identity confirmation.
+        permissions:
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+        processing_error:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Error message if document processing failed.
+        processing_state:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: State of document processing.
+        rejection_anecdote:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Anecdote for document rejection.
+        rejection_reason:
+          type:
+          - string
+          - 'null'
+          description: Reason for document rejection.
+        requirement:
+          type: string
+          maxLength: 5000
+          description: 'Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements.'
+        signed_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Signed URL for the final document PDF.
+        signing_designation_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation_group'
+          description: This array contains a prescribed list of groups of designations for signers and/or a notary to annotate the document.
+        signing_designations:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation'
+          description: This array contains a prescribed list of designations for signers and/or a notary to annotate the document.
+        signing_type:
+          type: string
+          maxLength: 5000
+        tracking_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: The external tracking ID of the document.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-refined-from:
+- notarize-proof-business-api-specification-openapi.yml
+- notarize-proof-real-estate-api-specification-openapi.yml
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/listsecurityevents.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

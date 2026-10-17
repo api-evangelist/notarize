@@ -1,0 +1,190 @@
+openapi: 3.2.0
+info:
+  title: Notarize Cost Centers API
+  version: '1.0'
+  description: 'Operations tagged Cost Centers across 2 of this provider''s published API definitions: notarize-proof-business-api-specification-openapi.yml, notarize-proof-real-estate-api-specification-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Cost Centers
+paths:
+  /v1/cost_centers:
+    get:
+      summary: List Cost Centers
+      tags:
+      - Cost Centers
+      operationId: getAllCostCenters
+      security:
+      - api_key: []
+      description: Lists the cost centers defined for your organization, ordered by name.
+      parameters:
+      - name: limit
+        in: query
+        description: How many results to return. Default is 10; max is 1000.
+        x-example: 2
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: 'Offset request by given # of items. Default is 0.'
+        x-example: 0
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                total_count: 3
+                cost_centers:
+                - id: mt_kgnkanj
+                  name: Marketing
+                  internal_id: MKT-001
+                - id: mt_6rn64nq
+                  name: Operations
+                  internal_id: OPS-001
+              schema:
+                $ref: '#/components/schemas/cost_center_objects'
+        '400':
+          description: errors for limit out of range
+          content:
+            application/json:
+              example:
+                errors:
+                - limit must be between 1 and 1000
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: cost centers are not enabled for this organization
+          content:
+            application/json:
+              example:
+                errors:
+                - Cost centers are not enabled for this organization
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v1/cost_centers:
+    get:
+      summary: List Cost Centers
+      tags:
+      - Cost Centers
+      operationId: getAllRealEstateCostCenters
+      security:
+      - api_key: []
+      description: Lists the cost centers defined for your organization, ordered by name.
+      parameters:
+      - name: limit
+        in: query
+        description: How many results to return. Default is 10; max is 1000.
+        x-example: 10
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: 'Offset request by given # of items. Default is 0.'
+        x-example: 0
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                total_count: 2
+                cost_centers:
+                - id: mt_qanp6n4
+                  name: Purchase
+                  internal_id: PUR-001
+                - id: mt_8znm4da
+                  name: Refinance
+                  internal_id: REFI-001
+              schema:
+                $ref: '#/components/schemas/cost_center_objects'
+        '400':
+          description: errors for limit out of range
+          content:
+            application/json:
+              example:
+                errors:
+                - limit must be between 1 and 1000
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: cost centers are not enabled for this organization
+          content:
+            application/json:
+              example:
+                errors:
+                - Cost centers are not enabled for this organization
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+components:
+  schemas:
+    cost_center_objects:
+      type: object
+      properties:
+        cost_centers:
+          type: array
+          items:
+            $ref: '#/components/schemas/cost_center_object'
+        total_count:
+          type: integer
+          description: Total number of cost centers.
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+    cost_center_object:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+          description: ID to pass as cost_center_id when creating or updating a transaction (format mt_xxxxxxx).
+        name:
+          type: string
+          maxLength: 5000
+          description: The cost center name shown in Command Center.
+        internal_id:
+          type: string
+          maxLength: 5000
+          description: The internal ID your organization assigned to this cost center in Command Center.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-refined-from:
+- notarize-proof-business-api-specification-openapi.yml
+- notarize-proof-real-estate-api-specification-openapi.yml
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/listsecurityevents.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

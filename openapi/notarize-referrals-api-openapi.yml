@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  title: Proof Business API Specification Referrals API
+  version: v1
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Referrals
+paths:
+  /v1/referrals:
+    post:
+      summary: Create a referral campaign
+      tags:
+      - Referrals
+      operationId: createReferral
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                link: https://app.local.dev-notarize.com/referral?campaign=a9b1a34a-8460-49e2-965e-6b179f1f829a&ls=lskgnkanj
+                referral_campaign_id: rca9b1a34a-8460-49e2-965e-6b179f1f829a
+              schema:
+                $ref: '#/components/schemas/referral_object'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Invalid value for required field name - expected String
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Organization Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/referral_params'
+  /v1/referrals/{referral_campaign_id}/generate_link:
+    post:
+      summary: Generate a single use referral link
+      tags:
+      - Referrals
+      operationId: generateReferralCode
+      security:
+      - api_key: []
+      parameters:
+      - name: referral_campaign_id
+        in: path
+        description: The id of the referral campaign to generate a single use link for.
+        required: true
+        x-example: rc173ca318-ae26-489d-becf-dad66e004a17
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                link: https://app.local.dev-notarize.com/referral?code=c924b8cf-c221-48a4-aff4-e42ee02cad35&ls=ls6rn64nq
+              schema:
+                $ref: '#/components/schemas/referral_link_object'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - Expires at is Invalid Date, must be an ISO-8601 formatted DateTime String
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Referral campaign not found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/referral_code_params'
+components:
+  schemas:
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+    referral_code_params:
+      type: object
+      properties:
+        expires_at:
+          type: string
+          maxLength: 100
+          description: 'ISO 8601 timestamp for when the single use code should expire. Default: 3 months from creation'
+      example:
+        expires_at: '2026-10-15T16:08:06Z'
+    referral_params:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the new campaign
+        cover_payment:
+          type: boolean
+          description: 'Will the organization pay for these referred transactions? This will result in single use links. Default: false'
+        organization_id:
+          type: string
+          maxLength: 5000
+          description: ID of organization to create the campaign for, only needed when creating for a child organization
+        redirect_url:
+          type: string
+          maxLength: 5000
+          description: 'URL that customers will be sent to from the referral. This can be set to an Easylink URL. Default: retail URL'
+        use_branding:
+          type: boolean
+          description: 'Will the referred transactions display the orgs branding? Default: false'
+      required:
+      - name
+      example:
+        name: A New Campaign
+    referral_link_object:
+      type: object
+      properties:
+        link:
+          type: string
+          maxLength: 5000
+          description: Single use referral link to share with the signer.
+    referral_object:
+      type: object
+      properties:
+        referral_campaign_id:
+          type: string
+          maxLength: 5000
+          description: ID of the created campaign
+        link:
+          type: string
+          maxLength: 5000
+          description: For campaigns that don't cover payment, this will be the referral link that you share with signers. For campaigns that cover payment, this will be null. You will be required to generate single use links.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/activatedrafttransaction.md
+  - https://dev.proof.com/reference/adddocument.md
+  - https://dev.proof.com/reference/canceltransaction.md
+  - https://dev.proof.com/reference/createintegration.md
+  - https://dev.proof.com/reference/createnotary.md
+  - https://dev.proof.com/reference/createopenidconnecttransaction.md
+  - https://dev.proof.com/reference/createpartnerorganization.md
+  - https://dev.proof.com/reference/createreferral.md
+  - https://dev.proof.com/reference/createtestwebhook.md
+  - https://dev.proof.com/reference/createtransaction.md
+  - https://dev.proof.com/reference/createwebhookurl.md
+  - https://dev.proof.com/reference/createwebhookv2.md
+  - https://dev.proof.com/reference/deletedocument.md
+  - https://dev.proof.com/reference/deletenotary.md
+  - https://dev.proof.com/reference/deletetransaction.md
+  - https://dev.proof.com/reference/deletewebhookurl.md
+  - https://dev.proof.com/reference/deletewebhookv2.md
+  - https://dev.proof.com/reference/forcecompletetransaction.md
+  - https://dev.proof.com/reference/generatereferralcode.md
+  - https://dev.proof.com/reference/getallcostcenters.md
+  - https://dev.proof.com/reference/getalleligiblenotaries.md
+  - https://dev.proof.com/reference/getallnotaries.md
+  - https://dev.proof.com/reference/getalltemplates.md
+  - https://dev.proof.com/reference/getalltransactions.md
+  - https://dev.proof.com/reference/getallwebhooksv2.md
+  - https://dev.proof.com/reference/getaudittrail.md
+  - https://dev.proof.com/reference/getdocument.md
+  - https://dev.proof.com/reference/getnotarizationrecord.md
+  - https://dev.proof.com/reference/getnotarizationrecords.md
+  - https://dev.proof.com/reference/getnotary.md
+  - https://dev.proof.com/reference/getorganizationinformation.md
+  - https://dev.proof.com/reference/gettransaction.md
+  - https://dev.proof.com/reference/getwebhookeventsv2.md
+  - https://dev.proof.com/reference/getwebhooksubscriptionsv2.md
+  - https://dev.proof.com/reference/getwebhookurl.md
+  - https://dev.proof.com/reference/getwebhookv2.md
+  - https://dev.proof.com/reference/patchdocuments.md
+  - https://dev.proof.com/reference/patchdrafttransaction.md
+  - https://dev.proof.com/reference/recalltransaction-1.md
+  - https://dev.proof.com/reference/resendtransactionemail.md
+  - https://dev.proof.com/reference/resendtransactionsms.md
+  - https://dev.proof.com/reference/updatedocuments.md
+  - https://dev.proof.com/reference/updatedrafttransaction.md
+  - https://dev.proof.com/reference/updatepartnerorganization.md
+  - https://dev.proof.com/reference/updatewebhookv2.md
+  merge:
+    pages: 45
+    deduped: 353
+    conflicts_kept_first: 0

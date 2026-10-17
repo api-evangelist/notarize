@@ -1,0 +1,506 @@
+openapi: 3.2.0
+info:
+  title: Proof Real Estate API Specification E Note API
+  version: v2
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: eNote
+paths:
+  /mortgage/v2/transactions/{id}/enote:
+    post:
+      summary: Add eNote
+      tags:
+      - eNote
+      operationId: addEnote
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Returned in the create transaction call.
+        x-example: ot_gnkxadj
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: do_ecb733c6-f028-4350-a91d-4f0f0b9bb0b3
+                allowed_actions: []
+                bundle_position: 1
+                completion_state: incomplete
+                date_created: '2026-10-13T16:08:36.467916Z'
+                date_updated: '2026-10-13T16:08:36.585872Z'
+                document_name: enote.xml
+                is_enote: true
+                permissions: []
+                processing_error: null
+                processing_state: done
+                rejection_reason: null
+                rejection_anecdote: null
+                requirement: readonly
+                signing_designation_groups: []
+                signing_designations:
+                - id: ad83e481d1-7b87-4b0f-986e-872ca8e42a3e
+                  designation_group_id: null
+                  primary_designation: null
+                - id: ad37a93527-eec2-445e-aef9-853751498750
+                  designation_group_id: null
+                  primary_designation: null
+                signing_type: NOTARIZATION
+                tracking_id: null
+                final_document_url: null
+              schema:
+                $ref: '#/components/schemas/document'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                errors:
+                - borrowers argument must be array
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              example:
+                errors:
+                - Cannot add enotes to hybrid transactions.
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Cannot add enotes to wet sign transactions.
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/enote_params'
+    delete:
+      summary: Delete eNote
+      tags:
+      - eNote
+      operationId: deleteEnote
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Returned in the create transaction call.
+        x-example: ot_znmm4na
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                message: Deleted enote successfully
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              example:
+                errors:
+                - Transaction cannot be modified from sent state
+components:
+  schemas:
+    enote_params:
+      type: object
+      properties:
+        file:
+          type: string
+          maxLength: 5000
+          description: Required unless type is EORIGINAL_CONTAINER. An eNote document supplied as a URL or local file encoded as a Base64 string. If type is set, must be an encoded XML file or a URL pointing to an XML. If integration is set, must be a URL pointing to a PDF
+        type:
+          type: string
+          enum:
+          - SCHEMA
+          - ENOTE
+          - EORIGINAL_CONTAINER
+          description: Required unless integration is set. The type of eNote to be added.
+        integration:
+          type: string
+          enum:
+          - DOCUTECH
+          description: Required unless type is set. The integration source of the eNote.
+        borrowers:
+          type: array
+          items:
+            $ref: '#/components/schemas/enote_borrower_object'
+        container:
+          type: object
+          properties:
+            document_id:
+              type: string
+              maxLength: 5000
+              description: Vault ID of an eNote document in eOriginal vault
+            transaction_id:
+              type: string
+              maxLength: 5000
+              description: Vault ID of a transaction in an eOriginal vault
+            transaction_name:
+              type: string
+              maxLength: 5000
+              description: Name of a transaction in the eOriginal vault.
+            document_url_version:
+              type: string
+              description: Optional param to test v2 document urls.
+              enum:
+              - v1
+              - v2
+          required:
+          - document_id
+          - transaction_id
+          - transaction_name
+          description: Required if `type` is `EORIGINAL_CONTAINER`
+      example:
+        file: https://fakecloudstorage.com/enote.xml
+        type: SCHEMA
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+    enote_borrower_object:
+      type: object
+      properties:
+        first_name:
+          type: string
+          maxLength: 5000
+        last_name:
+          type: string
+          maxLength: 5000
+        middle_name:
+          type: string
+          maxLength: 5000
+        ssn:
+          type: string
+          maxLength: 5000
+      description: Details needed to register the eNote with MERS eRegistry for post-closing transfers. If there are multiple borrowers on the eNote, please add an object for each borrower.
+    signing_designation_group:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 64
+          description: 'The specified name of the group, type string. Use a naming convention of your choice, the only restrictions are that the name must be between 1 and 64 characters
+
+            and can consist of alpha-numeric characters, hyphens, parentheses, and underscores. Valid regular expression for you tech nerds is /^[a-zA-Z0-9_-()]{1,64}$/'
+        min_required:
+          type: integer
+          description: a positive integer between 0 and N where N is the minimum number of designations in the group that must be fulfilled (checked).
+        max_required:
+          type: integer
+          description: 'a positive integer between min_required and N where N is the maximum number of designations in the group that are allowed to be fulfilled.
+
+            NOTE: max_required cannot be set to greater than 1 for designation groups used with radio_checkmark type signing designations.'
+    signing_designation:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 100
+        signer_identifier:
+          type: string
+          maxLength: 5000
+          description: For signers, the external_id value set on the signers array when creating a transaction; for witnesses, `witness{n}` i.e. `witness1` or `witness2`; for notaries, `notary`
+        page_number:
+          type: integer
+          description: The page of the designation, starting at 0
+        x:
+          type: integer
+          description: The X coordinate (from bottom left)
+        y:
+          type: integer
+          description: The Y coordinate (from bottom left)
+        height:
+          type: integer
+          description: Height
+        width:
+          type: integer
+          description: Width
+        hint:
+          type: string
+          maxLength: 5000
+          description: Hint
+        type:
+          type: string
+          enum:
+          - date_signed
+          - day_signed
+          - month_signed
+          - year_signed
+          - first_name
+          - middle_name
+          - last_name
+          - full_name
+          - signature
+          - initials
+          - checkmark
+          - radio_checkmark
+          - free_text
+          - signature_and_date
+          - dob
+          - email
+          - address_line1
+          - address_line2
+          - address_zip5
+          - address_state
+          - address_city
+          - representative_capacity_type
+          - disclosure
+          - notary_id
+          - seal
+          - commission_expiration_date
+          - commission_state
+          - county
+          - commission_county
+          - principal_id_type
+          - notary_city
+          description: 'The type of field designation. Accepted values for signers: dob, email, address_line1, address_line2, address_zip5, address_state, address_city, representative_capacity_type. Accepted values for notaries: disclosure, notary_id, seal, commission_expiration_date, commission_state, county, commission_county, principal_id_type, notary_city. Universal types: date_signed, day_signed, month_signed, year_signed, first_name, middle_name, last_name, full_name, signature, initials, checkmark, radio_checkmark, free_text, signature_and_date'
+        designation_group_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+        signing_designation_group:
+          $ref: '#/components/schemas/signing_designation_group'
+        optional:
+          type: boolean
+          description: Non-notary designation that is not part of a group can be set as optional
+        instruction:
+          type: string
+          maxLength: 5000
+          description: Instruction specific to this signing designation to be shown to the signer
+        primary_designation:
+          type:
+          - object
+          - 'null'
+          properties:
+            id:
+              type: string
+              maxLength: 100
+        primary_designation_identifier:
+          type: string
+          maxLength: 5000
+          description: Unique identification string to denote this designation is the primary designation
+        conditional_on_primary:
+          type: string
+          maxLength: 5000
+          description: Identification string that denotes this designation is conditional on the designation with the same value set for primary_designation_identifier
+    document:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+        allowed_actions:
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+          description: List of allowed actions on document.
+        bundle_position:
+          type: integer
+          description: Position to put document in bundle
+        completion_state:
+          type: string
+          maxLength: 5000
+        data:
+          type:
+          - string
+          - 'null'
+          description: base64 encoded document. Present if base64 encoding was specified in request. Currently supported for get_document only.
+        date_created:
+          type: string
+          maxLength: 5000
+          description: Date document was created/uploaded.
+        date_updated:
+          type: string
+          maxLength: 5000
+          description: Date document was last updated.
+        document_name:
+          type: string
+          maxLength: 5000
+          description: Name of document.
+        esign_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires esigning.
+        final_document_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+        identity_confirmation_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires identity confirmation.
+        is_enote:
+          type: boolean
+          description: Boolean flag indicating whether the document is an eNote.
+        notarization_required:
+          type: boolean
+          description: Boolean flag indicating whether the document requires notarization. If `true`, identity_confirmation_required must be `false`. If `false`, the document may still be e-signed in the notary meeting. At least one document in a transaction must require notarization or identity confirmation.
+        permissions:
+          type: array
+          items:
+            type: string
+            maxLength: 5000
+        processing_error:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Error message if document processing failed.
+        processing_state:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: State of document processing.
+        rejection_anecdote:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Anecdote for document rejection.
+        rejection_reason:
+          type:
+          - string
+          - 'null'
+          description: Reason for document rejection.
+        requirement:
+          type: string
+          maxLength: 5000
+          description: 'Completion requirement for the document. Accepted values can be `notarization`, `esign`, `identity_confirmation` **([identity confirmation feature](https://dev.proof.com/docs/enterprise-features))**, `readonly`, and `non_essential`. Completion requirement for the document.  If the value is set to `non_essential`, the document will be hidden from signers before the notary meeting and values for  `customer_can_annotate` and `witness_required` will be ignored and set to false. `identity_confirmation` is used to support signing of PS Form 1583 for signers without a US SSN. Note: if `identity_confirmation` is set as the document requirement, ensure that all documents requiring notarization in the transaction also use `identity confirmation` as the requirement to avoid requiring KBA on the transaction. [Read more](https://dev.proof.com/docs/document-requirements) about document requirements.'
+        signed_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: Signed URL for the final document PDF.
+        signing_designation_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation_group'
+          description: This array contains a prescribed list of groups of designations for signers and/or a notary to annotate the document.
+        signing_designations:
+          type: array
+          items:
+            $ref: '#/components/schemas/signing_designation'
+          description: This array contains a prescribed list of designations for signers and/or a notary to annotate the document.
+        signing_type:
+          type: string
+          maxLength: 5000
+        tracking_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+          description: The external tracking ID of the document.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/addenote.md
+  - https://dev.proof.com/reference/addmortgagedocument.md
+  - https://dev.proof.com/reference/addmortgageexternaldocument.md
+  - https://dev.proof.com/reference/cancelmortgagetransaction.md
+  - https://dev.proof.com/reference/createmortgagenotary.md
+  - https://dev.proof.com/reference/createmortgagepartnerorganization.md
+  - https://dev.proof.com/reference/createmortgagetransaction.md
+  - https://dev.proof.com/reference/createmortgagewebhookurl.md
+  - https://dev.proof.com/reference/createmortgagewebhookv2.md
+  - https://dev.proof.com/reference/createtestwebhook-1.md
+  - https://dev.proof.com/reference/deleteenote.md
+  - https://dev.proof.com/reference/deletemortgagedocument.md
+  - https://dev.proof.com/reference/deletemortgagenotary.md
+  - https://dev.proof.com/reference/deletemortgagetransaction.md
+  - https://dev.proof.com/reference/deletemortgagewebhookurl.md
+  - https://dev.proof.com/reference/deletemortgagewebhookv2.md
+  - https://dev.proof.com/reference/forcecompletetransaction-1.md
+  - https://dev.proof.com/reference/get_mortgage-v2-title-agencies.md
+  - https://dev.proof.com/reference/getalleligiblenotaries-1.md
+  - https://dev.proof.com/reference/getallmortgagenotaries.md
+  - https://dev.proof.com/reference/getallmortgagetransactions.md
+  - https://dev.proof.com/reference/getallmortgagewebhooksv2.md
+  - https://dev.proof.com/reference/getallrealestatecostcenters.md
+  - https://dev.proof.com/reference/getallrealestatetemplates.md
+  - https://dev.proof.com/reference/getmortgagedocument.md
+  - https://dev.proof.com/reference/getmortgagenotarizationrecord.md
+  - https://dev.proof.com/reference/getmortgagenotary.md
+  - https://dev.proof.com/reference/getmortgagetransaction.md
+  - https://dev.proof.com/reference/getmortgagewebhookeventsv2.md
+  - https://dev.proof.com/reference/getmortgagewebhooksubscriptionsv2.md
+  - https://dev.proof.com/reference/getmortgagewebhookurl.md
+  - https://dev.proof.com/reference/getmortgagewebhookv2.md
+  - https://dev.proof.com/reference/getrecordinglocations.md
+  - https://dev.proof.com/reference/getvalidunderwriters.md
+  - https://dev.proof.com/reference/patchmortgagedocuments.md
+  - https://dev.proof.com/reference/placeorder.md
+  - https://dev.proof.com/reference/recalltransaction.md
+  - https://dev.proof.com/reference/resendmortgagecontactsemail.md
+  - https://dev.proof.com/reference/resendmortgagetransactionemail.md
+  - https://dev.proof.com/reference/resendmortgagetransactionsms.md
+  - https://dev.proof.com/reference/updatemortgagedocuments.md
+  - https://dev.proof.com/reference/updatemortgagepartnerorganization.md
+  - https://dev.proof.com/reference/updatemortgagetransaction.md
+  - https://dev.proof.com/reference/updatemortgagewebhookv2.md
+  - https://dev.proof.com/reference/verifypropertyaddress.md
+  merge:
+    pages: 45
+    deduped: 416
+    conflicts_kept_first: 0

@@ -1,0 +1,427 @@
+openapi: 3.2.0
+info:
+  title: Notarize Notaries API
+  version: '1.0'
+  description: 'Operations tagged Notaries across 2 of this provider''s published API definitions: notarize-proof-business-api-specification-openapi.yml, notarize-proof-real-estate-api-specification-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.proof.com
+  description: Public API URL
+tags:
+- name: Notaries
+paths:
+  /v1/notaries/:
+    post:
+      summary: Create notary
+      tags:
+      - Notaries
+      operationId: createNotary
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: creates new notary
+          content:
+            application/json:
+              example:
+                id: us_qnbp4n9
+                email: test@proof.com
+                first_name: Joe
+                middle_name: L
+                last_name: Smith
+                us_state_abbr: VA
+                status: not_compliant
+                status_description: Notary is missing required documentation.
+              schema:
+                $ref: '#/components/schemas/notary_object'
+        '422':
+          description: notary not available
+          content:
+            application/json:
+              example:
+                errors:
+                - Notary cannot be added
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notary_params'
+    get:
+      summary: Get All Notaries
+      tags:
+      - Notaries
+      operationId: getAllNotaries
+      security:
+      - api_key: []
+      parameters:
+      - name: organization_id
+        in: query
+        required: false
+        description: The ID of the organization you want to pull the list of notaries from. This is required if you are using a parent organization's API key and want to retrieve the list of notaries from a child organization.
+        schema:
+          type: string
+      - name: us_state_abbr
+        in: query
+        required: false
+        description: Two-letter abbreviation for the state in which the notary is commissioned.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example: []
+              schema:
+                $ref: '#/components/schemas/notary_objects'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /v1/notaries/{id}:
+    get:
+      summary: Get Notary
+      tags:
+      - Notaries
+      operationId: getNotary
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the notary.
+        required: true
+        x-example: usod4q9nk
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: us_od4q9nk
+                email: f553d03087_janeth_huel@osinski.example
+                first_name: Janeth
+                middle_name: Rigoberto
+                last_name: Huel
+                us_state_abbr: VA
+                status: compliant
+                status_description: Notary is clear to take meetings.
+              schema:
+                $ref: '#/components/schemas/notary_object'
+        '404':
+          description: invalid notary id
+          content:
+            application/json:
+              example:
+                errors:
+                - Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    delete:
+      summary: Delete Notary
+      tags:
+      - Notaries
+      operationId: deleteNotary
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the notary to be removed from the org.
+        required: true
+        x-example: us_kn95zng
+        schema:
+          type: string
+      responses:
+        '204':
+          description: successful
+        '404':
+          description: invalid id
+          content:
+            application/json:
+              example:
+                errors:
+                - Not Found
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v1/notaries/:
+    post:
+      summary: Create notary
+      tags:
+      - Notaries
+      operationId: createMortgageNotary
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: creates new notary
+          content:
+            application/json:
+              example:
+                id: us_zd7zjnr
+                email: test@proof.com
+                first_name: Joe
+                middle_name: L
+                last_name: Smith
+                us_state_abbr: VA
+                status: not_compliant
+                status_description: Notary is missing required documentation.
+              schema:
+                $ref: '#/components/schemas/notary_object_2'
+        '422':
+          description: notary not available
+          content:
+            application/json:
+              example:
+                errors:
+                - Notary cannot be added
+              schema:
+                $ref: '#/components/schemas/errors_object'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notary_params'
+    get:
+      summary: Get all notaries
+      tags:
+      - Notaries
+      operationId: getAllMortgageNotaries
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example: []
+              schema:
+                $ref: '#/components/schemas/notary_objects'
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+  /mortgage/v1/notaries/{id}:
+    get:
+      summary: Get Notary
+      tags:
+      - Notaries
+      operationId: getMortgageNotary
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the notary to retrieve.
+        required: true
+        x-example: usxnajjdm
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: us_xnajjdm
+                email: 71f8e22d75_davis_wen@leannon-wehner.test
+                first_name: Wen
+                middle_name: Gabriela
+                last_name: Davis
+                us_state_abbr: VA
+                status: compliant
+                status_description: Notary is clear to take meetings.
+              schema:
+                $ref: '#/components/schemas/notary_object_2'
+        '404':
+          description: invalid notary id
+          content:
+            application/json:
+              example:
+                errors:
+                - Not Found
+              schema:
+                $ref: '#/components/schemas/errors_object'
+    delete:
+      summary: Delete Notary
+      tags:
+      - Notaries
+      operationId: deleteMortgageNotary
+      security:
+      - api_key: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of the notary to be removed from the org.
+        required: true
+        x-example: us_mdrjpdw
+        schema:
+          type: string
+      responses:
+        '204':
+          description: successful
+        '404':
+          description: invalid id
+          content:
+            application/json:
+              example:
+                errors:
+                - Not Found
+    servers:
+    - url: https://api.proof.com
+      description: Public API URL
+components:
+  schemas:
+    notary_statuses:
+      type: string
+      enum:
+      - compliant
+      - needs_review
+      - not_compliant
+    errors_object:
+      type: object
+      properties:
+        message:
+          type: string
+          maxLength: 5000
+          description: Deprecated; prefer using the errors array instead
+        errors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: object
+    notary_params:
+      type: object
+      properties:
+        email:
+          type: string
+          maxLength: 5000
+          description: Unique email address for the new notary account
+        us_state_abbr:
+          type: string
+          maxLength: 2
+          description: Two-letter abbreviation for the state in which the notary is commissioned.
+        first_name:
+          type: string
+          maxLength: 5000
+          description: First name of the notary. Must match their notary commission.
+        middle_name:
+          type: string
+          maxLength: 5000
+          description: Middle name of the notary. Must match their notary commission.
+        last_name:
+          type: string
+          maxLength: 5000
+          description: Last name of the notary. Must match their notary commission.
+      required:
+      - email
+      - us_state_abbr
+      - first_name
+      - last_name
+      example:
+        email: test@proof.com
+        us_state_abbr: va
+        first_name: Joe
+        middle_name: L
+        last_name: Smith
+    notary_objects:
+      type: array
+      items:
+        $ref: '#/components/schemas/notary_object'
+    notary_status_descriptions:
+      type: string
+      enum:
+      - Notary is clear to take meetings.
+      - Notary awaiting Proof approval of documentation.
+      - Notary is missing required documentation.
+      - Notary status is pending.
+    notary_object:
+      description: An object representing a notary.
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+          description: The ID of notary.
+        first_name:
+          type: string
+          maxLength: 5000
+          description: First name of the notary.
+        middle_name:
+          type: string
+          maxLength: 5000
+          description: Middle name of the notary.
+        last_name:
+          type: string
+          maxLength: 5000
+          description: Last name of the notary.
+        email:
+          type: string
+          maxLength: 5000
+          description: Email address for the notary.
+        us_state_abbr:
+          type: string
+          maxLength: 2
+          description: The two letter abbreviation of the state where this notary is registered.
+        status:
+          $ref: '#/components/schemas/notary_statuses'
+        status_description:
+          $ref: '#/components/schemas/notary_status_descriptions'
+    notary_object_2:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 5000
+          description: The ID of notary.
+        first_name:
+          type: string
+          maxLength: 5000
+          description: First name of the notary.
+        middle_name:
+          type: string
+          maxLength: 5000
+          description: Middle name of the notary.
+        last_name:
+          type: string
+          maxLength: 5000
+          description: Last name of the notary.
+        email:
+          type: string
+          maxLength: 5000
+          description: Email address for the notary.
+        us_state_abbr:
+          type: string
+          maxLength: 2
+          description: The two letter abbreviation of the state where this notary is registered.
+        status:
+          $ref: '#/components/schemas/notary_statuses'
+        status_description:
+          $ref: '#/components/schemas/notary_status_descriptions'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: ApiKey
+      in: header
+x-refined-from:
+- notarize-proof-business-api-specification-openapi.yml
+- notarize-proof-real-estate-api-specification-openapi.yml
+x-provenance:
+  method: searched
+  source: https://dev.proof.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://dev.proof.com/reference/listsecurityevents.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0
