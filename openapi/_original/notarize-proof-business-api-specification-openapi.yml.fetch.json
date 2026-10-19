@@ -1,0 +1,12 @@
+{
+ "url": "https://dev.proof.com/openapi/proof-business-api-specification.json",
+ "requested_url": "https://dev.proof.com/openapi/proof-business-api-specification.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 249896,
+ "sha256": "c0024eff9db6259a2dc002a1e563d93d577c39842a293e59ec274b58e9249924",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
