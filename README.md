@@ -64,6 +64,174 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Notarize is a company surfaced as a portfolio company of fifth-wall and added to the API Evangelist network as a stub for enrichment. Sector: proptech. This profile is a lead awaiting the enrichment pipeline.
+Notarize (rebranded as Proof) provides Remote Online Notarization (RON), eSignature, identity verification, and reusable digital credentials through the Notarize Network. Its REST API (api.proof.com) lets businesses create notarization, eSign, Identify, and real-estate/mortgage closing transactions, attach and template documents, invite signers, manage notaries, and receive V2 webhooks for every transaction and notary state change. Authentication is by API key or OAuth 2.0 client credentials, with a Fairfax test environment for end-to-end sandbox testing. Widely used across proptech, lending, title, and legal workflows.
 
-Backed by: fifth-wall — https://notarize.com/
+**Areas:** Company · PropTech · Notarization · Remote Online Notarization · Identity Verification · E-Signature · Digital Credentials · Real Estate · Mortgage · Legal Tech
+
+## Notarize on APIs.io
+
+Everything profiled for Notarize is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/notarize/](https://apis.io/providers/notarize/)** — or go straight to one of the APIs or properties below.
+
+### APIs (18)
+
+- [Proof API (formerly Notarize)](https://apis.io/apis/notarize/proof-api-formerly-notarize/) — REST API for creating and managing notarization, eSign, Identify, and real-estate transactions, documents, signers, notaries, templates, and Webhooks V2…
+- [Notarize Cost Centers API](https://apis.io/apis/notarize/notarize-cost-centers-api/) — The Cost Centers API from Notarize — 2 operation(s) for cost centers.
+- [Notarize Documents API](https://apis.io/apis/notarize/notarize-documents-api/) — The Documents API from Notarize — 7 operation(s) for documents.
+- [Notarize Eligibilities API](https://apis.io/apis/notarize/notarize-eligibilities-api/) — The Eligibilities API from Notarize — 3 operation(s) for eligibilities.
+- [Notarize E Note API](https://apis.io/apis/notarize/notarize-enote-api/) — The eNote API from Notarize — 1 operation(s) for enote.
+- [Notarize Integrations API](https://apis.io/apis/notarize/notarize-integrations-api/) — The Integrations API from Notarize — 1 operation(s) for integrations.
+- [Notarize Notaries API](https://apis.io/apis/notarize/notarize-notaries-api/) — The Notaries API from Notarize — 4 operation(s) for notaries.
+- [Notarize Notarization Records API](https://apis.io/apis/notarize/notarize-notarization-records-api/) — The Notarization Records API from Notarize — 3 operation(s) for notarization records.
+- [Notarize OAuth 2.0 API](https://apis.io/apis/notarize/notarize-oauth-2-0-api/) — The OAuth 2.0 API from Notarize — 7 operation(s) for oauth 2.0.
+- [Notarize OID4VP API](https://apis.io/apis/notarize/notarize-oid4vp-api/) — The OID4VP API from Notarize — 4 operation(s) for oid4vp.
+- [Notarize Organizations API](https://apis.io/apis/notarize/notarize-organizations-api/) — The Organizations API from Notarize — 5 operation(s) for organizations.
+- [Notarize Referrals API](https://apis.io/apis/notarize/notarize-referrals-api/) — The Referrals API from Notarize — 2 operation(s) for referrals.
+- [Notarize SCIM API](https://apis.io/apis/notarize/notarize-scim-api/) — The SCIM API from Notarize — 6 operation(s) for scim.
+- [Notarize Security Events API](https://apis.io/apis/notarize/notarize-security-events-api/) — The Security Events API from Notarize — 1 operation(s) for security events.
+- [Notarize Templates API](https://apis.io/apis/notarize/notarize-templates-api/) — The Templates API from Notarize — 2 operation(s) for templates.
+- [Notarize Title Agencies API](https://apis.io/apis/notarize/notarize-title-agencies-api/) — The Title Agencies API from Notarize — 1 operation(s) for title agencies.
+- [Notarize Transactions API](https://apis.io/apis/notarize/notarize-transactions-api/) — The Transactions API from Notarize — 21 operation(s) for transactions.
+- [Notarize Webhooks API](https://apis.io/apis/notarize/notarize-webhooks-api/) — The Webhooks API from Notarize — 12 operation(s) for webhooks.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Notarize Webhooks](https://apis.io/asyncapis/notarize/notarize-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [notarize](https://apis.io/servers/notarize/notarize/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Notarize Agentic Access](https://apis.io/agentic-access/notarize/notarize-agentic-access/)
+
+#### JSON Schema (19)
+
+The data models the API reads and writes.
+
+- [authorization_server_metadata](https://apis.io/schemas/notarize/notarize-authorization-server-metadata/)
+- [client_registration_request](https://apis.io/schemas/notarize/notarize-client-registration-request/)
+- [client_registration_response](https://apis.io/schemas/notarize/notarize-client-registration-response/)
+- [document](https://apis.io/schemas/notarize/notarize-document/)
+- [document_creation_params](https://apis.io/schemas/notarize/notarize-document-creation-params/)
+- [document_params](https://apis.io/schemas/notarize/notarize-document-params/)
+- [document_update_params](https://apis.io/schemas/notarize/notarize-document-update-params/)
+- [introspection_response](https://apis.io/schemas/notarize/notarize-introspection-response/)
+- [revocation_request](https://apis.io/schemas/notarize/notarize-revocation-request/)
+- [security_events_response](https://apis.io/schemas/notarize/notarize-security-events-response/)
+- [token_info_response](https://apis.io/schemas/notarize/notarize-token-info-response/)
+- [transaction_create_params](https://apis.io/schemas/notarize/notarize-transaction-create-params/)
+- [transaction_object](https://apis.io/schemas/notarize/notarize-transaction-object/)
+- [transaction_params](https://apis.io/schemas/notarize/notarize-transaction-params/)
+- [user_creation_params](https://apis.io/schemas/notarize/notarize-user-creation-params/)
+- [x401_handoff_response](https://apis.io/schemas/notarize/notarize-x401-handoff-response/)
+- [x401_payload](https://apis.io/schemas/notarize/notarize-x401-payload/)
+- [x401_result_response](https://apis.io/schemas/notarize/notarize-x401-result-response/)
+- [x401_signature_response](https://apis.io/schemas/notarize/notarize-x401-signature-response/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Notarize Context](https://apis.io/jsonld/notarize/notarize-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Notarize API Rules](https://apis.io/rules/notarize/notarize-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Notarize Authentication](https://apis.io/security/notarize/notarize-authentication/)
+- [Notarize Domain Security](https://apis.io/security/notarize/notarize-domain-security/)
+- [Notarize Trust Center](https://apis.io/security/notarize/notarize-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Notarize Scopes](https://apis.io/scopes/notarize/notarize-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.proof.com/)
+- [Documentation](https://dev.proof.com/docs)
+- [Getting started](https://dev.proof.com/docs/business-quick-start)
+- [API reference](https://dev.proof.com/reference)
+- [Pricing](https://www.proof.com/pricing)
+- [Sign up](https://app.proof.com/)
+- [Blog](https://www.proof.com/blog)
+- [Compliance](https://security.proof.com/)
+- [Privacy policy](https://www.proof.com/legal/privacy-policy)
+- [GitHub](https://github.com/notarize)
+- [Status](https://status.proof.com)
+
+## API Evangelist rating
+
+**Kin Score 54.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.4 |
+| Contract quality | 70.6 |
+| Contract governance | 35.6 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 47.0 |
+| Access clarity | 28.9 |
+
+**Agent readiness 41.6** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/notarize/](https://apis.io/providers/notarize/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Notarize: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/notarize/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
